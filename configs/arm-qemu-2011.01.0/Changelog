@@ -1,0 +1,33 @@
+2011-01-28	Juergen Beisert <jbe@pengutronix.de>
+
+	* platform: Testing with 2.6.32 and 2.6.37 kernel
+
+2010-06-28	Juergen Beisert <jbe@pengutronix.de>
+
+	* kernel: Enable network device support
+
+2010-06-14	Juergen Beisert <jbe@pengutronix.de>
+
+	* platform: Release 4
+
+2010-05-19	Juergen Beisert <jbe@pengutronix.de>
+
+	* platform: Testing with 2.6.32 and 2.6.34 kernel
+
+2009-01-08	Juergen Beisert <jbe@pengutronix.de>
+
+	* platform: Second release for the generic BSP
+	* platform: Third release for adaption to ptxdist-2010.01.0
+
+2009-01-07	Marc Kleine-Budde <mkl@pengutronix.de>
+
+	* QEMU: [run script] use /bin/bash if it's a bash script
+	        source won't work in ubuntu where /bin/sh is dash
+
+2009-01-05	Juergen Beisert <jbe@pengutronix.de>
+
+	* Kernel patches: Moved to the BSP to share it with other platforms
+
+2009-12-16	Juergen Beisert <jbe@pengutronix.de>
+
+	* Enable the ARM "Versatile PB" platform to run in QEMU

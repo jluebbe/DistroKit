@@ -1,0 +1,9 @@
+Some hardware of the real Versatile PB seems not be emulated by QEMU for this
+platform:
+
+ - Realtime clock connected via I2C bus.
+   The driver fails to detect the Dallas DS1338 RTC
+
+ - Internal flash memory.
+   The CFI layer fails to detect the flash memory. Checked with QEMU's
+   '-mtdblock' and '-pflash' parameter.

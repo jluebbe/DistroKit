@@ -1,0 +1,66 @@
+#!/bin/bash
+
+SCRIPTDIR=$(cd $(dirname $0); pwd)
+
+#
+# we need information about the platform
+#
+if [ ! -e "selected_platformconfig" ]; then
+	echo "error: selected_platformconfig does not exist"
+	echo "       please use 'ptxdist platform ...' or 'ptxdist --platformconfig=...'"
+	exit 1
+fi
+
+source selected_platformconfig
+
+if [ -n "${PTXCONF_PLATFORM}" ]; then
+	PTXDIST_PLATFORMDIR="./platform-${PTXCONF_PLATFORM}"
+else
+	PTXDIST_PLATFORMDIR="."
+fi
+
+if [ ! -e "${PTXDIST_PLATFORMDIR}/images/linuximage" ]; then
+	echo "error: run 'ptxdist go' first"
+	exit 1
+fi
+
+if [ ! -e "${PTXDIST_PLATFORMDIR}/images/hd.img" ]; then
+	echo "error: run 'ptxdist images' first"
+	exit 1
+fi
+
+# the emulator to run
+if test "${PTXCONF_ARCH_STRING}" = "i386"; then
+	ARCH_STRING="x86_64"
+else
+	ARCH_STRING="${PTXCONF_ARCH_STRING}"
+fi
+
+QEMU_EXEC=qemu-system-${ARCH_STRING}
+
+# disable this, if you want to have some graphics output
+QEMU_NOGRAPHIC=--nographic
+
+# Machine to emulate: The default kernel is prepared to run on "versatile pb"
+QEMU_MACHINE=pc
+
+#
+# 'user mode' network related settings
+#
+PLATFORM_IP="10.0.2.7"
+
+# the port a 'telned' would connect to (in the emulated sysem)
+TELNET_INTERNAL_PORT=23
+# port QEMU opens at the host side to give access to the ${TELNET_INTERNAL_PORT}
+TELNET_EXTERNAL_PORT=4444
+
+# do the job
+${QEMU_EXEC} ${QEMU_NOGRAPHIC} \
+	-M ${QEMU_MACHINE} \
+	-no-reboot \
+	-net nic,vlan=1 \
+	-net user,vlan=1 \
+	-redir tcp:${TELNET_EXTERNAL_PORT}:${PLATFORM_IP}:${TELNET_INTERNAL_PORT} \
+	-kernel ${PTXDIST_PLATFORMDIR}/images/linuximage \
+	-hda ${PTXDIST_PLATFORMDIR}/images/hd.img \
+	-append "root=/dev/sda1 rw console=ttyS0,115200"

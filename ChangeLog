@@ -1,5 +1,11 @@
 2011-01-28	Juergen Beisert <jbe@pengutronix.de>
 
+		* BSP: Continue development with GIT as the Revision Control
+		  System at:
+		  git://git.pengutronix.de/git/jbe/OSELAS.BSP-Pengutronix-Generic.git
+
+2011-01-28	Juergen Beisert <jbe@pengutronix.de>
+
 		* BSP: using the current ptxdist-2011.01.0
 		* Platforms: are using the 2.6.32 and 2.6.37 kernels
 		* BSP: Release for ptxdist-2011.01.0

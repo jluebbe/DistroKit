@@ -1,0 +1,27 @@
+## SECTION=rootfs
+#
+# This file is just an example how to install binaries to the root filesystem
+# via ptxdist
+#
+menuconfig BINARY_EXAMPLE
+	bool "binary example                "
+	help
+	  This is an example only how to install binary files and archives.
+	  Refer our "How to become a PTXdist Guru" application note on
+	  how to use it.
+
+if BINARY_EXAMPLE
+
+config BINARY_EXAMPLE_FILE
+	bool "install the binary file"
+	help
+	  This example will install the file 'local_src/binary_example/ptx_logo.png'
+	  from this BSP into target's root filesystem in '/example'
+
+config BINARY_EXAMPLE_ARCHIVE
+	bool "install the binary archive"
+	help
+	  This example will install all files from the 'local_src/archive_example/pictures.tgz'
+	  archive from this BSP into target's root filesystem in '/example'
+
+endif

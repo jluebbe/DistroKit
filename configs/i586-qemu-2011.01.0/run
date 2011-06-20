@@ -1,4 +1,8 @@
 #!/bin/bash
+#
+# For some information about how to work with qemu for ARM, please
+# refer: http://fedoraproject.org/wiki/Architectures/ARM/HowToQemu
+
 
 platformconfig=selected_platformconfig
 # fallback to platformconfig in the same dir as this script
@@ -52,13 +56,29 @@ TELNET_INTERNAL_PORT=23
 # port QEMU opens at the host side to give access to the ${TELNET_INTERNAL_PORT}
 TELNET_EXTERNAL_PORT=4444
 
+if [ -z "${VDE_SOCKET}" ]; then
+	for dir in $(ls -d /var/run/vde2/*.ctl 2>/dev/null); do
+		if [ -r "${dir}" ]; then
+			VDE_SOCKET="${dir}"
+		fi
+	done
+fi
+if [ -n "${VDE_SOCKET}" ]; then
+	if ${QEMU_EXEC} --help | grep -q -- '-net vde'; then
+		QEMU_NET="-net vde,vlan=1,sock=${VDE_SOCKET}"
+	fi
+fi
+if [ -z "${QEMU_NET}" ]; then
+	QEMU_NET="-net user,vlan=1"
+fi
+
 # do the job
 ${QEMU_EXEC} ${QEMU_NOGRAPHIC} \
 	-M ${QEMU_MACHINE} \
 	-no-reboot \
 	-net nic,vlan=1 \
-	-net user,vlan=1 \
+	${QEMU_NET} \
 	-redir tcp:${TELNET_EXTERNAL_PORT}:${PLATFORM_IP}:${TELNET_INTERNAL_PORT} \
 	-kernel ${PTXDIST_PLATFORMDIR}/images/linuximage \
 	-hda ${PTXDIST_PLATFORMDIR}/images/hd.img \
-	-append "root=/dev/sda1 rw console=ttyS0,115200 ro"
+	-append "root=/dev/sda1 console=ttyS0,115200 ro"

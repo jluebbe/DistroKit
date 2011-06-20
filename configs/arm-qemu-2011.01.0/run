@@ -81,4 +81,4 @@ ${QEMU_EXEC} ${QEMU_NOGRAPHIC} \
 	-redir tcp:${TELNET_EXTERNAL_PORT}:${PLATFORM_IP}:${TELNET_INTERNAL_PORT} \
 	-kernel ${PTXDIST_PLATFORMDIR}/images/linuximage \
 	-hda ${PTXDIST_PLATFORMDIR}/images/hd.img \
-	-append "root=/dev/sda1 rw console=ttyAMA0,115200 ro init=/bin/systemd"
+	-append "root=/dev/sda1 console=ttyAMA0,115200 ro"

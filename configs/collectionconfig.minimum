@@ -1,0 +1,11 @@
+#
+# Automatically generated make config: don't edit
+# PTXdist 2012.06.0
+#
+PTXCONF__collectionconfig_MAGIC__=y
+PTXCONF_COLLECTION_NONE=y
+# PTXCONF_COLLECTION_MANUAL is not set
+# PTXCONF_COLLECTION_ALL is not set
+# PTXCONF_LIGHTTPD is not set
+# PTXCONF_SQLITE is not set
+# PTXCONF_URSHD is not set

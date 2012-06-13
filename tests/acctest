@@ -1,0 +1,545 @@
+#!/bin/bash
+
+#
+# One can use:
+# PTXDIST_PTXCONFIG
+# PTXDIST_PLATFORMCONFIG
+# PTXDIST_COLLECTIONCONFIG
+# PTXDIST_BOARDSETUP
+# to query other content: $(ptxd_get_ptxconf PTXCONF_SYSROOT_HOST)
+#
+
+# current running kernel
+KERNEL_RELEASE="3.4.2"
+
+SSH_COMMAND='rsh'
+
+if [ ! -e "${PTXDIST_PLATFORMCONFIG}" ]; then
+	echo "platformconfig is missing"
+	exit 1
+fi
+
+. "${PTXDIST_PLATFORMCONFIG}"
+
+if test -f "${PTXDIST_TOPDIR}/tests/libptxdisttest.sh"
+then
+        source "${PTXDIST_TOPDIR}/tests/libptxdisttest.sh"
+else
+        echo "${PTXDIST_TOPDIR}/tests/libptxdisttest.sh not found." >&2
+        exit 1
+fi
+
+if [ ! -e ${PTXDIST_WORKSPACE}/tests/common_testlib ]; then
+        echo "${PTXDIST_WORKSPACE}/tests/common_testlib not found." >&2
+        exit 1
+fi
+
+. ${PTXDIST_WORKSPACE}/tests/common_testlib
+
+#
+# sanity checks
+#
+acctest_boardsetup
+
+. "${PTXDIST_BOARDSETUP}"
+
+#
+# do we have network access to the target?
+#
+acctest_ping
+
+#
+# check for required PTXdist version
+#
+acctest_ptxdist 2012.06.0
+
+#
+# check that the platform announces the correct name [EDITME]
+#
+acctest_platform_name pengutronix-versatilepb
+
+#
+# check that the platform announces the correct release number [EDITME]
+#
+# FIXME - acctest_platform_release 2012-fixme
+
+#
+# check for RSH
+#
+acctest_rsh_available
+
+#
+# no need to continue if vital things are missing
+#
+all_on_board
+
+#
+# check that "Kernel announces correct kernel release number" [EDITME]
+#
+acctest_kernel_release ${KERNEL_RELEASE}
+
+#
+# Do not change the U-Boot-v2 without testing all of its features!
+#
+#PTXCONF_U_BOOT_V2_VERSION = 2.0.0-rc9
+
+#
+# Check, if this CPU has no FPU
+#
+#imx_fpu_test false
+
+#
+# first, acquire the time to enable a realtimeclock clockspeed judgment at the end
+#
+
+startingtimethere=$(remote 'date +%s')
+startingtimehere=$(date +%s)
+
+##
+## check flash partitions [EDITME]
+##
+#mtd_line[0]='00040000 00020000 "barebox"'
+#mtd_line[1]='00020000 00020000 "bareboxenv"'
+#mtd_line[2]='00160000 00020000 "splash"'
+#mtd_line[3]='00400000 00020000 "kernel"'
+#mtd_line[4]='07a40000 00020000 "root"'
+#
+#for mtdX in mtd0 mtd1 mtd2 mtd3 mtd4; do acctest_flash_partition $mtdX; done
+
+hardware_tests() {
+	#
+	# check memory
+	#
+	acctest_memory
+}
+
+system_tests() {
+
+	#
+	# check for vital files and devices
+	#
+	for device in \
+		/dev/rtc0 \
+		/dev/autofs \
+		/dev/console \
+		/dev/cpu_dma_latency \
+		/dev/full \
+		/dev/kmem \
+		/dev/kmsg \
+		/dev/mem \
+		/dev/network_latency \
+		/dev/network_throughput \
+		/dev/null \
+		/dev/port \
+		/dev/ptmx \
+		/dev/random \
+		/dev/ttyAMA0 \
+		/dev/ttyAMA1 \
+		/dev/ttyAMA2 \
+		/dev/ttyAMA3 \
+		/dev/urandom \
+		/dev/zero
+	do acctest_devicenode "$device"; done
+
+	for device in \
+		/dev/sda \
+		/dev/sda1
+	do acctest_devicenode "$device" block; done
+
+	# FIXME how to test pipes?
+	# /dev/initctl
+	# /dev/log
+
+	#
+	# check the clocksource
+	# should contain "timer3"
+	#
+	acctest_file_content /sys/devices/system/clocksource/clocksource0/current_clocksource timer3
+
+	#
+	# check for network interface(s) in sysfs
+	#
+	for device in \
+		eth0
+	do acctest_network_device "$device"; done
+
+
+	#
+	# check for specific bus(ses) in sysfs
+	#
+	for bus in \
+		amba \
+		pci \
+		platform \
+		scsi
+	do acctest_bus "$bus"; done
+
+	#
+	# check that unwanted devices do not exist
+	#
+	for device in \
+		/dev/ttyS0 \
+		/dev/ttyS1 \
+		/dev/ttyPSC0 \
+		/dev/ttyPSC1 \
+		/dev/fb1 \
+		/dev/loop0 \
+		/dev/loop1
+	do acctest_nodevice "$device"; done
+
+	# kernel module present?
+	#for module in \
+	#	usbcore \
+	#	usb_common \
+	#	ehci_hcd
+	#do acctest_module "$module"; done
+
+	#
+	# Only the "noop" scheduler schould currently be present (and active)
+	#
+	#acctest_file_content /sys/block/mtdblock0/queue/scheduler "[noop] "
+
+	#
+	# Ensure the network driver is in use
+	#
+	acctest_file_content /sys/bus/platform/devices/smc91x.0/modalias "platform:smc91x"
+	acctest_files /sys/bus/platform/devices/smc91x.0/driver
+
+	# FIXME: do similar things for...
+	#
+	# /sys/bus/platform/devices/arm-charlcd
+	# /sys/bus/platform/devices/alarmtimer
+	# /sys/bus/platform/devices/versatile-i2c.0
+	# /sys/bus/platform/devices/physmap-flash.0
+
+	#
+	# check for i2c devices in sysfs [EDITME]
+	# i2c IO PCA953x
+	#acctest_files /sys/bus/i2c/devices/0-0041
+	# RTC PCF8563
+	#acctest_files /sys/bus/i2c/devices/0-0051
+	# LED Dimmer PCA9530
+	#acctest_files /sys/bus/i2c/devices/0-0060
+
+	#
+	# check for wm97xx stuff
+	#
+	#acctest_files /sys/bus/platform/devices/wm9712-codec
+	#acctest_files /sys/bus/platform/devices/wm97xx-battery
+	#acctest_files /sys/bus/platform/devices/wm97xx-touch
+
+	#acctest_files /sys/bus/ac97/devices/0-0:wm9712-codec
+	#acctest_files /sys/devices/platform/soc-audio/0-0:wm9712-codec
+	#acctest_files /sys/devices/platform/soc-audio/0-0:wm9712-codec/wm97xx-battery
+	#acctest_files /sys/devices/platform/soc-audio/0-0:wm9712-codec/wm97xx-touch
+
+	#
+	# check for light sensor
+	# the driver for the max1037 is currently in staging
+	# so we do not really want it as default.
+	# the brave can find it after a modprobe with
+	#
+	# acctest_files /sys/bus/i2c/drivers/max1363
+
+}
+
+environment_tests() {
+	#
+	# check if root filesystem is ext2
+	#
+	acctest_rootfs_ext2
+
+	#
+	# check if vital processes are running, uhh sleeping
+	# FIXME: acctest_process seems to always return 0
+	#	 as we have systemd running, this is no problem
+	#	 at the moment
+	acctest_process systemd
+	if [ $? -gt 0 ]; then
+		for process in \
+			pure-ftpd \
+			sshd \
+			telnetd \
+			udevd \
+			lighttpd
+			# [EDITME]
+		do acctest_process "$process"; done
+	fi
+	#
+	# is an executable binary available
+	#
+	for command in \
+		/bin/busybox \
+		/bin/cp \
+		/bin/dd \
+		/bin/lsmod \
+		/bin/mount \
+		/bin/ping \
+		/bin/ps \
+		/bin/umount \
+		/sbin/insmod \
+		/sbin/rmmod \
+		/sbin/modprobe
+	do acctest_command_executable "$command"; done
+
+	#
+	# every target should support various filesystems
+	#
+	for filesystem in \
+		ext2 \
+		pipefs \
+		tmpfs \
+		devpts \
+		mqueue
+	do acctest_filesystem_support "$filesystem"; done
+	# FIXME: vfat, msdos, nfs
+
+	#
+	# deprecated filesystem that should NOT be supported
+	#
+	for filesystem in \
+		usbfs
+	do acctest_filesystem_not_supported "$filesystem"; done
+
+	#
+	# every target should support the inotify syscalls for
+	# file/dir monitoring
+	#
+	acctest_files /proc/sys/fs/inotify
+
+	#
+	# check for a running busybox multi-call binary
+	#
+	acctest_busybox
+}
+
+services_tests() {
+	#
+	# check network services
+	#
+	# because the systemd was unstable in the past and services got killed
+	# we do a really simple pentest here. Lower the last number (256), if
+	# fewer repetitions suffice
+	#
+	test_begin
+
+	#acctest_network_services "ftp port is reachable" "21" "21/tcp open ftp" 2
+	acctest_network_services "ssh port is reachable" "22" "22/tcp open ssh" 2
+	#acctest_network_services "telnet port is reachable" "23" "23/tcp open telnet" 2
+	acctest_network_services "http port is reachable" "80" "80/tcp open http" 2
+
+	checking "that thttpd is not running"
+	remote_assure_process "thttpd"
+	exitstatus=$?
+	host "test ${exitstatus} = 1"
+	result
+
+	test_end
+}
+
+audio_tests() {
+	#
+	# if the audio subsystem is up and running
+	#
+	acctest_files /proc/asound
+
+	# SPI Host Controller
+	acctest_files /sys/bus/platform/devices/imx27-cspi.0
+	acctest_files /sys/bus/platform/drivers/spi_imx/imx27-cspi.0
+
+	# if the first card is the correct one
+	# this file should contain "PMICaudio"
+	acctest_file_content /proc/asound/card0/id "xxx"
+
+
+	#
+	# aplay, arecord, madplay, alsactl and alsamixer are present
+	#
+	acctest_command_executable "/usr/bin/aplay"
+	acctest_command_executable "/usr/bin/arecord"
+	acctest_command_executable "/usr/bin/madplay"
+	acctest_command_executable "/usr/sbin/alsactl"
+	acctest_command_executable "/usr/bin/alsamixer"
+
+	# check if the default audio settings are present
+	acctest_files /etc/asound.state
+}
+
+usb_tests() {
+	#
+	# USB
+	# at least the host controller must be present
+	#
+	acctest_file_content /sys/bus/usb/devices/usb1/product "Freescale On-Chip EHCI Host Controller"
+
+	#
+	# USB
+	# usbfs must NOT be present
+	# deprecated
+	acctest_filesystem_not_mounted /proc/bus/usb usbfs
+
+	#
+	# USB: Does it work?
+	#
+	acctest_usb_working
+
+	# USB Stick
+	acctest_filesystem "USB-Stick" "sda" "sda" "vfat" "/sbin/mkfs.vfat -F32" ",,b"
+}
+
+sdcard_tests() {
+	# SDCard
+	# Note: if the SD card has a partition table the device node is mmcblk0p1
+	# If it has no partition table the device node is mmcblk0
+	acctest_filesystem "SDCard" "mmcblk0" "mmcblk0" "vfat" "/sbin/mkfs.vfat -F32"
+}
+
+eeprom_tests() {
+	# AT24 EEPROM
+	acctest_files /sys/bus/i2c/devices/1-0052
+
+	#
+	# check eeprom read and write capability
+	#
+	acctest_eeprom_rw  /sys/bus/i2c/devices/1-0052/eeprom 2048
+}
+
+eth_tests() {
+	# is the network up and running?
+	#
+	# FIXME - contains "unknown"
+	# acctest_file_content /sys/class/net/eth0/operstate "up"
+
+	#
+	# Check if the MAC is setup correctly
+	# FIXME: Add all known i.MX27 MAC addresses here
+	# BTW: Its hard to test a valid MAC via network, when network is not running
+	# due to the lack of a MAC. ROTFL
+	acctest_valid_mac eth0 "52:54:00:12:34:56"
+}
+
+devices_tests() {
+
+	# check network throughput with iperf
+	# broken-iperf OFF
+	#acctest_network_throughput 10 50000
+
+	#
+	# check fb display resolution
+	#
+	acctest_display_resolution 640 480
+
+	#
+	# SRAM
+	#
+	# acctest_filesystem "SRAM" "mtdblock8" "mtdblock8" "minix" "/sbin/mkfs.minix -n 30 -v" ""
+
+
+	#
+	# check if hardware clock is accepting and reproducing date/time
+	#
+	acctest_hwclock
+
+	#
+	# check CPU frequency scaling
+	# no cpufreq support for imx27
+	#
+	# unless Big Brother wins, this tests never get executed
+
+	if [ 4 -eq 5 ]; then
+		acctest_cpufreq() {
+			test_begin
+			checking "for ondemand as default cpufreq governor"
+			remote_compare "cat $1/scaling_governor" "ondemand"
+			result
+			checking "CPU frequency with performance governor"
+			remote "echo performance > $1/scaling_governor"
+			remote_compare "cat $1/cpuinfo_cur_freq" "399000"
+			result
+			checking "CPU frequency with powersave governor"
+			remote "echo powersave > $1/scaling_governor"
+			remote_compare "cat $1/cpuinfo_cur_freq" "133000"
+			result
+			checking "for ondemand as last set cpufreq governor on test exit"
+			remote "echo ondemand > $1/scaling_governor"
+			remote_compare "cat $1/scaling_governor" "ondemand"
+			result
+			test_end
+		}
+
+		acctest_cpufreq /sys/devices/system/cpu/cpu0/cpufreq
+
+		#
+		# ensure the ondemand governor speeds up when there is more than 30% load
+		# (default is 95%!)
+		#
+		acctest_file_content /sys/devices/system/cpu/cpu0/cpufreq/ondemand/up_threshold 30
+
+		#
+		# Check, if the scaling driver is setup correctly
+		#
+		acctest_file_content /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq 66500
+		acctest_file_content /sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq 400000
+		acctest_file_content /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq 66500
+		acctest_file_content /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq 400000
+	fi
+
+	#
+	# Check correct alignment of kernel and userland components
+	#
+	acctest_alignment
+
+	#
+	# Realtime test cyclictest
+	# No -rt available for 2.6.28 yet OFF
+	#acctest_cyclictest
+
+	#
+	# at last, remember that we wanted to compare the two realtime clocks
+	#
+	acctest_realtime_clock
+
+	# check network reliability
+	# DEVELTIME OFF
+	acctest_network_reliability 1
+}
+
+print_banner() {
+	echo >&2
+	echo "***** $1 *****" >&2
+	echo >&2
+}
+
+
+
+echo Starting the tests. >&2
+
+print_banner "Testing basic hardware"
+hardware_tests
+
+print_banner "Testing if all devices are present."
+system_tests
+
+print_banner "Testing the OS environment."
+environment_tests
+
+print_banner "Testing for services."
+services_tests
+
+print_banner "Testing installed devices."
+#audio_tests
+#usb_tests
+#sdcard_tests
+#eeprom_tests
+eth_tests
+#devices_tests
+
+echo -n All tests completed. >&2
+if [ $fail_count -gt 0 ]
+then
+	printf "%8b" "${RED} $fail_count TEST(S) FAILED.${NC}\n" >&2
+	exit 1
+else
+	echo >&2
+	exit 0
+fi

@@ -1,6 +1,6 @@
-configs/ptxconfig.old
-platform-*
-selected_platformconfig
-selected_ptxconfig
-selected_toolchain
-p
+/configs/ptxconfig.old
+/platform-*
+/selected_platformconfig
+/selected_ptxconfig
+/selected_toolchain
+/p

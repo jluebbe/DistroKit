@@ -1,5 +1,6 @@
 /configs/ptxconfig.old
 /platform-*
+/selected_collectionconfig
 /selected_platformconfig
 /selected_ptxconfig
 /selected_toolchain

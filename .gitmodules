@@ -1,0 +1,12 @@
+[submodule "configs/platform-pengutronix-versatilepb"]
+	path = configs/platform-pengutronix-versatilepb
+	url = git://git.pengutronix.de/git/platform-pengutronix-versatilepb.git
+[submodule "configs/platform-pengutronix-vexpress"]
+	path = configs/platform-pengutronix-vexpress
+	url = git://git.pengutronix.de/git/platform-pengutronix-vexpress.git
+[submodule "configs/platform-pengutronix-beagleboneti"]
+	path = configs/platform-pengutronix-beagleboneti
+	url = git://git.pengutronix.de/git/platform-pengutronix-beagleboneti.git
+[submodule "configs/platform-pengutronix-raspberrypi"]
+	path = configs/platform-pengutronix-raspberrypi
+	url = git://git.pengutronix.de/git/platform-pengutronix-raspberrypi.git

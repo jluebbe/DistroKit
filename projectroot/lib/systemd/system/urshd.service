@@ -1,0 +1,10 @@
+[Unit]
+Description=urshd Server
+After=syslog.target
+ConditionKernelCommandLine=devel
+
+[Service]
+ExecStart=/usr/bin/urshd -D
+
+[Install]
+WantedBy=multi-user.target

@@ -17,7 +17,7 @@ PTXCONF_MODULES=y
 #
 PTXCONF_PROJECT_VENDOR="Pengutronix"
 PTXCONF_PROJECT="DistroKit"
-PTXCONF_PROJECT_VERSION="-2012.07.0+master"
+PTXCONF_PROJECT_VERSION="-2012.09.1"
 
 #
 # ------------------------------------

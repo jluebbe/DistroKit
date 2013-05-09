@@ -1,6 +1,6 @@
 #
-# Automatically generated make config: don't edit
-# PTXdist 2012.06.0
+# Automatically generated file; DO NOT EDIT.
+# PTXdist 2013.05.0
 #
 PTXCONF__collectionconfig_MAGIC__=y
 PTXCONF_COLLECTION_NONE=y

@@ -4,12 +4,12 @@
 [submodule "configs/platform-pengutronix-vexpress"]
 	path = configs/platform-pengutronix-vexpress
 	url = git://git.pengutronix.de/git/platform-pengutronix-vexpress.git
-[submodule "configs/platform-pengutronix-beagleboneti"]
-	path = configs/platform-pengutronix-beagleboneti
-	url = git://git.pengutronix.de/git/platform-pengutronix-beagleboneti.git
 [submodule "configs/platform-pengutronix-raspberrypi"]
 	path = configs/platform-pengutronix-raspberrypi
 	url = git://git.pengutronix.de/git/platform-pengutronix-raspberrypi.git
 [submodule "configs/platform-pengutronix-i686-qemu"]
 	path = configs/platform-pengutronix-i686-qemu
 	url = git://git.pengutronix.de/git/platform-pengutronix-i686-qemu.git
+[submodule "configs/platform-pengutronix-beaglebone"]
+	path = configs/platform-pengutronix-beaglebone
+	url = git://git.pengutronix.de/git/platform-pengutronix-beaglebone.git

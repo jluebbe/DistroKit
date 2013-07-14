@@ -1,26 +1,77 @@
-OSELAS.BSP-Pengutronix-Generic-2011.01.0:
+DistroKit
+---------
 
-This PTXdist[1] based project combines two reference board support packages:
+This is the main repository for DistroKit, an Embedded Linux Board
+Support Package (BSP) for the PTXdist [1] Build System.
 
-- ARM based "versatilepb"
-- X86 generic PC
+The main task for PTXdist is to build a root filesystem and a flash
+image for the embedded system. PTXdist has a concept of separating the
+software configuration from the hardware platforms, so the first
+decision to be made is to select for which hardware DistroKit shall be
+built.
 
-They are intended to show new users of ptxdist how to prepare and build all
-required components for an embedded device.
 
-For further information please read the following documents (part of this
-archive):
+Installing PTXdist
+------------------
 
-For the generic PC (x86 architecture):
-documentation/OSELAS.BSP-Pengutronix-Generic-x86-Quickstart.pdf
+DistroKit is built with ptxdist. In order to install ptxdist, download
+the tarball from [2]:
 
-For the "versatilepb" (ARM architecture):
-documentation/OSELAS.BSP-Pengutronix-Generic-arm-Quickstart.pdf
+$ wget \
+  http://www.pengutronix.de/software/ptxdist/download/ptxdist-2013.05.0.tar.bz2
 
-More PTXdist related information can be found at [1].
+Extract the tarball:
 
-Enjoy!
+$ tar xf ptxdist-2013.05.0 && cd ptxdist-2013.05.0
 
-Your Pengutronix Development Team
+Go to the extracted directory and run
 
-[1] http://www.pengutronix.de/software/ptxdist/index_en.html
+$ ./configure && make && sudo make install
+
+
+Selecting the Platform
+----------------------
+
+For the different hardware platforms, see the instructions about
+
+- how to install the toolchain
+- how to select the right platform
+- how to build the rootfs
+
+in README.<platform>.
+
+In order to build a BSP, you need a toolchain. The easiest way to get a
+toolchain is to install the debian packages for OSELAS.Toolchain:
+
+  http://www.pengutronix.de/oselas/toolchain/
+
+If you want to build the toolchain yourself, you can download the
+toolchain sources from
+
+  http://www.pengutronix.de/oselas/toolchain/download/
+
+and build them manually.
+
+
+Building DistroKit
+------------------
+
+Now everything is prepared to build the BSP:
+
+$ ptxdist go
+
+PTXdist determines the number of CPUs on your computer and runs the
+compiler with <twice the number of CPUs> instances in parallel.
+Nevertheless, building a root filesystem from the sources needs some
+time.
+
+
+References
+----------
+
+[1] PTXdist
+    http://www.pengutronix.de/software/ptxdist/
+
+[2] PTXdist Download Area
+    http://www.pengutronix.de/software/ptxdist/download/
+

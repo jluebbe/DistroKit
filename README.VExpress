@@ -1,0 +1,12 @@
+Versatile Express:
+------------------
+
+Install the toolchain:
+
+$ aptitude install \
+  oselas.toolchain-2012.12.1-arm-cortexa9-linux-gnueabihf-gcc-4.7.3-glibc-2.16.0-binutils-2.22-kernel-3.6-sanitized
+
+Select the platform:
+
+$ ptxdist platform \
+  configs/platform-pengutronix-vexpress/platformconfig

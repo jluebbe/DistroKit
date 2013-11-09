@@ -1,0 +1,8 @@
+[Unit]
+Description=USB network on %I
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/sbin/ifup %I
+ExecStop=/sbin/ifdown %I

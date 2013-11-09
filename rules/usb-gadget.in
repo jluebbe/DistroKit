@@ -1,0 +1,7 @@
+## SECTION=project_specific
+
+config USB_GADGET
+	tristate
+	prompt "usb-gadget"
+	help
+	  Configure the USB gadget during boot

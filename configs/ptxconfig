@@ -3,6 +3,7 @@
 # PTXdist 2013.09.0
 #
 PTXCONF_MODULES=y
+PTXCONF_USB_GADGET=y
 
 #
 # ------------------------------------

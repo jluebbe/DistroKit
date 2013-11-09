@@ -1,0 +1,11 @@
+[Unit]
+Description=USB cdc gadget
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/sbin/modprobe g_cdc
+ExecStop=/sbin/rmmod g_cdc
+
+[Install]
+WantedBy=multi-user.target

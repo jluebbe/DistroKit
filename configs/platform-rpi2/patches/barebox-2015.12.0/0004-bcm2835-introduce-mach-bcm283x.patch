@@ -1,0 +1,410 @@
+From fa60af981cc8662dcba5340dc847a9ecc2ef0af0 Mon Sep 17 00:00:00 2001
+From: Alexander Aring <alex.aring@gmail.com>
+Date: Sat, 19 Dec 2015 14:02:35 +0100
+Subject: [PATCH 4/7] bcm2835: introduce mach-bcm283x
+
+This patch changes the most part of mach-bcm2835 to mach-bcm283x. This
+prepares to add RPi2 support which is a bcm2836. This patch changes the
+Kconfig entry namens to BCM283X for drivers only. These drivers should
+working the same in bcm2836.
+
+While updating defconfig I added LED support/trigger option.
+
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ arch/arm/Kconfig                                   | 18 +++---
+ arch/arm/Makefile                                  |  2 +-
+ arch/arm/configs/rpi_defconfig                     | 70 ++++++++++++----------
+ arch/arm/{mach-bcm2835 => mach-bcm283x}/Kconfig    |  5 +-
+ arch/arm/{mach-bcm2835 => mach-bcm283x}/Makefile   |  0
+ arch/arm/{mach-bcm2835 => mach-bcm283x}/core.c     |  0
+ .../include/mach/core.h                            |  0
+ .../include/mach/debug_ll.h                        |  0
+ .../include/mach/mbox.h                            |  0
+ .../include/mach/platform.h                        |  0
+ .../include/mach/wd.h                              |  0
+ arch/arm/{mach-bcm2835 => mach-bcm283x}/mbox.c     |  0
+ drivers/clocksource/Kconfig                        |  4 +-
+ drivers/clocksource/Makefile                       |  2 +-
+ drivers/gpio/Kconfig                               |  6 +-
+ drivers/gpio/Makefile                              |  2 +-
+ drivers/mci/Kconfig                                |  6 +-
+ drivers/mci/Makefile                               |  2 +-
+ drivers/regulator/Kconfig                          |  4 +-
+ drivers/regulator/Makefile                         |  2 +-
+ drivers/video/Kconfig                              |  8 +--
+ drivers/video/Makefile                             |  2 +-
+ 22 files changed, 71 insertions(+), 62 deletions(-)
+ rename arch/arm/{mach-bcm2835 => mach-bcm283x}/Kconfig (70%)
+ rename arch/arm/{mach-bcm2835 => mach-bcm283x}/Makefile (100%)
+ rename arch/arm/{mach-bcm2835 => mach-bcm283x}/core.c (100%)
+ rename arch/arm/{mach-bcm2835 => mach-bcm283x}/include/mach/core.h (100%)
+ rename arch/arm/{mach-bcm2835 => mach-bcm283x}/include/mach/debug_ll.h (100%)
+ rename arch/arm/{mach-bcm2835 => mach-bcm283x}/include/mach/mbox.h (100%)
+ rename arch/arm/{mach-bcm2835 => mach-bcm283x}/include/mach/platform.h (100%)
+ rename arch/arm/{mach-bcm2835 => mach-bcm283x}/include/mach/wd.h (100%)
+ rename arch/arm/{mach-bcm2835 => mach-bcm283x}/mbox.c (100%)
+
+diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+index 9f4d8e9..4e7c1fd 100644
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -22,6 +22,15 @@ config ARM_USE_COMPRESSED_DTB
+ 	select UNCOMPRESS
+ 	select LZO_DECOMPRESS
+ 
++config ARCH_BCM283X
++	bool
++	select GPIOLIB
++	select CLKDEV_LOOKUP
++	select COMMON_CLK
++	select CLOCKSOURCE_BCM283X
++	select ARM_AMBA
++	select HAS_DEBUG_LL
++
+ menu "System Type"
+ 
+ config BUILTIN_DTB
+@@ -52,13 +61,8 @@ config ARCH_AT91
+ 
+ config ARCH_BCM2835
+ 	bool "Broadcom BCM2835 boards"
+-	select GPIOLIB
++	select ARCH_BCM283X
+ 	select CPU_ARM1176
+-	select CLKDEV_LOOKUP
+-	select COMMON_CLK
+-	select CLOCKSOURCE_BCM2835
+-	select ARM_AMBA
+-	select HAS_DEBUG_LL
+ 
+ config ARCH_CLPS711X
+ 	bool "Cirrus Logic EP711x/EP721x/EP731x"
+@@ -251,7 +255,7 @@ endchoice
+ 
+ source arch/arm/cpu/Kconfig
+ source arch/arm/mach-at91/Kconfig
+-source arch/arm/mach-bcm2835/Kconfig
++source arch/arm/mach-bcm283x/Kconfig
+ source arch/arm/mach-clps711x/Kconfig
+ source arch/arm/mach-davinci/Kconfig
+ source arch/arm/mach-digic/Kconfig
+diff --git a/arch/arm/Makefile b/arch/arm/Makefile
+index cae05ff..9ce16b9 100644
+--- a/arch/arm/Makefile
++++ b/arch/arm/Makefile
+@@ -57,7 +57,7 @@ AFLAGS   += -include asm/unified.h -msoft-float $(AFLAGS_THUMB2)
+ # Machine directory name.  This list is sorted alphanumerically
+ # by CONFIG_* macro name.
+ machine-$(CONFIG_ARCH_AT91)		:= at91
+-machine-$(CONFIG_ARCH_BCM2835)		:= bcm2835
++machine-$(CONFIG_ARCH_BCM283X)		:= bcm283x
+ machine-$(CONFIG_ARCH_CLPS711X)		:= clps711x
+ machine-$(CONFIG_ARCH_DAVINCI)		:= davinci
+ machine-$(CONFIG_ARCH_DIGIC)		:= digic
+diff --git a/arch/arm/configs/rpi_defconfig b/arch/arm/configs/rpi_defconfig
+index 25770a0..f7b5910 100644
+--- a/arch/arm/configs/rpi_defconfig
++++ b/arch/arm/configs/rpi_defconfig
+@@ -6,7 +6,6 @@ CONFIG_MMU=y
+ CONFIG_MALLOC_TLSF=y
+ CONFIG_KALLSYMS=y
+ CONFIG_PROMPT="R-Pi> "
+-CONFIG_LONGHELP=y
+ CONFIG_HUSH_FANCY_PROMPT=y
+ CONFIG_CMDLINE_EDITING=y
+ CONFIG_AUTO_COMPLETE=y
+@@ -14,52 +13,57 @@ CONFIG_MENU=y
+ CONFIG_BLSPEC=y
+ CONFIG_DEFAULT_ENVIRONMENT_GENERIC_NEW=y
+ CONFIG_DEFAULT_ENVIRONMENT_PATH="arch/arm/boards/raspberry-pi/env"
+-CONFIG_CMD_EDIT=y
+-CONFIG_CMD_SLEEP=y
+-CONFIG_CMD_MSLEEP=y
+-CONFIG_CMD_SAVEENV=y
+-CONFIG_CMD_EXPORT=y
+-CONFIG_CMD_PRINTENV=y
+-CONFIG_CMD_READLINE=y
+-CONFIG_CMD_LET=y
+-CONFIG_CMD_MENU=y
+-CONFIG_CMD_MENU_MANAGEMENT=y
+-CONFIG_CMD_LOGIN=y
+-CONFIG_CMD_PASSWD=y
+-CONFIG_CMD_TIME=y
+-CONFIG_CMD_LN=y
+-CONFIG_CMD_FILETYPE=y
+-CONFIG_CMD_ECHO_E=y
+-CONFIG_CMD_LOADB=y
+-CONFIG_CMD_LOADY=y
+-CONFIG_CMD_MEMINFO=y
++CONFIG_LONGHELP=y
+ CONFIG_CMD_IOMEM=y
+-CONFIG_CMD_MM=y
+-CONFIG_CMD_CRC=y
+-CONFIG_CMD_CRC_CMP=y
+-CONFIG_CMD_MD5SUM=y
++CONFIG_CMD_MEMINFO=y
+ CONFIG_CMD_BOOTM_SHOW_TYPE=y
+ CONFIG_CMD_BOOTM_VERBOSE=y
+ CONFIG_CMD_BOOTM_INITRD=y
+ CONFIG_CMD_BOOTM_OFTREE=y
+-CONFIG_CMD_UIMAGE=y
+-CONFIG_CMD_RESET=y
+ CONFIG_CMD_GO=y
+-CONFIG_CMD_OFTREE=y
+-CONFIG_CMD_OF_PROPERTY=y
+-CONFIG_CMD_OF_NODE=y
+-CONFIG_CMD_TIMEOUT=y
++CONFIG_CMD_LOADB=y
++CONFIG_CMD_LOADY=y
++CONFIG_CMD_RESET=y
++CONFIG_CMD_UIMAGE=y
+ CONFIG_CMD_PARTITION=y
++CONFIG_CMD_EXPORT=y
++CONFIG_CMD_PRINTENV=y
+ CONFIG_CMD_MAGICVAR=y
+ CONFIG_CMD_MAGICVAR_HELP=y
+-CONFIG_CMD_GPIO=y
++CONFIG_CMD_SAVEENV=y
++CONFIG_CMD_FILETYPE=y
++CONFIG_CMD_LN=y
++CONFIG_CMD_MD5SUM=y
+ CONFIG_CMD_UNCOMPRESS=y
++CONFIG_CMD_LET=y
++CONFIG_CMD_MSLEEP=y
++CONFIG_CMD_SLEEP=y
++CONFIG_CMD_ECHO_E=y
++CONFIG_CMD_EDIT=y
++CONFIG_CMD_LOGIN=y
++CONFIG_CMD_MENU=y
++CONFIG_CMD_MENU_MANAGEMENT=y
++CONFIG_CMD_PASSWD=y
++CONFIG_CMD_READLINE=y
++CONFIG_CMD_TIMEOUT=y
++CONFIG_CMD_CRC=y
++CONFIG_CMD_CRC_CMP=y
++CONFIG_CMD_MM=y
+ CONFIG_CMD_CLK=y
+ CONFIG_CMD_DETECT=y
++CONFIG_CMD_GPIO=y
++CONFIG_CMD_OF_NODE=y
++CONFIG_CMD_OF_PROPERTY=y
++CONFIG_CMD_OFTREE=y
++CONFIG_CMD_TIME=y
+ CONFIG_SERIAL_AMBA_PL011=y
+ CONFIG_MCI=y
+-CONFIG_MCI_BCM2835=y
+-CONFIG_GPIO_BCM2835=y
++CONFIG_MCI_BCM283X=y
++CONFIG_LED=y
++CONFIG_LED_GPIO=y
++CONFIG_LED_TRIGGERS=y
++CONFIG_GPIO_BCM283X=y
++CONFIG_REGULATOR=y
+ CONFIG_FS_EXT4=y
+ CONFIG_FS_FAT=y
+ CONFIG_FS_FAT_WRITE=y
+diff --git a/arch/arm/mach-bcm2835/Kconfig b/arch/arm/mach-bcm283x/Kconfig
+similarity index 70%
+rename from arch/arm/mach-bcm2835/Kconfig
+rename to arch/arm/mach-bcm283x/Kconfig
+index 134ad9b..f4a7e67 100644
+--- a/arch/arm/mach-bcm2835/Kconfig
++++ b/arch/arm/mach-bcm283x/Kconfig
+@@ -1,14 +1,15 @@
+-if ARCH_BCM2835
++if ARCH_BCM283X
+ 
+ config ARCH_TEXT_BASE
+ 	hex
+-	default 0x04000000 if MACH_RPI
++	default 0x04000000
+ 
+ choice
+ 	prompt "Broadcom Board type"
+ 
+ config MACH_RPI
+ 	bool "RaspberryPi (BCM2835/ARM1176JZF-S)"
++	depends on ARCH_BCM2835
+ 
+ endchoice
+ 
+diff --git a/arch/arm/mach-bcm2835/Makefile b/arch/arm/mach-bcm283x/Makefile
+similarity index 100%
+rename from arch/arm/mach-bcm2835/Makefile
+rename to arch/arm/mach-bcm283x/Makefile
+diff --git a/arch/arm/mach-bcm2835/core.c b/arch/arm/mach-bcm283x/core.c
+similarity index 100%
+rename from arch/arm/mach-bcm2835/core.c
+rename to arch/arm/mach-bcm283x/core.c
+diff --git a/arch/arm/mach-bcm2835/include/mach/core.h b/arch/arm/mach-bcm283x/include/mach/core.h
+similarity index 100%
+rename from arch/arm/mach-bcm2835/include/mach/core.h
+rename to arch/arm/mach-bcm283x/include/mach/core.h
+diff --git a/arch/arm/mach-bcm2835/include/mach/debug_ll.h b/arch/arm/mach-bcm283x/include/mach/debug_ll.h
+similarity index 100%
+rename from arch/arm/mach-bcm2835/include/mach/debug_ll.h
+rename to arch/arm/mach-bcm283x/include/mach/debug_ll.h
+diff --git a/arch/arm/mach-bcm2835/include/mach/mbox.h b/arch/arm/mach-bcm283x/include/mach/mbox.h
+similarity index 100%
+rename from arch/arm/mach-bcm2835/include/mach/mbox.h
+rename to arch/arm/mach-bcm283x/include/mach/mbox.h
+diff --git a/arch/arm/mach-bcm2835/include/mach/platform.h b/arch/arm/mach-bcm283x/include/mach/platform.h
+similarity index 100%
+rename from arch/arm/mach-bcm2835/include/mach/platform.h
+rename to arch/arm/mach-bcm283x/include/mach/platform.h
+diff --git a/arch/arm/mach-bcm2835/include/mach/wd.h b/arch/arm/mach-bcm283x/include/mach/wd.h
+similarity index 100%
+rename from arch/arm/mach-bcm2835/include/mach/wd.h
+rename to arch/arm/mach-bcm283x/include/mach/wd.h
+diff --git a/arch/arm/mach-bcm2835/mbox.c b/arch/arm/mach-bcm283x/mbox.c
+similarity index 100%
+rename from arch/arm/mach-bcm2835/mbox.c
+rename to arch/arm/mach-bcm283x/mbox.c
+diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
+index 598edc9..3fb09fb 100644
+--- a/drivers/clocksource/Kconfig
++++ b/drivers/clocksource/Kconfig
+@@ -6,9 +6,9 @@ config ARM_SMP_TWD
+ 	bool
+ 	depends on ARM && CPU_V7
+ 
+-config CLOCKSOURCE_BCM2835
++config CLOCKSOURCE_BCM283X
+ 	bool
+-	depends on ARCH_BCM2835
++	depends on ARCH_BCM283X
+ 
+ config CLOCKSOURCE_CLPS711X
+ 	bool
+diff --git a/drivers/clocksource/Makefile b/drivers/clocksource/Makefile
+index f5f5141..4eb1656 100644
+--- a/drivers/clocksource/Makefile
++++ b/drivers/clocksource/Makefile
+@@ -1,6 +1,6 @@
+ obj-$(CONFIG_AMBA_SP804) += amba-sp804.o
+ obj-$(CONFIG_ARM_SMP_TWD) += arm_smp_twd.o
+-obj-$(CONFIG_CLOCKSOURCE_BCM2835) += bcm2835.o
++obj-$(CONFIG_CLOCKSOURCE_BCM283X) += bcm2835.o
+ obj-$(CONFIG_CLOCKSOURCE_CLPS711X) += clps711x.o
+ obj-$(CONFIG_CLOCKSOURCE_DIGIC)   += digic.o
+ obj-$(CONFIG_CLOCKSOURCE_MVEBU)   += mvebu.o
+diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
+index 9cb2261..d839d7a 100644
+--- a/drivers/gpio/Kconfig
++++ b/drivers/gpio/Kconfig
+@@ -21,9 +21,9 @@ config GPIO_74164
+ 	  shift registers. This driver can be used to provide access
+ 	  to more gpio outputs.
+ 
+-config GPIO_BCM2835
+-	bool "GPIO support for BCM2835"
+-	depends on ARCH_BCM2835
++config GPIO_BCM283X
++	bool "GPIO support for BCM283X"
++	depends on ARCH_BCM283X
+ 
+ config GPIO_CLPS711X
+ 	bool "GPIO support for CLPS711X"
+diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
+index f39e8da..8767eed 100644
+--- a/drivers/gpio/Makefile
++++ b/drivers/gpio/Makefile
+@@ -2,7 +2,7 @@ obj-$(CONFIG_GPIOLIB)		+= gpiolib.o
+ 
+ obj-$(CONFIG_GPIO_74164)	+= gpio-74164.o
+ obj-$(CONFIG_MACH_MIPS_ATH79)	+= gpio-ath79.o
+-obj-$(CONFIG_GPIO_BCM2835)	+= gpio-bcm2835.o
++obj-$(CONFIG_GPIO_BCM283X)	+= gpio-bcm2835.o
+ obj-$(CONFIG_GPIO_DAVINCI)	+= gpio-davinci.o
+ obj-$(CONFIG_GPIO_CLPS711X)	+= gpio-clps711x.o
+ obj-$(CONFIG_GPIO_DIGIC)	+= gpio-digic.o
+diff --git a/drivers/mci/Kconfig b/drivers/mci/Kconfig
+index ebd8da9..0f3504c 100644
+--- a/drivers/mci/Kconfig
++++ b/drivers/mci/Kconfig
+@@ -62,9 +62,9 @@ config MCI_S3C
+ 	  Enable this entry to add support to read and write SD cards on a
+ 	  Samsung S3C24xx based system.
+ 
+-config MCI_BCM2835
+-	bool "MCI support for BCM2835"
+-	depends on ARCH_BCM2835
++config MCI_BCM283X
++	bool "MCI support for BCM283X"
++	depends on ARCH_BCM283X
+ 
+ config MCI_IMX
+ 	bool "i.MX"
+diff --git a/drivers/mci/Makefile b/drivers/mci/Makefile
+index 1e8443c..88ec456 100644
+--- a/drivers/mci/Makefile
++++ b/drivers/mci/Makefile
+@@ -1,6 +1,6 @@
+ obj-$(CONFIG_MCI)		+= mci-core.o
+ obj-$(CONFIG_MCI_ATMEL)		+= atmel_mci.o
+-obj-$(CONFIG_MCI_BCM2835)	+= mci-bcm2835.o
++obj-$(CONFIG_MCI_BCM283X)	+= mci-bcm2835.o
+ obj-$(CONFIG_MCI_IMX)		+= imx.o
+ obj-$(CONFIG_MCI_IMX_ESDHC)	+= imx-esdhc.o
+ obj-$(CONFIG_MCI_MXS)		+= mxs.o
+diff --git a/drivers/regulator/Kconfig b/drivers/regulator/Kconfig
+index 05c3f48..4b41252 100644
+--- a/drivers/regulator/Kconfig
++++ b/drivers/regulator/Kconfig
+@@ -11,9 +11,9 @@ config REGULATOR_FIXED
+ 	  This enables a simple fixed regulator. It is used for regulators
+ 	  which are not software controllable or controllable via gpio.
+ 
+-config REGULATOR_BCM2835
++config REGULATOR_BCM283X
+ 	bool
+-	depends on ARCH_BCM2835
++	depends on ARCH_BCM283X
+ 	default y
+ 
+ endif
+diff --git a/drivers/regulator/Makefile b/drivers/regulator/Makefile
+index d663c16..a8dd9bd 100644
+--- a/drivers/regulator/Makefile
++++ b/drivers/regulator/Makefile
+@@ -1,3 +1,3 @@
+ obj-$(CONFIG_REGULATOR) += core.o
+ obj-$(CONFIG_REGULATOR_FIXED) += fixed.o
+-obj-$(CONFIG_REGULATOR_BCM2835) += bcm2835.o
++obj-$(CONFIG_REGULATOR_BCM283X) += bcm2835.o
+diff --git a/drivers/video/Kconfig b/drivers/video/Kconfig
+index eabd246..7ff67e5 100644
+--- a/drivers/video/Kconfig
++++ b/drivers/video/Kconfig
+@@ -82,11 +82,11 @@ config DRIVER_VIDEO_PXA
+ 	  Add support for the frame buffer device found on the PXA270
+ 	  CPU.
+ 
+-config DRIVER_VIDEO_BCM2835
+-	bool "BCM2835 framebuffer driver"
+-	depends on ARCH_BCM2835
++config DRIVER_VIDEO_BCM283X
++	bool "BCM283X framebuffer driver"
++	depends on ARCH_BCM283X
+ 	help
+-	  Add support for the BCM2835/VideoCore frame buffer device.
++	  Add support for the BCM283X/VideoCore frame buffer device.
+ 
+ source drivers/video/imx-ipu-v3/Kconfig
+ 
+diff --git a/drivers/video/Makefile b/drivers/video/Makefile
+index 57e4864..a64fc5f 100644
+--- a/drivers/video/Makefile
++++ b/drivers/video/Makefile
+@@ -17,6 +17,6 @@ obj-$(CONFIG_DRIVER_VIDEO_S3C24XX) += s3c24xx.o
+ obj-$(CONFIG_DRIVER_VIDEO_PXA) += pxa.o
+ obj-$(CONFIG_DRIVER_VIDEO_SDL) += sdl.o
+ obj-$(CONFIG_DRIVER_VIDEO_OMAP) += omap.o
+-obj-$(CONFIG_DRIVER_VIDEO_BCM2835) += bcm2835.o
++obj-$(CONFIG_DRIVER_VIDEO_BCM283X) += bcm2835.o
+ obj-$(CONFIG_DRIVER_VIDEO_SIMPLEFB) += simplefb.o
+ obj-$(CONFIG_DRIVER_VIDEO_IMX_IPUV3) += imx-ipu-v3/
+-- 
+2.6.1
+

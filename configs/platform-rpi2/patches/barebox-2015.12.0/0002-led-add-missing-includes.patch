@@ -1,0 +1,31 @@
+From 1c873527a04fa61f7a633e05249963820b12423f Mon Sep 17 00:00:00 2001
+From: Alexander Aring <alex.aring@gmail.com>
+Date: Sat, 19 Dec 2015 13:47:28 +0100
+Subject: [PATCH 2/7] led: add missing includes
+
+The led header use some parts which are missing when include the this
+header. This patch adds them.
+
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ include/led.h | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/include/led.h b/include/led.h
+index ddf8d90..000267c 100644
+--- a/include/led.h
++++ b/include/led.h
+@@ -1,7 +1,10 @@
+ #ifndef __LED_H
+ #define __LED_H
+ 
++#include <linux/list.h>
++
+ #include <errno.h>
++#include <of.h>
+ 
+ struct led {
+ 	void (*set)(struct led *, unsigned int value);
+-- 
+2.6.1
+

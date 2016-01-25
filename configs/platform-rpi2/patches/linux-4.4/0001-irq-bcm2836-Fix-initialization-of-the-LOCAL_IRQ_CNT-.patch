@@ -1,0 +1,66 @@
+From: Eric Anholt <eric@anholt.net>
+Date: Wed, 16 Dec 2015 12:25:00 -0800
+Subject: [PATCH] irq: bcm2836: Fix initialization of the LOCAL_IRQ_CNT*IRQ
+ timers
+
+The irqchip's register area includes the the setup for the timer's
+scaling factors, and for the platform we want a fixed configuration of
+these registers.
+
+Signed-off-by: Eric Anholt <eric@anholt.net>
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ drivers/irqchip/irq-bcm2836.c | 26 ++++++++++++++++++++++++++
+ 1 file changed, 26 insertions(+)
+
+diff --git a/drivers/irqchip/irq-bcm2836.c b/drivers/irqchip/irq-bcm2836.c
+index f68708281fcf..6ec125ef3607 100644
+--- a/drivers/irqchip/irq-bcm2836.c
++++ b/drivers/irqchip/irq-bcm2836.c
+@@ -21,6 +21,9 @@
+ #include <linux/irqdomain.h>
+ #include <asm/exception.h>
+ 
++#define LOCAL_CONTROL			0x000
++#define LOCAL_PRESCALER			0x008
++
+ /*
+  * The low 2 bits identify the CPU that the GPU IRQ goes to, and the
+  * next 2 bits identify the CPU that the GPU FIQ goes to.
+@@ -237,6 +240,27 @@ bcm2836_arm_irqchip_smp_init(void)
+ #endif
+ }
+ 
++/*
++ * The LOCAL_IRQ_CNT* timer firings are based off of the external
++ * oscillator with some scaling.  The firmware sets up CNTFRQ to
++ * report 19.2Mhz, but doesn't set up the scaling registers.
++ */
++static void bcm2835_init_local_timer_frequency(void)
++{
++	/*
++	 * Set the timer to source from the 19.2Mhz crystal clock (bit
++	 * 8 unset), and only increment by 1 instead of 2 (bit 9
++	 * unset).
++	 */
++	writel(0, intc.base + LOCAL_CONTROL);
++
++	/*
++	 * Set the timer prescaler to 1:1 (timer freq = input freq *
++	 * 2**31 / prescaler)
++	 */
++	writel(0x80000000, intc.base + LOCAL_PRESCALER);
++}
++
+ static int __init bcm2836_arm_irqchip_l1_intc_of_init(struct device_node *node,
+ 						      struct device_node *parent)
+ {
+@@ -246,6 +270,8 @@ static int __init bcm2836_arm_irqchip_l1_intc_of_init(struct device_node *node,
+ 			node->full_name);
+ 	}
+ 
++	bcm2835_init_local_timer_frequency();
++
+ 	intc.domain = irq_domain_add_linear(node, LAST_IRQ + 1,
+ 					    &bcm2836_arm_irqchip_intc_ops,
+ 					    NULL);

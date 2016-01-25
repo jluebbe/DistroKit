@@ -1,0 +1,28 @@
+From 07c89829ef06fbb72611abc5baf3189484e60946 Mon Sep 17 00:00:00 2001
+From: Alexander Aring <alex.aring@gmail.com>
+Date: Sat, 19 Dec 2015 13:45:00 +0100
+Subject: [PATCH 1/7] memtest: fix missing arguments in help string
+
+This patch adds some missing arguments in help string of memtest.
+
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ commands/memtest.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/commands/memtest.c b/commands/memtest.c
+index d784a5c..99d4864 100644
+--- a/commands/memtest.c
++++ b/commands/memtest.c
+@@ -191,7 +191,7 @@ BAREBOX_CMD_HELP_END
+ BAREBOX_CMD_START(memtest)
+ 	.cmd		= do_memtest,
+ 	BAREBOX_CMD_DESC("extensive memory test")
+-	BAREBOX_CMD_OPTS("[-ib]")
++	BAREBOX_CMD_OPTS("[-ibcut]")
+ 	BAREBOX_CMD_GROUP(CMD_GRP_MEM)
+ 	BAREBOX_CMD_HELP(cmd_memtest_help)
+ BAREBOX_CMD_END
+-- 
+2.6.1
+

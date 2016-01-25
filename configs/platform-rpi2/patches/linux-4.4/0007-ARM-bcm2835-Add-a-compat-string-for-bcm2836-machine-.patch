@@ -1,0 +1,30 @@
+From: Eric Anholt <eric@anholt.net>
+Date: Fri, 13 Mar 2015 10:18:06 -0700
+Subject: [PATCH] ARM: bcm2835: Add a compat string for bcm2836 machine probe
+
+Supporting the 2836 requires using the new interrupt controller, which
+we have support for.
+
+Signed-off-by: Eric Anholt <eric@anholt.net>
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ arch/arm/mach-bcm/board_bcm2835.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/arch/arm/mach-bcm/board_bcm2835.c b/arch/arm/mach-bcm/board_bcm2835.c
+index 0f7b9eac3d15..834d67684e20 100644
+--- a/arch/arm/mach-bcm/board_bcm2835.c
++++ b/arch/arm/mach-bcm/board_bcm2835.c
+@@ -36,7 +36,12 @@ static void __init bcm2835_init(void)
+ }
+ 
+ static const char * const bcm2835_compat[] = {
++#ifdef CONFIG_ARCH_MULTI_V6
+ 	"brcm,bcm2835",
++#endif
++#ifdef CONFIG_ARCH_MULTI_V7
++	"brcm,bcm2836",
++#endif
+ 	NULL
+ };
+ 

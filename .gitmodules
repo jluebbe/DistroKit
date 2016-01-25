@@ -7,6 +7,3 @@
 [submodule "configs/platform-pengutronix-raspberrypi"]
 	path = configs/platform-pengutronix-raspberrypi
 	url = ../platform-pengutronix-raspberrypi.git
-[submodule "configs/platform-pengutronix-i686-qemu"]
-	path = configs/platform-pengutronix-i686-qemu
-	url = ../platform-pengutronix-i686-qemu.git

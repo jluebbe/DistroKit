@@ -4,6 +4,3 @@
 [submodule "configs/platform-pengutronix-vexpress"]
 	path = configs/platform-pengutronix-vexpress
 	url = ../platform-pengutronix-vexpress.git
-[submodule "configs/platform-pengutronix-raspberrypi"]
-	path = configs/platform-pengutronix-raspberrypi
-	url = ../platform-pengutronix-raspberrypi.git

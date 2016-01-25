@@ -4,9 +4,17 @@ Raspberry Pi:
 Install the toolchain:
 
 $ aptitude install \
-  oselas.toolchain-2012.12.1-arm-1136jfs-linux-gnueabi-gcc-4.7.2-glibc-2.16.0-binutils-2.22-kernel-3.6-sanitized
+  oselas.toolchain-2014.12.1-arm-1136jfs-linux-gnueabihf-gcc-4.9.2-glibc-2.20-binutils-2.24-kernel-3.16-sanitized
+
+or visit [1] for manual installation.
 
 Select the platform:
 
 $ ptxdist platform \
-  configs/platform-pengutronix-raspberrypi/platformconfig
+  configs/platform-rpi/platformconfig
+
+References
+----------
+
+[1] OSELAS Toolchain
+    http://www.pengutronix.de/oselas/toolchain/

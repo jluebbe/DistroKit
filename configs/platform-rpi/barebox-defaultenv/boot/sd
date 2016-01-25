@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ "$1" = menu ]; then
+	boot-menu-add-entry "$0" "kernel & rootfs on SD card"
+	exit
+fi
+
+global.bootm.image="/boot/linuximage"
+global.bootm.oftree="/boot/bcm2835-rpi-b.dtb"
+global.linux.bootargs.dyn.root="root=/dev/mmcblk0p2 rootfstype=ext4 rootwait rw ptxdist-devel"
+

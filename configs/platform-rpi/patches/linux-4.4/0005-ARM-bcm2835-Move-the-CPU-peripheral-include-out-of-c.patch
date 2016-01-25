@@ -1,0 +1,68 @@
+From: Eric Anholt <eric@anholt.net>
+Date: Wed, 16 Dec 2015 14:43:52 -0800
+Subject: [PATCH] ARM: bcm2835: Move the CPU/peripheral include out of common
+ RPi DT.
+
+For Raspberry Pi 2, we want to use the same general pin assignment
+bits, but need to use bcm2836.dtsi for the CPU instead.
+
+Signed-off-by: Eric Anholt <eric@anholt.net>
+Signed-off-by: Alexander Aring <alex.aring@gmail.com>
+---
+ arch/arm/boot/dts/bcm2835-rpi-a-plus.dts | 1 +
+ arch/arm/boot/dts/bcm2835-rpi-b-plus.dts | 1 +
+ arch/arm/boot/dts/bcm2835-rpi-b-rev2.dts | 1 +
+ arch/arm/boot/dts/bcm2835-rpi-b.dts      | 1 +
+ arch/arm/boot/dts/bcm2835-rpi.dtsi       | 2 --
+ 5 files changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boot/dts/bcm2835-rpi-a-plus.dts b/arch/arm/boot/dts/bcm2835-rpi-a-plus.dts
+index b2bff43b135c..228614ffff44 100644
+--- a/arch/arm/boot/dts/bcm2835-rpi-a-plus.dts
++++ b/arch/arm/boot/dts/bcm2835-rpi-a-plus.dts
+@@ -1,4 +1,5 @@
+ /dts-v1/;
++#include "bcm2835.dtsi"
+ #include "bcm2835-rpi.dtsi"
+ 
+ / {
+diff --git a/arch/arm/boot/dts/bcm2835-rpi-b-plus.dts b/arch/arm/boot/dts/bcm2835-rpi-b-plus.dts
+index 668442b1bda5..ef5405025223 100644
+--- a/arch/arm/boot/dts/bcm2835-rpi-b-plus.dts
++++ b/arch/arm/boot/dts/bcm2835-rpi-b-plus.dts
+@@ -1,4 +1,5 @@
+ /dts-v1/;
++#include "bcm2835.dtsi"
+ #include "bcm2835-rpi.dtsi"
+ 
+ / {
+diff --git a/arch/arm/boot/dts/bcm2835-rpi-b-rev2.dts b/arch/arm/boot/dts/bcm2835-rpi-b-rev2.dts
+index eab8b5916e8a..86f1f2f598a7 100644
+--- a/arch/arm/boot/dts/bcm2835-rpi-b-rev2.dts
++++ b/arch/arm/boot/dts/bcm2835-rpi-b-rev2.dts
+@@ -1,4 +1,5 @@
+ /dts-v1/;
++#include "bcm2835.dtsi"
+ #include "bcm2835-rpi.dtsi"
+ 
+ / {
+diff --git a/arch/arm/boot/dts/bcm2835-rpi-b.dts b/arch/arm/boot/dts/bcm2835-rpi-b.dts
+index ff6b2d1c6c90..4859e9d81b23 100644
+--- a/arch/arm/boot/dts/bcm2835-rpi-b.dts
++++ b/arch/arm/boot/dts/bcm2835-rpi-b.dts
+@@ -1,4 +1,5 @@
+ /dts-v1/;
++#include "bcm2835.dtsi"
+ #include "bcm2835-rpi.dtsi"
+ 
+ / {
+diff --git a/arch/arm/boot/dts/bcm2835-rpi.dtsi b/arch/arm/boot/dts/bcm2835-rpi.dtsi
+index 3572f0367baf..3afb9fefe2d1 100644
+--- a/arch/arm/boot/dts/bcm2835-rpi.dtsi
++++ b/arch/arm/boot/dts/bcm2835-rpi.dtsi
+@@ -1,5 +1,3 @@
+-#include "bcm2835.dtsi"
+-
+ / {
+ 	memory {
+ 		reg = <0 0x10000000>;

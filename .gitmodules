@@ -10,6 +10,3 @@
 [submodule "configs/platform-pengutronix-i686-qemu"]
 	path = configs/platform-pengutronix-i686-qemu
 	url = ../platform-pengutronix-i686-qemu.git
-[submodule "configs/platform-pengutronix-beaglebone"]
-	path = configs/platform-pengutronix-beaglebone
-	url = ../platform-pengutronix-beaglebone.git

@@ -1,0 +1,20 @@
+Qemu:
+-----
+
+Install the toolchain:
+
+$ aptitude install \
+  oselas.toolchain-2014.12.1-i686-atom-linux-gnu-gcc-4.9.2-glibc-2.20-binutils-2.24-kernel-3.16-sanitized
+
+or visit [1] for manual installation.
+
+Select the platform:
+
+$ ptxdist platform \
+  configs/platform-qemu/platformconfig
+
+References
+----------
+
+[1] OSELAS Toolchain
+    http://www.pengutronix.de/oselas/toolchain/

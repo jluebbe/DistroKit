@@ -18,11 +18,11 @@ DistroKit is built with ptxdist. In order to install ptxdist, download
 the tarball from [2]:
 
 $ wget \
-  http://www.pengutronix.de/software/ptxdist/download/ptxdist-2013.05.0.tar.bz2
+  http://www.pengutronix.de/software/ptxdist/download/ptxdist-2016.01.0.tar.bz2
 
 Extract the tarball:
 
-$ tar xf ptxdist-2013.05.0 && cd ptxdist-2013.05.0
+$ tar xf ptxdist-2016.01.0 && cd ptxdist-2016.01.0
 
 Go to the extracted directory and run
 
@@ -58,7 +58,7 @@ Building DistroKit
 
 Now everything is prepared to build the BSP:
 
-$ ptxdist go
+$ ptxdist images
 
 PTXdist determines the number of CPUs on your computer and runs the
 compiler with <twice the number of CPUs> instances in parallel.

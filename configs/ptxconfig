@@ -16,7 +16,7 @@
 #
 PTXCONF_PROJECT_VENDOR="Pengutronix"
 PTXCONF_PROJECT="DistroKit"
-PTXCONF_PROJECT_VERSION="-2013.05.0"
+PTXCONF_PROJECT_VERSION="-${PTXDIST_BSP_AUTOVERSION}"
 
 #
 # ------------------------------------

@@ -1,6 +1,3 @@
-[submodule "configs/platform-pengutronix-versatilepb"]
-	path = configs/platform-pengutronix-versatilepb
-	url = ../platform-pengutronix-versatilepb.git
 [submodule "configs/platform-pengutronix-vexpress"]
 	path = configs/platform-pengutronix-vexpress
 	url = ../platform-pengutronix-vexpress.git

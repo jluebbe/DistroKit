@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+# For some information about how to work with qemu for ARM, please
+# refer: http://fedoraproject.org/wiki/Architectures/ARM/HowToQemu
+
+. $(dirname $0)/qemu-common
+
+# do the job
+${QEMU_EXEC} ${QEMU_NOGRAPHIC} \
+	-M ${QEMU_MACHINE} \
+	-m 1024 \
+	-no-reboot \
+	-net nic,vlan=1 \
+	${QEMU_NET} \
+	${QEMU_REDIR} \
+	-kernel ${PTXDIST_PLATFORMDIR}/images/linuximage \
+	-dtb ${PTXDIST_PLATFORMDIR}/images/vexpress-v2p-ca9.dtb \
+	-drive if=sd,file=${PTXDIST_PLATFORMDIR}/images/hd.img,format=raw \
+	-smp 1 \
+	-append "console=ttyAMA0 root=/dev/mmcblk0p2 rootfs=ext2 rw mem=1024M rootwait loglevel=5 rootfstype=ext4 systemd.log_level=warning systemd.show_status=auto"
+

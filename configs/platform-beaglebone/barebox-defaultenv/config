@@ -16,4 +16,4 @@ global.autoboot_timeout=3
 global.boot.default=sd
 
 # base bootargs
-global.linux.bootargs.base="console=ttyO0,115200n8"
+global.linux.bootargs.base="loglevel=5"

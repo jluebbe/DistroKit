@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_BONEBLACK
+	tristate
+	prompt "/loader/entries/boneblack.conf bootloader spec entry"

@@ -1,0 +1,5 @@
+## SECTION=project_specific
+
+config DATAPARTITION
+	tristate
+	default y

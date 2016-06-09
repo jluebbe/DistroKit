@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_RPI2
+	tristate
+	prompt "/loader/entries/rpi2.conf bootloader spec entry"

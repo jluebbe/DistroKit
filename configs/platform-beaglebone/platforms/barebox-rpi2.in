@@ -1,0 +1,7 @@
+## SECTION=bootloader
+
+config BAREBOX_RPI2
+	tristate
+	prompt "Barebox (rpi2)"
+	help
+	  Raspberry Pi 2 support for barebox.

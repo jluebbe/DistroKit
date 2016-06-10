@@ -10,7 +10,7 @@ global.allow_color=true
 global.user=none
 
 # timeout in seconds before the default boot entry is started
-global.autoboot_timeout=3
+global.autoboot_timeout=0
 
 # default boot entry (one of /env/boot/*)
 global.boot.default=sd

@@ -1,0 +1,43 @@
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Mon, 20 Jul 2015 20:44:00 +0200
+Subject: [PATCH] bootstate: Add kernel option containing the system that is
+ started
+
+This is useful to allow the userspace to determine which system
+is actually started without dissecting the root= option.
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+ common/bootstate.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/common/bootstate.c b/common/bootstate.c
+index 3dc18813064d..b0cb0183068a 100644
+--- a/common/bootstate.c
++++ b/common/bootstate.c
+@@ -753,12 +753,16 @@ int bootstate_bootchooser(char *name, unsigned flags, unsigned timeout)
+	}
+
+	while (true) {
+-		char *cmd;
++		char *cmd, *system;
+
+		ret = bootstate_get_target(bootstate, flags, &target);
+		if (ret)
+			return ret;
+
++		system = asprintf("bootstate.active=%s", target);
++		globalvar_add_simple("linux.bootargs.bootchooser", system);
++		free(system);
++
+		cmd = asprintf("boot %s", target);
+		free(target);
+		pr_info("%srunning: %s...\n",
+@@ -766,6 +770,7 @@ int bootstate_bootchooser(char *name, unsigned flags, unsigned timeout)
+		if (!(flags & BOOTCHOOSER_FLAG_DRYRUN))
+			ret = run_command(cmd);
+		free(cmd);
++		globalvar_set_match("linux.bootargs.bootchooser", NULL);
+
+		if (flags & BOOTCHOOSER_FLAG_RETRY_WITH_DEC) {
+			flags |= BOOTCHOOSER_FLAG_ATTEMPTS_DEC;

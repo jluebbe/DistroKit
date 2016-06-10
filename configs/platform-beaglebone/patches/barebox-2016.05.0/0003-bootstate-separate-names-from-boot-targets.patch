@@ -1,0 +1,63 @@
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Thu, 23 Jul 2015 16:42:18 +0200
+Subject: [PATCH] bootstate: separate names from boot targets
+
+The name of a boot target and the device or script to boot may be two
+different things. Allow a 'boot' property in the boot targets.
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+ common/bootstate.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
+
+diff --git a/common/bootstate.c b/common/bootstate.c
+index b0cb0183068a..fde278262fa3 100644
+--- a/common/bootstate.c
++++ b/common/bootstate.c
+@@ -75,6 +75,7 @@ struct bootstate_target {
+	/* spec */
+	const char *name;
+	unsigned int default_attempts;
++	const char *boot;
+ };
+
+ static void pr_target(struct bootstate *bootstate, struct bootstate_target *target)
+@@ -205,7 +206,7 @@ static struct bootstate_target *bootstate_target_find(const struct bootstate *bo
+	return ERR_PTR(-ENOENT);
+ }
+
+-static int bootstate_target_from_node(struct bootstate *bootstate, const struct device_node *node, bool create)
++static int bootstate_target_from_node(struct bootstate *bootstate, struct device_node *node, bool create)
+ {
+	struct bootstate_target *target;
+	char *name, *indexs;
+@@ -217,10 +218,18 @@ static int bootstate_target_from_node(struct bootstate *bootstate, const struct
+		*indexs++ = 0;
+
+	if (create) {
++		const char *boot;
++
+		/* create*/
+		target = xzalloc(sizeof(*target));
+
+		target->name = xstrdup(name);
++
++		if (!of_property_read_string(node, "boot", &boot))
++			target->boot = xstrdup(boot);
++		else
++			target->boot = xstrdup(name);
++
+		list_add_tail(&target->list, &bootstate->targets);
+		list_add_tail(&target->list_unsorted,
+			      &bootstate->targets_unsorted);
+@@ -701,8 +710,9 @@ int bootstate_get_target(struct bootstate *bootstate, unsigned flags, char **tar
+		}
+
+		found = true;
+-		*target_out = strdup(target->name);
+-		pr_debug("%s: selected target '%s'\n", __func__, target->name);
++		*target_out = strdup(target->boot);
++		pr_debug("%s: selected target '%s', boot '%s'\n",
++				__func__, target->name, target->boot);
+		if (!v)
+			goto out;

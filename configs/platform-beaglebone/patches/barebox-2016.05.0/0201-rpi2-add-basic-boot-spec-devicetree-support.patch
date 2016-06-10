@@ -21,7 +21,7 @@ index b83c1109ef39..960d8aac3933 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
 @@ -9,6 +9,7 @@ obj- += dummy.o
- 
+
  pbl-dtb-$(CONFIG_MACH_AFI_GF) += am335x-afi-gf.dtb.o
  pbl-dtb-$(CONFIG_MACH_BEAGLEBONE) += am335x-bone.dtb.o am335x-boneblack.dtb.o am335x-bone-common.dtb.o
 +pbl-dtb-$(CONFIG_MACH_RPI2) += bcm2836-rpi-2-b.dtb.o
@@ -442,21 +442,21 @@ index 64f37813883a..f11221dd6685 100644
 --- a/arch/arm/mach-bcm283x/core.c
 +++ b/arch/arm/mach-bcm283x/core.c
 @@ -42,15 +42,17 @@ static int bcm2835_clk_init(void)
- 
- 	clk = clk_fixed("uart0-pl0110", 3 * 1000 * 1000);
- 	clk_register_clkdev(clk, NULL, "uart0-pl0110");
+
+	clk = clk_fixed("uart0-pl0110", 3 * 1000 * 1000);
+	clk_register_clkdev(clk, NULL, "uart0-pl0110");
 +	clk_register_clkdev(clk, NULL, "3f201000.uart");
- 
- 	clk = clk_fixed("bcm2835-cs", 1 * 1000 * 1000);
- 	clk_register_clkdev(clk, NULL, "bcm2835-cs");
+
+	clk = clk_fixed("bcm2835-cs", 1 * 1000 * 1000);
+	clk_register_clkdev(clk, NULL, "bcm2835-cs");
 +	clk_register_clkdev(clk, NULL, "3f003000.timer");
- 
- 	add_generic_device("bcm2835-cs", DEVICE_ID_SINGLE, NULL, BCM2835_ST_BASE, 0x1C, IORESOURCE_MEM, NULL);
- 
- 	return 0;
+
+	add_generic_device("bcm2835-cs", DEVICE_ID_SINGLE, NULL, BCM2835_ST_BASE, 0x1C, IORESOURCE_MEM, NULL);
+
+	return 0;
  }
 -postcore_initcall(bcm2835_clk_init);
 +pure_initcall(bcm2835_clk_init);
- 
+
  void bcm2835_register_uart(void)
  {

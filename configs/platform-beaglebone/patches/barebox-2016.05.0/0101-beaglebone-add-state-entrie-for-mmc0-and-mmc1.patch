@@ -1,0 +1,35 @@
+From: Michael Grzeschik <m.grzeschik@pengutronix.de>
+Date: Fri, 10 Jun 2016 14:02:30 +0200
+Subject: [PATCH] beaglebone: add state entrie for mmc0 and mmc1
+
+Signed-off-by: Michael Grzeschik <m.grzeschik@pengutronix.de>
+---
+ arch/arm/dts/am335x-bone-common.dtsi | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/arch/arm/dts/am335x-bone-common.dtsi b/arch/arm/dts/am335x-bone-common.dtsi
+index ef97d906616c..d14c6ded6a55 100644
+--- a/arch/arm/dts/am335x-bone-common.dtsi
++++ b/arch/arm/dts/am335x-bone-common.dtsi
+@@ -11,6 +11,21 @@
+		linux,stdout-path = &uart0;
+	};
+
++	bootstate: bootstate {
++		compatible = "barebox,bootstate";
++		backend-type = "nv";
++
++		system0 {
++			default_attempts = <3>;
++			boot = "mmc0";
++		};
++
++		system1 {
++			default_attempts = <3>;
++			boot = "mmc1";
++		};
++	};
++
+	cpus {
+		cpu@0 {
+			cpu0-supply = <&dcdc2_reg>;

@@ -275,12 +275,12 @@ index 2595aa13fa62..e2bc8f76c2e3 100644
 +++ b/arch/sandbox/dts/sandbox.dts
 @@ -3,5 +3,88 @@
  #include "skeleton.dtsi"
-
+ 
  / {
 +	aliases {
 +		state = &state;
 +	};
-
+ 
 +	state: state {
 +		magic = <0x4d433230>;
 +		compatible = "barebox,state";
@@ -367,9 +367,9 @@ index 875c5f4f01ed..603e887b15ec 100644
 --- a/commands/Kconfig
 +++ b/commands/Kconfig
 @@ -2189,6 +2189,11 @@ config CMD_SPD_DECODE
-	help
-	  decode spd eeprom
-
+ 	help
+ 	  decode spd eeprom
+ 
 +config CMD_BOOTCHOOSER
 +	tristate
 +	depends on BOOTSTATE
@@ -377,7 +377,7 @@ index 875c5f4f01ed..603e887b15ec 100644
 +
  # end Miscellaneous commands
  endmenu
-
+ 
 diff --git a/commands/Makefile b/commands/Makefile
 index f1b482f04934..bb3b40809af5 100644
 --- a/commands/Makefile
@@ -499,9 +499,9 @@ index 7c09e8c117f1..f17769661ee6 100644
 --- a/common/Kconfig
 +++ b/common/Kconfig
 @@ -792,6 +792,14 @@ config STATE_CRYPTO
-	  See Documentation/devicetree/bindings/barebox/barebox,state.rst
-	  for more information.
-
+ 	  See Documentation/devicetree/bindings/barebox/barebox,state.rst
+ 	  for more information.
+ 
 +config BOOTSTATE
 +	bool "bootstate infrastructure"
 +	depends on OF_BAREBOX_DRIVERS
@@ -511,8 +511,8 @@ index 7c09e8c117f1..f17769661ee6 100644
 +	select BOOTSTATE_DRV
 +
  config RESET_SOURCE
-	bool "detect Reset cause"
-	depends on GLOBALVAR
+ 	bool "detect Reset cause"
+ 	depends on GLOBALVAR
 diff --git a/common/Makefile b/common/Makefile
 index d99ca7b7ac74..5505449874ad 100644
 --- a/common/Makefile
@@ -1317,9 +1317,9 @@ index 7a5b14697efd..2459051e1db1 100644
 --- a/drivers/misc/Kconfig
 +++ b/drivers/misc/Kconfig
 @@ -19,4 +19,9 @@ config STATE_DRV
-	tristate "state driver"
-	depends on STATE
-
+ 	tristate "state driver"
+ 	depends on STATE
+ 
 +config BOOTSTATE_DRV
 +	tristate "bootstate driver"
 +	depends on BOOTSTATE

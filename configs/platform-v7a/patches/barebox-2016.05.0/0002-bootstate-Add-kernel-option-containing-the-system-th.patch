@@ -16,28 +16,28 @@ index 3dc18813064d..b0cb0183068a 100644
 --- a/common/bootstate.c
 +++ b/common/bootstate.c
 @@ -753,12 +753,16 @@ int bootstate_bootchooser(char *name, unsigned flags, unsigned timeout)
-	}
-
-	while (true) {
+ 	}
+ 
+ 	while (true) {
 -		char *cmd;
 +		char *cmd, *system;
-
-		ret = bootstate_get_target(bootstate, flags, &target);
-		if (ret)
-			return ret;
-
+ 
+ 		ret = bootstate_get_target(bootstate, flags, &target);
+ 		if (ret)
+ 			return ret;
+ 
 +		system = asprintf("bootstate.active=%s", target);
 +		globalvar_add_simple("linux.bootargs.bootchooser", system);
 +		free(system);
 +
-		cmd = asprintf("boot %s", target);
-		free(target);
-		pr_info("%srunning: %s...\n",
+ 		cmd = asprintf("boot %s", target);
+ 		free(target);
+ 		pr_info("%srunning: %s...\n",
 @@ -766,6 +770,7 @@ int bootstate_bootchooser(char *name, unsigned flags, unsigned timeout)
-		if (!(flags & BOOTCHOOSER_FLAG_DRYRUN))
-			ret = run_command(cmd);
-		free(cmd);
+ 		if (!(flags & BOOTCHOOSER_FLAG_DRYRUN))
+ 			ret = run_command(cmd);
+ 		free(cmd);
 +		globalvar_set_match("linux.bootargs.bootchooser", NULL);
-
-		if (flags & BOOTCHOOSER_FLAG_RETRY_WITH_DEC) {
-			flags |= BOOTCHOOSER_FLAG_ATTEMPTS_DEC;
+ 
+ 		if (flags & BOOTCHOOSER_FLAG_RETRY_WITH_DEC) {
+ 			flags |= BOOTCHOOSER_FLAG_ATTEMPTS_DEC;

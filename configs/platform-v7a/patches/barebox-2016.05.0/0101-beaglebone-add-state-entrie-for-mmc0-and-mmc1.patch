@@ -12,9 +12,9 @@ index ef97d906616c..d14c6ded6a55 100644
 --- a/arch/arm/dts/am335x-bone-common.dtsi
 +++ b/arch/arm/dts/am335x-bone-common.dtsi
 @@ -11,6 +11,21 @@
-		linux,stdout-path = &uart0;
-	};
-
+ 		linux,stdout-path = &uart0;
+ 	};
+ 
 +	bootstate: bootstate {
 +		compatible = "barebox,bootstate";
 +		backend-type = "nv";
@@ -30,6 +30,6 @@ index ef97d906616c..d14c6ded6a55 100644
 +		};
 +	};
 +
-	cpus {
-		cpu@0 {
-			cpu0-supply = <&dcdc2_reg>;
+ 	cpus {
+ 		cpu@0 {
+ 			cpu0-supply = <&dcdc2_reg>;

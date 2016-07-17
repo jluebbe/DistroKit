@@ -12,9 +12,9 @@ index fde278262fa3..2dcc47cfa257 100644
 --- a/common/bootstate.c
 +++ b/common/bootstate.c
 @@ -631,20 +631,8 @@ void _pr_flags(struct bootstate *bootstate, unsigned flags)
-		(verbose) ? _pr_flags(bootstate, flags) : 0; \
-	})
-
+ 		(verbose) ? _pr_flags(bootstate, flags) : 0; \
+ 	})
+ 
 -/*
 - * bootstate_get_target - create a new state instance from a device_node
 - *
@@ -32,29 +32,29 @@ index fde278262fa3..2dcc47cfa257 100644
 +static struct bootstate_target *bootstate_target_get(struct bootstate *bootstate,
 +		unsigned flags)
  {
-	struct bootstate_target *target;
-	int ret;
+ 	struct bootstate_target *target;
+ 	int ret;
 @@ -655,7 +643,7 @@ int bootstate_get_target(struct bootstate *bootstate, unsigned flags, char **tar
-
-	ret = bootstate_load(bootstate);
-	if (ret)
+ 
+ 	ret = bootstate_load(bootstate);
+ 	if (ret)
 -		return ret;
 +		return ERR_PTR(ret);
-
-	if (flags & BOOTCHOOSER_FLAG_ATTEMPTS_RESET) {
-		list_for_each_entry(target, &bootstate->targets, list) {
+ 
+ 	if (flags & BOOTCHOOSER_FLAG_ATTEMPTS_RESET) {
+ 		list_for_each_entry(target, &bootstate->targets, list) {
 @@ -710,7 +698,6 @@ int bootstate_get_target(struct bootstate *bootstate, unsigned flags, char **tar
-		}
-
-		found = true;
+ 		}
+ 
+ 		found = true;
 -		*target_out = strdup(target->boot);
-		pr_debug("%s: selected target '%s', boot '%s'\n",
-				__func__, target->name, target->boot);
-		if (!v)
+ 		pr_debug("%s: selected target '%s', boot '%s'\n",
+ 				__func__, target->name, target->boot);
+ 		if (!v)
 @@ -723,7 +710,33 @@ int bootstate_get_target(struct bootstate *bootstate, unsigned flags, char **tar
-	bootstate_save(bootstate);
-
-	if (!found)
+ 	bootstate_save(bootstate);
+ 
+ 	if (!found)
 -		return -ENOENT;
 +		return ERR_PTR(-ENOENT);
 +
@@ -83,37 +83,37 @@ index fde278262fa3..2dcc47cfa257 100644
 +		return PTR_ERR(target);
 +
 +	*target_out = strdup(target->boot);
-
-	return 0;
+ 
+ 	return 0;
  }
 @@ -732,7 +745,7 @@ int bootstate_bootchooser(char *name, unsigned flags, unsigned timeout)
  {
-	struct bootstate *bootstate;
-	bool v = flags & BOOTCHOOSER_FLAG_VERBOSE;
+ 	struct bootstate *bootstate;
+ 	bool v = flags & BOOTCHOOSER_FLAG_VERBOSE;
 -	char *target;
 +	struct bootstate_target *target;
-	int ret;
-
-	if (!name)
+ 	int ret;
+ 
+ 	if (!name)
 @@ -765,16 +778,15 @@ int bootstate_bootchooser(char *name, unsigned flags, unsigned timeout)
-	while (true) {
-		char *cmd, *system;
-
+ 	while (true) {
+ 		char *cmd, *system;
+ 
 -		ret = bootstate_get_target(bootstate, flags, &target);
 -		if (ret)
 -			return ret;
 +		target = bootstate_target_get(bootstate, flags);
 +		if (IS_ERR(target))
 +			return PTR_ERR(target);
-
+ 
 -		system = asprintf("bootstate.active=%s", target);
 +		system = asprintf("bootstate.active=%s", target->name);
-		globalvar_add_simple("linux.bootargs.bootchooser", system);
-		free(system);
-
+ 		globalvar_add_simple("linux.bootargs.bootchooser", system);
+ 		free(system);
+ 
 -		cmd = asprintf("boot %s", target);
 -		free(target);
 +		cmd = asprintf("boot %s", target->boot);
-		pr_info("%srunning: %s...\n",
-			flags & BOOTCHOOSER_FLAG_DRYRUN ? "not " : "", cmd);
-		if (!(flags & BOOTCHOOSER_FLAG_DRYRUN))
+ 		pr_info("%srunning: %s...\n",
+ 			flags & BOOTCHOOSER_FLAG_DRYRUN ? "not " : "", cmd);
+ 		if (!(flags & BOOTCHOOSER_FLAG_DRYRUN))

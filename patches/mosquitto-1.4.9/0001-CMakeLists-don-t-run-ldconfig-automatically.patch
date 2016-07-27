@@ -1,0 +1,52 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Thu, 9 Jun 2016 16:04:59 +0200
+Subject: [PATCH] CMakeLists: don't run ldconfig automatically
+
+When cross building, this code starts ldconfig on the development
+machine, which is pretty useless and even wrong. Running ldconfig should
+be a manual task, so remove the automatic calls.
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ lib/CMakeLists.txt     | 4 ----
+ lib/cpp/CMakeLists.txt | 4 ----
+ src/CMakeLists.txt     | 5 -----
+ 3 files changed, 13 deletions(-)
+
+diff --git a/lib/CMakeLists.txt b/lib/CMakeLists.txt
+index d9163991b6cc..e5f8d671de2a 100644
+--- a/lib/CMakeLists.txt
++++ b/lib/CMakeLists.txt
+@@ -72,7 +72,3 @@ set_target_properties(libmosquitto PROPERTIES
+ 
+ install(TARGETS libmosquitto RUNTIME DESTINATION "${BINDIR}" LIBRARY DESTINATION "${LIBDIR}")
+ install(FILES mosquitto.h DESTINATION "${INCLUDEDIR}")
+-
+-if (UNIX)
+-	install(CODE "EXEC_PROGRAM(/sbin/ldconfig)")
+-endif (UNIX)
+diff --git a/lib/cpp/CMakeLists.txt b/lib/cpp/CMakeLists.txt
+index b80dc181fa31..9deb2b7102c2 100644
+--- a/lib/cpp/CMakeLists.txt
++++ b/lib/cpp/CMakeLists.txt
+@@ -12,7 +12,3 @@ set_target_properties(mosquittopp PROPERTIES
+ )
+ install(TARGETS mosquittopp RUNTIME DESTINATION "${BINDIR}" LIBRARY DESTINATION "${LIBDIR}")
+ install(FILES mosquittopp.h DESTINATION "${INCLUDEDIR}")
+-
+-if (UNIX)
+-	install(CODE "EXEC_PROGRAM(/sbin/ldconfig)")
+-endif (UNIX)
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 0008e5551bcf..1dfa602d2e6c 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -125,8 +125,3 @@ if (${WITH_TLS} STREQUAL ON)
+ 	target_link_libraries(mosquitto_passwd "${OPENSSL_LIBRARIES}")
+ 	install(TARGETS mosquitto_passwd RUNTIME DESTINATION "${BINDIR}" LIBRARY DESTINATION "${LIBDIR}")
+ endif (${WITH_TLS} STREQUAL ON)
+-
+-if (UNIX)
+-	install(CODE "EXEC_PROGRAM(/sbin/ldconfig)")
+-endif (UNIX)
+-

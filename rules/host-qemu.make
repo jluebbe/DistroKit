@@ -18,8 +18,8 @@ HOST_PACKAGES-$(PTXCONF_HOST_QEMU) += host-qemu
 #
 # Paths and names
 #
-HOST_QEMU_VERSION	:= 2.4.1
-HOST_QEMU_MD5		:= a895e93ec1dafc34bc64ed676f0d55a6
+HOST_QEMU_VERSION	:= 2.6.0
+HOST_QEMU_MD5		:= ca3f70b43f093e33e9e014f144067f13
 HOST_QEMU		:= qemu-$(HOST_QEMU_VERSION)
 HOST_QEMU_SUFFIX	:= tar.bz2
 HOST_QEMU_URL		:= http://wiki.qemu.org/download/$(HOST_QEMU).$(HOST_QEMU_SUFFIX)
@@ -34,7 +34,15 @@ HOST_QEMU_DIR		:= $(HOST_BUILDDIR)/$(HOST_QEMU)
 # autoconf
 #
 
-HOST_QEMU_TARGETS	:= $(call ptx/ifdef, PTXCONF_ARCH_X86,i386,$(call ptx/ifdef, PTXCONF_ARCH_ARM64,aarch64,$(PTXCONF_ARCH_STRING)))
+HOST_QEMU_TARGETS	:= $(PTXCONF_ARCH_STRING)
+ifndef PTXCONF_ARCH_X86_64
+ifdef PTXCONF_ARCH_X86
+HOST_QEMU_TARGETS	:= i386
+endif
+endif
+ifdef PTXCONF_ARCH_ARM64
+HOST_QEMU_TARGETS	:= aarch64
+endif
 HOST_QEMU_SYS_TARGETS	:= $(patsubst %,%-softmmu,$(HOST_QEMU_TARGETS))
 HOST_QEMU_USR_TARGETS	:= $(patsubst %,%-linux-user,$(HOST_QEMU_TARGETS))
 
@@ -54,7 +62,6 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-user \
 	--$(call ptx/endis, PTXCONF_HOST_QEMU_USR)-linux-user \
 	--disable-bsd-user \
-	--enable-guest-base \
 	--disable-docs \
 	--disable-guest-agent \
 	--disable-guest-agent-msi \
@@ -63,20 +70,22 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-debug-info \
 	--disable-sparse \
 	--disable-gnutls \
+	--disable-nettle \
+	--disable-gcrypt \
 	--disable-sdl \
 	--disable-qom-cast-debug \
 	--disable-gtk \
 	--disable-vte \
 	--disable-curses \
 	--disable-vnc \
-	--disable-vnc-tls \
 	--disable-vnc-sasl \
 	--disable-vnc-jpeg \
 	--disable-vnc-png \
 	--disable-cocoa \
-	--disable-virtfs \
+	--enable-virtfs \
 	--disable-xen \
 	--disable-xen-pci-passthrough \
+	--disable-xen-pv-domain-build \
 	--disable-brlapi \
 	--disable-curl \
 	--enable-fdt \
@@ -94,7 +103,7 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-rbd \
 	--disable-libiscsi \
 	--disable-libnfs \
-	--disable-smartcard-nss \
+	--disable-smartcard \
 	--enable-libusb \
 	--disable-usb-redir \
 	--disable-lzo \
@@ -109,21 +118,28 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-vhdx \
 	--disable-numa \
 	--disable-tcmalloc \
-	--disable-tools
+	--disable-jemalloc \
+	--disable-tools \
+	\
+	--with-system-pixman
+
+QEMU_CROSS_DL = $(shell ptxd_cross_cc_v |sed -n -e 's/.* -dynamic-linker \([^ ]*\).*/\1/p')
+QEMU_CROSS_LD_LIBRARY_PATH := $(PTXDIST_SYSROOT_TOOLCHAIN)/lib:$(SYSROOT)/$(CROSS_LIB_DIR):$(SYSROOT)/usr/$(CROSS_LIB_DIR)
 
 $(STATEDIR)/host-qemu.install.post:
 	@$(call targetinfo)
 	@$(call world/install.post, HOST_QEMU)
 ifdef PTXCONF_HOST_QEMU_USR
-	@echo -e '#!/bin/sh\nexec $(PTXDIST_SYSROOT_HOST)/bin/qemu-$(HOST_QEMU_TARGETS) -L $(PTXDIST_SYSROOT_TOOLCHAIN) -E LD_LIBRARY_PATH=$(PTXDIST_SYSROOT_TOOLCHAIN)/lib:$(SYSROOT)/$(CROSS_LIB_DIR):$(SYSROOT)/usr/$(CROSS_LIB_DIR) "$${@}"' > $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross
+	@echo -e '#!/bin/sh\nexec $(PTXDIST_SYSROOT_HOST)/bin/qemu-$(HOST_QEMU_TARGETS) -L $(PTXDIST_SYSROOT_TOOLCHAIN) -E LD_LIBRARY_PATH=$(QEMU_CROSS_LD_LIBRARY_PATH) "$${@}"' > $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross
 	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross
+	@install -d -m 755 $(PTXDIST_SYSROOT_CROSS)/bin/qemu/
 	@sed \
-		-e 's|RTLDLIST=/lib|RTLDLIST=$(PTXDIST_SYSROOT_TOOLCHAIN)/lib|'\
+		-e 's|RTLDLIST=.*|RTLDLIST="$(PTXDIST_SYSROOT_TOOLCHAIN)$(QEMU_CROSS_DL)"|' \
 		-e 's|eval $$add_env|eval $(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross -E "$${add_env// /,}"|' \
 		-e 's|verify_out=`|verify_out=`$(PTXDIST_SYSROOT_CROSS)/bin/qemu-cross |' \
 		-e 's|#! */.*$$|#!$(shell readlink $(PTXDIST_TOPDIR)/bin/bash)|' \
-		$(PTXDIST_SYSROOT_TOOLCHAIN)/usr/bin/ldd > $(PTXDIST_SYSROOT_CROSS)/bin/ldd-cross
-	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/ldd-cross
+		$(PTXDIST_SYSROOT_TOOLCHAIN)/usr/bin/ldd > $(PTXDIST_SYSROOT_CROSS)/bin/qemu/ldd
+	@chmod +x $(PTXDIST_SYSROOT_CROSS)/bin/qemu/ldd
 endif
 	@$(call touch)
 

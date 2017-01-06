@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_GF
+	tristate
+	prompt "/loader/entries/gf.conf bootloader spec entry"

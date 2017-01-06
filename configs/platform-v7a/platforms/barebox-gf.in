@@ -1,0 +1,20 @@
+## SECTION=bootloader
+
+config BAREBOX_GF
+	tristate
+	prompt "Barebox (gf)"
+	select HOST_LZOP if BAREBOX_GF_NEEDS_HOST_LZOP
+	help
+	  Gute Fee support for barebox.
+
+if BAREBOX_GF
+
+config BAREBOX_GF_NEEDS_HOST_LZOP
+	prompt "barebox gf needs lzop"
+	bool
+	help
+	  The barebox gf can be compressed. Select this if lzop
+	  is used in order to compile lzop for your development
+	  host.
+
+endif

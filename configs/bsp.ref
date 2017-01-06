@@ -1,0 +1,21 @@
+includes:
+  - file: ptxdist.ref
+ptxdist_toolchain_hardening:
+  history:
+    ptxdist.ref:
+      description: >
+        All toolchain hardening options should be enabled.
+      analyzer: >
+        kconfig.PTXPlatformConfig().enabled
+      present:
+      - TARGET_HARDEN_BINDNOW
+      - TARGET_HARDEN_FORTIFY
+      - TARGET_HARDEN_PIE
+      - TARGET_HARDEN_RELRO
+      optional:
+      - '*'
+      absent:
+      - TARGET_HARDEN_STACK_NONE
+  absent:
+  - TARGET_HARDEN_PIE
+# vim: syntax=yaml

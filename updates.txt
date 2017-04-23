@@ -1,62 +1,33 @@
-[x] glib 2.48.0 -> 2.48.1
-[x] blspec-boneblack
-[x] blspec-bonewhite 
-[x] base
-[x] os-release
-[x] networkmanager
-[x] libtasn1 4.1
-[x] rc-once 
-[x] zlib 1.2.8
-[x] libusb 
-[x] kernel-header
-[x] libffi 
-[x] libpcre 
-[x] nettle 2.7.1 -> 3.2
-[x] gnutls 3.3.13 -> 3.5.0
-[x] gnutls 3.3.13 -> 3.5.0
-[x] xz 5.0.4 -> 5.2.2
-[x] htop 2.0.1
-[x] libblkid -> aus util-linux
-[x] util-linux-ng 
+# done
+[x] xz 5.2.2 -> 5.2.3
+[x] libtasn1 4.8 -> 4.9
+[x] htop 2.0.1 -> 2.0.2
+[x] libusb 1.0.18 -> 1.0.21
+[x] dbus 1.10.14 -> 1.10.18
+[x] libkmod 22 -> 24
+[x] libpcre 8.39 -> 8.40
+[x] libnl3 3.2.28 -> 3.2.29
+[x] libndp 1.4 -> 1.6
 
-[ ] gdbserver 
-[ ] dbus 1.10.8, 1.11.2
-[ ] libcap 2.25
-[ ] e2fsprogs 1.43.1
+# release is almost finished, wait for final 1.8 release
+[ ] networkmanager 1.6.2 (stable) -> 1.7.2 (snapshot)? # libgudev+libsoup dependency will be dropped
+[ ] libsoup 2.48.0 -> 2.58.0
+[ ] libgudev 230 -> 231
 
-[ ] libkmod 
-[ ] libgudev 
-[ ] ncurses 
-[ ] barebox_mlo 
-[ ] openssh 
-[ ] openssl 
-[ ] initmethod-systemd 
-[ ] libnl3 
-[ ] systemd 
-[ ] libndp 
-[ ] machine-id 
-[ ] expat 
-[ ] libuuid 
-[ ] libgpg-error 
-[ ] udev 
-[ ] libgmp 
-[ ] less 
-[ ] kernel 
-[ ] dtc 
-[ ] host-system-perl 
-[ ] slang 
-[ ] libc 
-[ ] readline 
-[ ] procps 
-[ ] usbutils 
-[ ] libnewt 
-[ ] libpopt 
-[ ] busybox 
-[ ] rootfs 
-[ ] glibc 
-[ ] strace 
-[ ] barebox 
-[ ] libgcrypt
-[ ] datapartition 
-[ ] gcclibs 
-[ ] iproute2  
+# more work
+[ ] ncurses 5.9 -> 6.0 # Patch muss portiert werden
+
+# not checked yet
+[ ] gnutls 3.3.25 -> 3.3.27
+[ ] expat 2.1.1 -> 2.2.0
+[ ] libgmp 6.0.0a -> 6.1.2
+[ ] i2c-tools 3.1.2 -> 3.4.0
+[ ] slang 2.3.0 -> 2.3.1a
+[ ] libseccomp 2.3.1 -> 2.3.2
+[ ] readline 6.2 -> 7.0
+[ ] usbutils 007 -> 008
+[ ] libnewt 0.52.18 -> 0.52.20
+[ ] libpopt 1.15 -> 1.16
+[ ] strace 4.14 -> 4.16
+[ ] dosfstools 3.0.28 -> 4.1
+

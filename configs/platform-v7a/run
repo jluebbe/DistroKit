@@ -52,13 +52,13 @@ fi
 if [ -n "${VDE_SOCKET}" ]; then
 	# make sure qemu supports vde networking
 	if ${QEMU_EXEC} --help | grep -q -- '-net.*vde'; then
-		QEMU_NET=( -net vde,vlan=1,sock=${VDE_SOCKET} )
+		QEMU_NET=( -netdev vde,id=net1,sock=${VDE_SOCKET} )
 	fi
 fi
 
 # fall back to user network if necessary
 if [ -z "${QEMU_NET}" ]; then
-	QEMU_NET=(-net user,vlan=1,hostfwd=tcp:127.0.0.1:${TELNET_EXTERNAL_PORT}-:${TELNET_INTERNAL_PORT} )
+	QEMU_NET=(-netdev user,id=net1,hostfwd=tcp:127.0.0.1:${TELNET_EXTERNAL_PORT}-:${TELNET_INTERNAL_PORT} )
 fi
 
 BASE_CMDLINE="console=ttyAMA0,115200 loglevel=5 systemd.log_level=warning systemd.show_status=auto"
@@ -70,7 +70,7 @@ QEMU_ARGS[${#QEMU_ARGS[@]}]="-nographic"
 # Exit qemu on reboot
 QEMU_ARGS[${#QEMU_ARGS[@]}]="-no-reboot"
 # Configure networking
-QEMU_ARGS=( "${QEMU_ARGS[@]}" -net nic,vlan=1 "${QEMU_NET[@]}" )
+QEMU_ARGS=( "${QEMU_ARGS[@]}" -net nic,netdev=net1 "${QEMU_NET[@]}" )
 # Set base time to test NTP and time handling
 QEMU_ARGS=( "${QEMU_ARGS[@]}" -rtc base=2000-01-01 )
 # Configure watchdog

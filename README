@@ -1,77 +1,16 @@
-DistroKit
----------
+README
+------
 
-This is the main repository for DistroKit, an Embedded Linux Board
-Support Package (BSP) for the PTXdist [1] Build System.
+The documentation is now available in the doc/ directory, with the
+starting point at
 
-The main task for PTXdist is to build a root filesystem and a flash
-image for the embedded system. PTXdist has a concept of separating the
-software configuration from the hardware platforms, so the first
-decision to be made is to select for which hardware DistroKit shall be
-built.
+	doc/intro.rst
 
+It can be built into HTML documentation with
 
-Installing PTXdist
-------------------
+	$ ptxdist docs-html
 
-DistroKit is built with ptxdist. In order to install ptxdist, download
-the tarball from [2]:
+Then point your browser to
 
-$ wget \
-  http://www.pengutronix.de/software/ptxdist/download/ptxdist-2016.01.0.tar.bz2
-
-Extract the tarball:
-
-$ tar xf ptxdist-2016.01.0 && cd ptxdist-2016.01.0
-
-Go to the extracted directory and run
-
-$ ./configure && make && sudo make install
-
-
-Selecting the Platform
-----------------------
-
-For the different hardware platforms, see the instructions about
-
-- how to install the toolchain
-- how to select the right platform
-- how to build the rootfs
-
-in README.<platform>.
-
-In order to build a BSP, you need a toolchain. The easiest way to get a
-toolchain is to install the debian packages for OSELAS.Toolchain:
-
-  http://www.pengutronix.de/oselas/toolchain/
-
-If you want to build the toolchain yourself, you can download the
-toolchain sources from
-
-  http://www.pengutronix.de/oselas/toolchain/download/
-
-and build them manually.
-
-
-Building DistroKit
-------------------
-
-Now everything is prepared to build the BSP:
-
-$ ptxdist images
-
-PTXdist determines the number of CPUs on your computer and runs the
-compiler with <twice the number of CPUs> instances in parallel.
-Nevertheless, building a root filesystem from the sources needs some
-time.
-
-
-References
-----------
-
-[1] PTXdist
-    http://www.pengutronix.de/software/ptxdist/
-
-[2] PTXdist Download Area
-    http://www.pengutronix.de/software/ptxdist/download/
+	Documentation/html/index.html
 

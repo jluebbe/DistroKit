@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_SABRELITE
+	tristate
+	prompt "/loader/entries/sabrelite.conf bootloader spec entry"

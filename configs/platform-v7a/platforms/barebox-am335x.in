@@ -1,0 +1,20 @@
+## SECTION=bootloader
+
+config BAREBOX_AM335X
+	tristate
+	prompt "Barebox (am335x)"
+	select HOST_LZOP if BAREBOX_AM335X_NEEDS_HOST_LZOP
+	help
+	  Gute Fee support for barebox.
+
+if BAREBOX_AM335X
+
+config BAREBOX_AM335X_NEEDS_HOST_LZOP
+	prompt "barebox am335x needs lzop"
+	bool
+	help
+	  The barebox am335x can be compressed. Select this if lzop
+	  is used in order to compile lzop for your development
+	  host.
+
+endif

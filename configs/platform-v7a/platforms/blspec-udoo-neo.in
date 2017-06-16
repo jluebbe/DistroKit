@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_UDOO_NEO
+	tristate
+	prompt "/loader/entries/udoo-neo.conf bootloader spec entry"

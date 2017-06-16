@@ -1,0 +1,10 @@
+## SECTION=image
+
+config IMAGE_UDOO_NEO
+	tristate
+	select HOST_GENIMAGE
+	select BAREBOX_MX6
+	select IMAGE_ROOT_EXT
+	prompt "Generate images/udoo-neo.hdimg"
+	help
+	  FIXME

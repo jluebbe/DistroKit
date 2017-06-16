@@ -1,5 +1,5 @@
 # Set barebox as third state bootloader
-kernel=barebox.bin-rpi2
+kernel=barebox.bin
 # Set stdv mode to PAL (as used in Europe)
 sdtv_mode=2
 # Force the monitor to HDMI mode so that sound will be sent over HDMI cable

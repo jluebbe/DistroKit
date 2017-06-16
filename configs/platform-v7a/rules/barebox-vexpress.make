@@ -70,6 +70,7 @@ $(STATEDIR)/barebox-vexpress.install:
 	@$(foreach image, $(BAREBOX_VEXPRESS_IMAGES), \
 		install -m 644 \
 			$(image) $(IMAGEDIR)/$(notdir $(image))-vexpress;)
+	@install -D -m644 $(BAREBOX_VEXPRESS_DIR)/defaultenv/barebox_zero_env $(IMAGEDIR)/barebox-zero-env-vexpress
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

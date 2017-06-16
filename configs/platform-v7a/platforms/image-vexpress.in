@@ -1,0 +1,10 @@
+## SECTION=image
+
+config IMAGE_VEXPRESS
+	tristate
+	select HOST_GENIMAGE
+	select BAREBOX_VEXPRESS
+	select IMAGE_ROOT_EXT
+	prompt "Generate images/vexpress.hdimg"
+	help
+	  FIXME

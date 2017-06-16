@@ -1,0 +1,34 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 13 Sep 2016 21:18:15 +0200
+Subject: [PATCH] commands: of_dump: don't use flatten/unflatten to copy the
+ device tree
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ commands/of_dump.c | 13 +------------
+ 1 file changed, 1 insertion(+), 12 deletions(-)
+
+diff --git a/commands/of_dump.c b/commands/of_dump.c
+index 7bec0b925eee..ac5014e1fff8 100644
+--- a/commands/of_dump.c
++++ b/commands/of_dump.c
+@@ -97,18 +97,7 @@ static int do_of_dump(int argc, char *argv[])
+ 
+ 		if (fix) {
+ 			/* create a copy of internal devicetree */
+-			void *fdt;
+-			fdt = of_flatten_dtb(root);
+-			root = of_unflatten_dtb(fdt);
+-
+-			free(fdt);
+-
+-			if (IS_ERR(root)) {
+-				ret = PTR_ERR(root);
+-				goto out;
+-			}
+-
+-			of_free = root;
++			of_free = root = of_copy_node(NULL, root);
+ 		}
+ 	}
+ 

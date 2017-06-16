@@ -1,0 +1,25 @@
+# umpf-base: v2017.06.0
+# umpf-name: 2017.06.0/pengutronix/multi_v7
+# umpf-version: 2017.06.0/pengutronix/multi_v7/20170614-1
+# umpf-topic: v2017.06.0/topic/vexpress
+# umpf-hashinfo: abc9e46ec6ffeae46efe678469a086dc89c83e1f
+# umpf-topic-range: 2974d53a3b3a2f56d96c56acf26501735a4e41cd..abc9e46ec6ffeae46efe678469a086dc89c83e1f
+0001-vexpress-use-device-tree-provided-by-QEMU-if-availab.patch
+0002-vexpress-device-tree-support.patch
+0003-of-base-add-funtion-to-copy-a-device-tree-node.patch
+0004-commands-of_dump-don-t-use-flatten-unflatten-to-copy.patch
+0005-common-oftree-add-fixup-handler-for-virtio-mmio-devi.patch
+# umpf-topic: v2016.05.0/customers/pengutronix/beaglebone
+# umpf-hashinfo: 9cbaeb8cfaa8b5e7837725df242aacccbbc5fa53
+# umpf-topic-range: abc9e46ec6ffeae46efe678469a086dc89c83e1f..4cb671a6a6dacc8f15dc4ecd830dddca7d20bc27
+0101-beaglebone-add-state-entrie-for-mmc0-and-mmc1.patch
+# umpf-topic: v2017.06.0/customers/pengutronix/udoo-neo
+# umpf-hashinfo: 1f1ee410d983400c88b875f234709d9b280e2278
+# umpf-topic-range: 4cb671a6a6dacc8f15dc4ecd830dddca7d20bc27..d2e52d64a4ec16ce261bcebbf10503aa37fbf856
+0201-of_device_is_stdout_path-simplify.patch
+0202-of_device_is_stdout_path-split-off-options-and-suppo.patch
+0203-ARM-imx-add-support-for-Udoo-Neo-full.patch
+# umpf-release: 2017.06.0/pengutronix/multi_v7/20170614-1
+# umpf-topic-range: d2e52d64a4ec16ce261bcebbf10503aa37fbf856..715b60b1436d4e880847311415c9a31a7ba7f5b8
+0301-Release-2017.06.0-pengutronix-multi_v7-20170614-1.patch
+# umpf-end

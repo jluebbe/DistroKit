@@ -1,0 +1,62 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Tue, 13 Sep 2016 21:20:10 +0200
+Subject: [PATCH] common: oftree: add fixup handler for 'virtio,mmio' devices
+
+Qemu adds 'virtio,mmio' nodes to the device tree. Before passing it to the
+bootloader or the Linux kernel. This fixup handler copies these nodes to
+the new device tree.
+
+v2:
+- move from general to platform specific init
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+Signed-off-by: Rouven Czerwinski <r.czerwinski@pengutronix.de>
+---
+ arch/arm/boards/vexpress/init.c | 30 ++++++++++++++++++++++++++++++
+ 1 file changed, 30 insertions(+)
+
+diff --git a/arch/arm/boards/vexpress/init.c b/arch/arm/boards/vexpress/init.c
+index 68ebbfab2633..8655b7e17c97 100644
+--- a/arch/arm/boards/vexpress/init.c
++++ b/arch/arm/boards/vexpress/init.c
+@@ -18,6 +18,7 @@
+ #include <globalvar.h>
+ #include <linux/amba/sp804.h>
+ #include <mci.h>
++#include <of.h>
+ 
+ struct vexpress_init {
+ 	void (*core_init)(void);
+@@ -156,3 +157,32 @@ static int vexpress_core_init(void)
+ 	return 0;
+ }
+ postcore_initcall(vexpress_core_init);
++
++static int of_fixup_virtio_mmio(struct device_node *root, void *unused)
++{
++	struct device_node *barebox_root, *np, *parent;
++
++	barebox_root = of_get_root_node();
++	if (root == barebox_root)
++		return 0;
++
++	for_each_compatible_node_from(np, barebox_root, NULL, "virtio,mmio") {
++		if (of_get_parent(np) == barebox_root)
++			parent = root;
++		else
++			parent = of_find_node_by_path_from(root,
++							   of_get_parent(np)->full_name);
++		if (!parent)
++			return -EINVAL;
++
++		of_copy_node(parent, np);
++	}
++
++	return 0;
++}
++
++static int of_register_virtio_mmio_fixup(void)
++{
++	return of_register_fixup(of_fixup_virtio_mmio, NULL);
++}
++late_initcall(of_register_virtio_mmio_fixup);

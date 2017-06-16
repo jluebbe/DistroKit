@@ -1,0 +1,43 @@
+From: Michael Olbrich <m.olbrich@pengutronix.de>
+Date: Sat, 10 Sep 2016 17:40:56 +0200
+Subject: [PATCH] vexpress: use device tree provided by QEMU if available
+
+Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
+---
+ arch/arm/boards/vexpress/lowlevel.c | 17 +++++++++++++++--
+ 1 file changed, 15 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm/boards/vexpress/lowlevel.c b/arch/arm/boards/vexpress/lowlevel.c
+index 204d29d8f098..7ed07a1e4134 100644
+--- a/arch/arm/boards/vexpress/lowlevel.c
++++ b/arch/arm/boards/vexpress/lowlevel.c
+@@ -9,14 +9,27 @@
+ #include <asm/barebox-arm-head.h>
+ #include <asm/barebox-arm.h>
+ #include <asm/system_info.h>
++#include <asm/unaligned.h>
+ #include <linux/amba/sp804.h>
+ 
+ void __naked barebox_arm_reset_vector(void)
+ {
++	unsigned long membase;
++	void *boarddata;
++
+ 	arm_cpu_lowlevel_init();
+ 
+ 	if (amba_is_arm_sp804(IOMEM(0x10011000)))
+-		barebox_arm_entry(0x60000000, SZ_512M, NULL);
++		membase = 0x60000000;
++	else
++		membase = 0x80000000;
++
++	/* QEMU may put a dtb at the bare address */
++	if (IS_ENABLED(CONFIG_OFDEVICE) &&
++			get_unaligned_be32((void*)membase) == FDT_MAGIC)
++		boarddata = (void*)membase;
+ 	else
+-		barebox_arm_entry(0x80000000, SZ_512M, NULL);
++		boarddata = NULL;
++
++	barebox_arm_entry(membase, SZ_512M, boarddata);
+ }

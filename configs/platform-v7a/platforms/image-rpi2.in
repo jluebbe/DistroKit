@@ -1,0 +1,12 @@
+## SECTION=image
+
+config IMAGE_RPI2
+	tristate
+	select HOST_GENIMAGE
+	select HOST_DOSFSTOOLS
+	select HOST_MTOOLS
+	select IMAGE_ROOT_EXT
+	select BAREBOX_RPI2
+	prompt "Generate images/rpi2.hdimg"
+	help
+	  FIXME

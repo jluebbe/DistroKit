@@ -16,8 +16,8 @@ PACKAGES-$(PTXCONF_BAREBOX_RPI2) += barebox-rpi2
 #
 # Paths and names
 #
-BAREBOX_RPI2_VERSION	:= 2016.05.0
-BAREBOX_RPI2_MD5	:=
+BAREBOX_RPI2_VERSION	:= 2017.06.0
+BAREBOX_RPI2_MD5	:= 71322133e8fdcc9eb23a171cd270d841
 BAREBOX_RPI2		:= barebox-$(BAREBOX_RPI2_VERSION)
 BAREBOX_RPI2_SUFFIX	:= tar.bz2
 BAREBOX_RPI2_DIR	:= $(BUILDDIR)/barebox-rpi2-$(BAREBOX_RPI2_VERSION)
@@ -42,7 +42,7 @@ BAREBOX_RPI2_CONF_OPT := $(call barebox-opts, BAREBOX_RPI2)
 BAREBOX_RPI2_MAKE_ENV := $(BAREBOX_RPI2_CONF_ENV)
 BAREBOX_RPI2_MAKE_OPT := $(BAREBOX_RPI2_CONF_OPT)
 
-BAREBOX_RPI2_IMAGES := barebox.bin
+BAREBOX_RPI2_IMAGES := images/barebox-raspberry-pi-2.img
 BAREBOX_RPI2_IMAGES := $(addprefix $(BAREBOX_RPI2_DIR)/,$(BAREBOX_RPI2_IMAGES))
 
 ifdef PTXCONF_BAREBOX_RPI2
@@ -80,7 +80,7 @@ $(STATEDIR)/barebox-rpi2.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, BAREBOX_RPI2)
 	@$(foreach image, $(BAREBOX_RPI2_IMAGES), \
-		rm -fv $(IMAGEDIR)/$(notdir $(image))-rpi2;)
+		rm -fv $(IMAGEDIR)/$(notdir $(image));)
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig

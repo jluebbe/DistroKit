@@ -1,0 +1,13 @@
+## SECTION=image
+
+config IMAGE_BEAGLEBONE
+	tristate
+	select HOST_GENIMAGE
+	select HOST_DOSFSTOOLS
+	select HOST_MTOOLS
+	select IMAGE_ROOT_EXT
+	select BAREBOX_AM335X
+	select BAREBOX_AM335X_MLO
+	prompt "Generate images/beaglebone.hdimg"
+	help
+	  FIXME

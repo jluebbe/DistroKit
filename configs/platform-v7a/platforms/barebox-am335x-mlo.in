@@ -1,0 +1,7 @@
+## SECTION=bootloader
+
+config BAREBOX_AM335X_MLO
+	tristate
+	prompt "Barebox (am335x-mlo)"
+	help
+	  FIXME

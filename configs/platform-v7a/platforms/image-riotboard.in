@@ -1,0 +1,10 @@
+## SECTION=image
+
+config IMAGE_RIOTBOARD
+	tristate
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_EXT
+	select BAREBOX_MX6
+	prompt "Generate images/riotboard.hdimg"
+	help
+	  FIXME

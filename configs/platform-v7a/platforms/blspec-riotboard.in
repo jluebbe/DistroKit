@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_RIOTBOARD
+	tristate
+	prompt "/loader/entries/riotboard.conf bootloader spec entry"

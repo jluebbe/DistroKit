@@ -43,3 +43,4 @@ Hardware for the v7a Platform
    hardware_v7a_beaglebone_white
    hardware_v7a_beaglebone_black
    hardware_v7a_riot
+   hardware_v7a_raspi2

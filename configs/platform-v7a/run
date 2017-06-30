@@ -97,18 +97,18 @@ if [ -e "${PTXDIST_PLATFORMDIR}/images/usbstick.img" ]; then
 fi
 QEMU_LINUX_ARGS=( -kernel ${PTXDIST_PLATFORMDIR}/images/linuximage -dtb ${PTXDIST_PLATFORMDIR}/images/vexpress-v2p-ca9.dtb )
 # the barebox device tree has a state node for bootchooser
-QEMU_BAREBOX_ARGS=( -dtb ${PTXDIST_PLATFORMDIR}/build-target/barebox-${PTXCONF_BAREBOX_VERSION}/arch/arm/dts/vexpress-v2p-ca9.dtb )
+QEMU_BAREBOX_ARGS=( -dtb ${PTXDIST_PLATFORMDIR}/images/vexpress-v2p-ca9.dtb )
 
 check_hd() {
-	if [ ! -e "${PTXDIST_PLATFORMDIR}/images/hd.img" ]; then
-		echo "error: hd.img is missing. Run 'ptxdist images' first"
+	if [ ! -e "${PTXDIST_PLATFORMDIR}/images/vexpress.hdimg" ]; then
+		echo "error: vexpress.hdimg is missing. Run 'ptxdist images' first"
 		exit 1
 	fi
 }
 
 check_flash() {
-	if [ ! -e "${PTXDIST_PLATFORMDIR}/images/flash.img" ]; then
-		echo "error: flash.img is missing. Run 'ptxdist images' first"
+	if [ ! -e "${PTXDIST_PLATFORMDIR}/images/vexpress.norimg" ]; then
+		echo "error: vexpress.norimg is missing. Run 'ptxdist images' first"
 		exit 1
 	fi
 }
@@ -151,7 +151,7 @@ run_qemu_mmc() {
 	check_hd
 	exec ${QEMU_EXEC} \
 		"${QEMU_ARGS[@]}" \
-		-drive if=sd,format=raw,file=${PTXDIST_PLATFORMDIR}/images/hd.img,id=mmc0 \
+		-drive if=sd,format=raw,file=${PTXDIST_PLATFORMDIR}/images/vexpress.hdimg,id=mmc0 \
 		"${QEMU_EXTRA_ARGS[@]}" \
 		"${QEMU_LINUX_ARGS[@]}" \
 		-append "root=/dev/mmcblk0p1 rootfstype=ext4 rootwait ${BASE_CMDLINE}"
@@ -164,8 +164,8 @@ run_qemu_barebox() {
 		"${QEMU_ARGS[@]}" \
 		-fsdev local,id=rootfs,path=${PTXDIST_PLATFORMDIR}/root,security_model=none \
 		-device virtio-9p-device,fsdev=rootfs,mount_tag=/dev/root \
-		-drive if=sd,format=raw,file=${PTXDIST_PLATFORMDIR}/images/hd.img,id=mmc0 \
-		-drive if=pflash,format=raw,file=${PTXDIST_PLATFORMDIR}/images/flash.img,id=nor0 \
+		-drive if=sd,format=raw,file=${PTXDIST_PLATFORMDIR}/images/vexpress.hdimg,id=mmc0 \
+		-drive if=pflash,format=raw,file=${PTXDIST_PLATFORMDIR}/images/vexpress.norimg,id=nor0 \
 		"${QEMU_EXTRA_ARGS[@]}" \
 		"${QEMU_BAREBOX_ARGS[@]}"
 }

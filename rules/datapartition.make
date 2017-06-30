@@ -29,9 +29,9 @@ $(STATEDIR)/datapartition.targetinstall:
 	@$(call install_fixup,datapartition,DESCRIPTION,missing)
 
 	@$(call install_alternative, datapartition, 0, 0, 0644, \
-		/lib/systemd/system/systemd-autoformat@.service)
+		/usr/lib/systemd/system/systemd-autoformat@.service)
 	@$(call install_alternative, datapartition, 0, 0, 0644, \
-		/lib/udev/rules.d/91-mkfs-ext4.rules)
+		/usr/lib/udev/rules.d/91-mkfs-ext4.rules)
 
 	@$(call install_finish,datapartition)
 

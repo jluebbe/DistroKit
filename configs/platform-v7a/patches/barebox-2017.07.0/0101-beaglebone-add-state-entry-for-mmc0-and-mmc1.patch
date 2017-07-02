@@ -1,6 +1,6 @@
 From: Michael Grzeschik <m.grzeschik@pengutronix.de>
 Date: Fri, 10 Jun 2016 14:02:30 +0200
-Subject: [PATCH] beaglebone: add state entrie for mmc0 and mmc1
+Subject: [PATCH] beaglebone: add state entry for mmc0 and mmc1
 
 Signed-off-by: Michael Grzeschik <m.grzeschik@pengutronix.de>
 ---

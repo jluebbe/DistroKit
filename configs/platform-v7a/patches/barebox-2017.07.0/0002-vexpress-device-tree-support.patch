@@ -45,7 +45,7 @@ index f89dff939231..68ebbfab2633 100644
  		defaultenv_append_directory(defaultenv_vexpress);
 diff --git a/arch/arm/dts/vexpress-v2p-ca9.dts b/arch/arm/dts/vexpress-v2p-ca9.dts
 new file mode 100644
-index 000000000000..aadcb3a70377
+index 000000000000..541840ae22dc
 --- /dev/null
 +++ b/arch/arm/dts/vexpress-v2p-ca9.dts
 @@ -0,0 +1,27 @@
@@ -57,7 +57,7 @@ index 000000000000..aadcb3a70377
 +		device-path = &barebox_env;
 +	};
 +
-+	smb@04000000 {
++	smb@4000000 {
 +		motherboard {
 +			flash@0,00000000 {
 +				#address-cells = <1>;

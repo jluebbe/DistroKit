@@ -15,10 +15,10 @@ Forwarded: id:20170614113110.21604-1-u.kleine-koenig@pengutronix.de
  1 file changed, 4 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/of/base.c b/drivers/of/base.c
-index e93ba687fafc..94e4c6b7b4f8 100644
+index 9f89c7864475..4241ee189cc5 100644
 --- a/drivers/of/base.c
 +++ b/drivers/of/base.c
-@@ -2016,6 +2016,9 @@ int of_device_is_stdout_path(struct device_d *dev)
+@@ -2018,6 +2018,9 @@ int of_device_is_stdout_path(struct device_d *dev)
  	struct device_node *dn;
  	const char *name;
  
@@ -28,7 +28,7 @@ index e93ba687fafc..94e4c6b7b4f8 100644
  	name = of_get_property(of_chosen, "stdout-path", NULL);
  	if (!name)
  		name = of_get_property(of_chosen, "linux,stdout-path", NULL);
-@@ -2024,13 +2027,8 @@ int of_device_is_stdout_path(struct device_d *dev)
+@@ -2026,13 +2029,8 @@ int of_device_is_stdout_path(struct device_d *dev)
  		return 0;
  
  	dn = of_find_node_by_path(name);

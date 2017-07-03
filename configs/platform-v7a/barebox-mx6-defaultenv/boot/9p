@@ -1,0 +1,10 @@
+#!/bin/sh
+
+addpart /dev/nor0 "8M@32M(kernel)"
+addpart /dev/nor0 "512k@40M(dtb)"
+global.bootm.image="/dev/nor0.kernel"
+global.bootm.oftree="/dev/nor0.dtb"
+
+global linux.bootargs.base="console=ttyAMA0,115200 loglevel=5 ptxdist-devel"
+
+global linux.bootargs.root="root=/dev/root rootfstype=9p rootflags=trans=virtio"

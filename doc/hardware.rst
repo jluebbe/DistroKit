@@ -46,3 +46,39 @@ Hardware for the v7a Platform
    hardware_v7a_raspi2
    hardware_v7a_raspi3
    hardware_v7a_udoo_neo
+
+
+rpi Platform
+------------
+
+The rpi platform has support for the Raspberry Pi 1, which is based on
+the Broadcom BCM2835 SoC (ARMv6). Select the platform with
+
+::
+
+	$ ptxdist platform configs/platform-rpi/platformconfig
+	info: selected platformconfig:
+	      'configs/platform-rpi/platformconfig'
+
+You'll need the arm-1136jfs-linux-gnueabihf toolchain installed on your
+system. If installed through the Pengutronix Debian or tarball
+packages, ptxdist will pick it up automatically in this step.
+
+::
+
+	$ ptxdist toolchain
+	found and using toolchain:
+	'/opt/OSELAS.Toolchain-2014.12.2/arm-1136jfs-linux-gnueabihf/gcc-4.9.2-glibc-2.20-binutils-2.24-kernel-3.16-sanitized/bin/'
+
+Now everything is prepared to build the platform with
+
+::
+
+	$ ptxdist images
+
+Hardware for the rpi Platform
+-----------------------------
+
+.. toctree::
+
+   hardware_rpi_raspi1

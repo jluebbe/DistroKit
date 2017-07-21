@@ -9,5 +9,5 @@ if [ $bootsource = mmc ]; then
 elif [ $bootsource = net ]; then
 	global.boot.default="net bootchooser"
 else
-	global.boot.default="disk0.1 net"
+	global.boot.default="disk0.0 net"
 fi

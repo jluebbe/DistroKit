@@ -1,27 +1,11 @@
 includes:
   - file: ptxdist.ref
-ptxdist_toolchain_hardening:
-  history:
-    ptxdist.ref:
-      description: >
-        All toolchain hardening options should be enabled.
-      analyzer: >
-        kconfig.PTXPlatformConfig().enabled
-      present:
-      - TARGET_HARDEN_BINDNOW
-      - TARGET_HARDEN_FORTIFY
-      - TARGET_HARDEN_PIE
-      - TARGET_HARDEN_RELRO
-      optional:
-      - '*'
-      absent:
-      - TARGET_HARDEN_STACK_NONE
-  absent:
-  - TARGET_HARDEN_PIE
+
 ptxdist_debug_sftp:
   description: |
     In DistroKit, it is possible to access the target filesystem via
     p9, at least on qemu-vexpress. This might be enabled later again,
     once we do more testing on real hardware.
   value: False
+
 # vim: syntax=yaml

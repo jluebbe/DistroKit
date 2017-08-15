@@ -97,7 +97,7 @@ if [ -e "${PTXDIST_PLATFORMDIR}/images/usbstick.img" ]; then
 fi
 QEMU_LINUX_ARGS=( -kernel ${PTXDIST_PLATFORMDIR}/images/linuximage -dtb ${PTXDIST_PLATFORMDIR}/images/vexpress-v2p-ca9.dtb )
 # the barebox device tree has a state node for bootchooser
-QEMU_BAREBOX_ARGS=( -dtb ${PTXDIST_PLATFORMDIR}/images/vexpress-v2p-ca9.dtb )
+QEMU_BAREBOX_ARGS=( -dtb ${PTXDIST_PLATFORMDIR}/images/bb-vexpress-v2p-ca9.dtb )
 
 check_hd() {
 	if [ ! -e "${PTXDIST_PLATFORMDIR}/images/vexpress.hdimg" ]; then
@@ -164,6 +164,8 @@ run_qemu_barebox() {
 		"${QEMU_ARGS[@]}" \
 		-fsdev local,id=rootfs,path=${PTXDIST_PLATFORMDIR}/root,security_model=none \
 		-device virtio-9p-device,fsdev=rootfs,mount_tag=/dev/root \
+		-fsdev local,id=images,path=${PTXDIST_PLATFORMDIR}/images,security_model=none \
+		-device virtio-9p-device,fsdev=images,mount_tag=/dev/images \
 		-drive if=sd,format=raw,file=${PTXDIST_PLATFORMDIR}/images/vexpress.hdimg,id=mmc0 \
 		-drive if=pflash,format=raw,file=${PTXDIST_PLATFORMDIR}/images/vexpress.norimg,id=nor0 \
 		"${QEMU_EXTRA_ARGS[@]}" \

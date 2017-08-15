@@ -71,7 +71,7 @@ $(STATEDIR)/barebox-vexpress.install:
 		install -m 644 \
 			$(image) $(IMAGEDIR)/$(notdir $(image))-vexpress;)
 	@install -D -m644 $(BAREBOX_VEXPRESS_DIR)/defaultenv/barebox_zero_env $(IMAGEDIR)/barebox-zero-env-vexpress
-	@install -D -m644 $(BAREBOX_VEXPRESS_DIR)/arch/arm/dts/vexpress-v2p-ca9.dtb $(IMAGEDIR)/vexpress-v2p-ca9.dtb
+	@install -D -m644 $(BAREBOX_VEXPRESS_DIR)/arch/arm/dts/vexpress-v2p-ca9.dtb $(IMAGEDIR)/bb-vexpress-v2p-ca9.dtb
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

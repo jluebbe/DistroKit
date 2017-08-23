@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_NITROGEN6X
+	tristate
+	prompt "/loader/entries/nitrogen6x.conf bootloader spec entry"

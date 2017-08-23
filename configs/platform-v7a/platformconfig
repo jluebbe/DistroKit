@@ -138,7 +138,7 @@ PTXCONF_KERNEL_EXTRA_MAKEVARS=""
 PTXCONF_DTC=y
 PTXCONF_DTC_INSTALL_OFTREE=y
 PTXCONF_DTC_OFTREE_DTS_PATH="${KERNEL_DIR}/arch/${PTXCONF_KERNEL_ARCH_STRING}/boot/dts"
-PTXCONF_DTC_OFTREE_DTS="am335x-bone.dts am335x-boneblack.dts vexpress-v2p-ca9.dts bcm2836-rpi-2-b.dts imx6q-sabrelite.dts imx6sx-udoo-neo-full.dts imx6dl-riotboard.dts"
+PTXCONF_DTC_OFTREE_DTS="am335x-bone.dts am335x-boneblack.dts vexpress-v2p-ca9.dts bcm2836-rpi-2-b.dts imx6q-sabrelite.dts imx6sx-udoo-neo-full.dts imx6dl-riotboard.dts imx6q-nitrogen6x.dts"
 PTXCONF_DTC_KERNEL=y
 PTXCONF_DTC_EXTRA_ARGS=""
 
@@ -186,6 +186,7 @@ PTXCONF_BLSPEC_BONEWHITE=y
 # PTXCONF_BLSPEC_ENTRY is not set
 PTXCONF_BLSPEC_GF=y
 PTXCONF_BLSPEC_RIOTBOARD=y
+PTXCONF_BLSPEC_NITROGEN6X=y
 PTXCONF_BLSPEC_RPI2=y
 PTXCONF_BLSPEC_SABRELITE=y
 PTXCONF_BLSPEC_UDOO_NEO=y

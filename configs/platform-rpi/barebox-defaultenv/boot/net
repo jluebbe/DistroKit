@@ -1,0 +1,6 @@
+#!/bin/sh
+global.bootm.image="/boot/linuximage"
+global.bootm.oftree="/boot/bcm2835-rpi-b.dtb"
+
+nfsroot="/home/${global.user}/nfsroot/${global.hostname},v3,tcp"
+global.linux.bootargs.dyn.root="root=/dev/nfs ip=dhcp nfsroot=$nfsroot"

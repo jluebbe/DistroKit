@@ -1,0 +1,38 @@
+From: Lucas Stach <l.stach@pengutronix.de>
+Date: Mon, 4 Sep 2017 12:22:06 +0200
+Subject: [PATCH] docs: add qemu vexpress
+
+Add a basic command line for QEMU vexpress.
+
+Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+---
+ Documentation/boards/arm-qemu-vexpress.rst | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+ create mode 100644 Documentation/boards/arm-qemu-vexpress.rst
+
+diff --git a/Documentation/boards/arm-qemu-vexpress.rst b/Documentation/boards/arm-qemu-vexpress.rst
+new file mode 100644
+index 000000000000..dcbac8e62557
+--- /dev/null
++++ b/Documentation/boards/arm-qemu-vexpress.rst
+@@ -0,0 +1,20 @@
++QEMU vexpress
++=======
++
++ARM Qemu vexpress
++-----------------
++
++Running barebox on QEMU vexpress machine
++^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++
++Usage::
++
++	$ qemu-system-arm -m 1024M \
++		-machine vexpress-a9 -cpu cortex-a9 \
++		-nographic -no-reboot \
++		-kernel images/barebox-vexpress-ca9.img
++
++	$ qemu-system-arm -m 1024M \
++		-machine vexpress-a15 -cpu cortex-a15 \
++		-nographic -no-reboot \
++		-kernel images/barebox-vexpress-ca15.img

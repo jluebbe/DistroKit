@@ -9,7 +9,7 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  2 files changed, 18 insertions(+)
 
 diff --git a/drivers/of/base.c b/drivers/of/base.c
-index ea330d131012..b6e90f2adb09 100644
+index 1649148dc0c6..4734f4332050 100644
 --- a/drivers/of/base.c
 +++ b/drivers/of/base.c
 @@ -1965,6 +1965,22 @@ out:

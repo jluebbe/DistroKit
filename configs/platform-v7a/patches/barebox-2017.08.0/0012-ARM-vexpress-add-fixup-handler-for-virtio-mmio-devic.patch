@@ -1,6 +1,6 @@
 From: Michael Olbrich <m.olbrich@pengutronix.de>
 Date: Tue, 13 Sep 2016 21:20:10 +0200
-Subject: [PATCH] common: oftree: add fixup handler for 'virtio,mmio' devices
+Subject: [PATCH] ARM: vexpress: add fixup handler for 'virtio,mmio' devices
 
 Qemu adds 'virtio,mmio' nodes to the device tree. Before passing it to the
 bootloader or the Linux kernel. This fixup handler copies these nodes to
@@ -12,22 +12,14 @@ v2:
 Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
 Signed-off-by: Rouven Czerwinski <r.czerwinski@pengutronix.de>
 ---
- arch/arm/boards/vexpress/init.c | 30 ++++++++++++++++++++++++++++++
- 1 file changed, 30 insertions(+)
+ arch/arm/boards/vexpress/init.c | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
 diff --git a/arch/arm/boards/vexpress/init.c b/arch/arm/boards/vexpress/init.c
-index 68ebbfab2633..8655b7e17c97 100644
+index 1bbc8c347638..946385393f44 100644
 --- a/arch/arm/boards/vexpress/init.c
 +++ b/arch/arm/boards/vexpress/init.c
-@@ -18,6 +18,7 @@
- #include <globalvar.h>
- #include <linux/amba/sp804.h>
- #include <mci.h>
-+#include <of.h>
- 
- struct vexpress_init {
- 	void (*core_init)(void);
-@@ -156,3 +157,32 @@ static int vexpress_core_init(void)
+@@ -45,3 +45,32 @@ static int vexpress_core_init(void)
  	return 0;
  }
  postcore_initcall(vexpress_core_init);

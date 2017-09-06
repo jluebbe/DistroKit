@@ -42,7 +42,7 @@ BAREBOX_VEXPRESS_CONF_OPT := $(call barebox-opts, BAREBOX_VEXPRESS)
 BAREBOX_VEXPRESS_MAKE_ENV := $(BAREBOX_VEXPRESS_CONF_ENV)
 BAREBOX_VEXPRESS_MAKE_OPT := $(BAREBOX_VEXPRESS_CONF_OPT)
 
-BAREBOX_VEXPRESS_IMAGES := barebox.bin
+BAREBOX_VEXPRESS_IMAGES := images/barebox-vexpress-ca9.img
 BAREBOX_VEXPRESS_IMAGES := $(addprefix $(BAREBOX_VEXPRESS_DIR)/,$(BAREBOX_VEXPRESS_IMAGES))
 
 ifdef PTXCONF_BAREBOX_VEXPRESS
@@ -69,7 +69,7 @@ $(STATEDIR)/barebox-vexpress.install:
 	@$(call targetinfo)
 	@$(foreach image, $(BAREBOX_VEXPRESS_IMAGES), \
 		install -m 644 \
-			$(image) $(IMAGEDIR)/$(notdir $(image))-vexpress;)
+			$(image) $(IMAGEDIR)/$(notdir $(image));)
 	@install -D -m644 $(BAREBOX_VEXPRESS_DIR)/defaultenv/barebox_zero_env $(IMAGEDIR)/barebox-zero-env-vexpress
 	@install -D -m644 $(BAREBOX_VEXPRESS_DIR)/arch/arm/dts/vexpress-v2p-ca9.dtb $(IMAGEDIR)/bb-vexpress-v2p-ca9.dtb
 	@$(call touch)
@@ -82,7 +82,7 @@ $(STATEDIR)/barebox-vexpress.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, BAREBOX_VEXPRESS)
 	@$(foreach image, $(BAREBOX_VEXPRESS_IMAGES), \
-		rm -fv $(IMAGEDIR)/$(notdir $(image))-vexpress;)
+		rm -fv $(IMAGEDIR)/$(notdir $(image));)
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig

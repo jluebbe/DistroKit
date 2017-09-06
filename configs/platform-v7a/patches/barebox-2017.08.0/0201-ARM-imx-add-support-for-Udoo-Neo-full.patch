@@ -254,7 +254,7 @@ index 000000000000..e78c2685fd78
 +	imx6sx_barebox_entry(fdt);
 +}
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index d8abe452b40b..71ab6b701568 100644
+index c5e48092d344..f5b37891c400 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
 @@ -85,6 +85,7 @@ pbl-dtb-$(CONFIG_MACH_TX6X) += imx6dl-tx6u.dtb.o
@@ -264,7 +264,7 @@ index d8abe452b40b..71ab6b701568 100644
 +pbl-dtb-$(CONFIG_MACH_UDOO_NEO) += imx6sx-udoo-neo-full.dtb.o
  pbl-dtb-$(CONFIG_MACH_USI_TOPKICK) += kirkwood-topkick-bb.dtb.o
  pbl-dtb-$(CONFIG_MACH_VARISCITE_MX6) += imx6q-var-custom.dtb.o
- pbl-dtb-$(CONFIG_MACH_VSCOM_BALTOS) += am335x-baltos-minimal.dtb.o
+ pbl-dtb-$(CONFIG_MACH_VEXPRESS) += vexpress-v2p-ca9.dtb.o
 diff --git a/arch/arm/dts/imx6sx-udoo-neo-full.dts b/arch/arm/dts/imx6sx-udoo-neo-full.dts
 new file mode 100644
 index 000000000000..9203d40207c5

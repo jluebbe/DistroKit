@@ -267,10 +267,10 @@ index 204d29d8f098..0a226b295c2a 100644
 +	start_vexpress_common(__dtb_vexpress_v2p_ca15_start);
  }
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index d8abe452b40b..c5e48092d344 100644
+index cf9d8ea9402a..b5601a61c56d 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -87,6 +87,8 @@ pbl-dtb-$(CONFIG_MACH_TURRIS_OMNIA) += armada-385-turris-omnia-bb.dtb.o
+@@ -91,6 +91,8 @@ pbl-dtb-$(CONFIG_MACH_TURRIS_OMNIA) += armada-385-turris-omnia-bb.dtb.o
  pbl-dtb-$(CONFIG_MACH_UDOO) += imx6q-udoo.dtb.o
  pbl-dtb-$(CONFIG_MACH_USI_TOPKICK) += kirkwood-topkick-bb.dtb.o
  pbl-dtb-$(CONFIG_MACH_VARISCITE_MX6) += imx6q-var-custom.dtb.o

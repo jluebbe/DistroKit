@@ -9,10 +9,10 @@ Signed-off-by: Michael Olbrich <m.olbrich@pengutronix.de>
  2 files changed, 18 insertions(+)
 
 diff --git a/drivers/of/base.c b/drivers/of/base.c
-index 1649148dc0c6..4734f4332050 100644
+index fb4d2c03946e..3ca13ae44e5c 100644
 --- a/drivers/of/base.c
 +++ b/drivers/of/base.c
-@@ -1965,6 +1965,22 @@ out:
+@@ -1988,6 +1988,22 @@ out:
  	return dn;
  }
  
@@ -36,7 +36,7 @@ index 1649148dc0c6..4734f4332050 100644
  {
  	struct device_node *n, *nt;
 diff --git a/include/of.h b/include/of.h
-index 0ba73f197f28..c1136708ce6c 100644
+index 9ba771a395b8..18a423241b0f 100644
 --- a/include/of.h
 +++ b/include/of.h
 @@ -144,6 +144,8 @@ extern struct device_node *of_new_node(struct device_node *parent,

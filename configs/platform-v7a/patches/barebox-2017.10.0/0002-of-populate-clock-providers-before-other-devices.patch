@@ -12,10 +12,10 @@ Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/of/base.c b/drivers/of/base.c
-index ea330d131012..1649148dc0c6 100644
+index 95bea4ee836d..fb4d2c03946e 100644
 --- a/drivers/of/base.c
 +++ b/drivers/of/base.c
-@@ -1915,8 +1915,8 @@ int of_probe(void)
+@@ -1938,8 +1938,8 @@ int of_probe(void)
  	if (memory)
  		of_add_memory(memory, false);
  

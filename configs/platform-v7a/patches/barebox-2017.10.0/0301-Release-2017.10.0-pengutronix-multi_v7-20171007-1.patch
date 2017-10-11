@@ -1,6 +1,6 @@
 From: Robert Schwebel <r.schwebel@pengutronix.de>
-Date: Tue, 12 Sep 2017 20:20:05 +0200
-Subject: [PATCH] Release 2017.08.0/pengutronix/multi_v7/20170912-1
+Date: Sat, 7 Oct 2017 21:44:24 +0200
+Subject: [PATCH] Release 2017.10.0/pengutronix/multi_v7/20171007-1
 
 Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
 ---
@@ -8,15 +8,15 @@ Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index ab44a1383365..ebad7750d2f3 100644
+index 5d1d763905fc..128bf2c550f4 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1,7 +1,7 @@
  VERSION = 2017
- PATCHLEVEL = 08
+ PATCHLEVEL = 10
  SUBLEVEL = 0
 -EXTRAVERSION =
-+EXTRAVERSION =-20170912-1
++EXTRAVERSION =-20171007-1
  NAME = None
  
  # *DOCUMENTATION*

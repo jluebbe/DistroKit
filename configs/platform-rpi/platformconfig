@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# PTXdist 2017.07.0
+# PTXdist 2017.10.0
 #
 PTXCONF__platformconfig_MAGIC__=y
 
@@ -16,10 +16,10 @@ PTXCONF__platformconfig_MAGIC__=y
 # ------------------------------------
 #
 PTXCONF_PLATFORM="rpi"
-PTXCONF_PLATFORM_VERSION="-2017.05.0"
+PTXCONF_PLATFORM_VERSION="-2017.10.0"
 PTXCONF_RUNTIME=y
 PTXCONF_BUILDTIME=y
-PTXCONF_PLATFORMCONFIG_VERSION="2017.07.0"
+PTXCONF_PLATFORMCONFIG_VERSION="2017.10.0"
 
 #
 # architecture                  
@@ -122,6 +122,7 @@ PTXCONF_KERNEL_IMAGE="zImage"
 PTXCONF_KERNEL_DTC=y
 # PTXCONF_KERNEL_XZ is not set
 # PTXCONF_KERNEL_LZOP is not set
+# PTXCONF_KERNEL_LZ4 is not set
 # PTXCONF_KERNEL_OPENSSL is not set
 
 #
@@ -263,6 +264,7 @@ PTXCONF_HOST_LIBKMOD=y
 # PTXCONF_HOST_LIBPCRE is not set
 # PTXCONF_HOST_LIBUSB is not set
 # PTXCONF_HOST_LIBUUID is not set
+# PTXCONF_HOST_LZ4 is not set
 # PTXCONF_HOST_LZOP is not set
 # PTXCONF_HOST_MKELFIMAGE is not set
 # PTXCONF_HOST_MTD_UTILS is not set

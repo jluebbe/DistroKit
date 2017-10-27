@@ -97,7 +97,7 @@ if [ -e "${PTXDIST_PLATFORMDIR}/images/usbstick.img" ]; then
 fi
 QEMU_LINUX_ARGS=( -kernel ${PTXDIST_PLATFORMDIR}/images/linuximage -dtb ${PTXDIST_PLATFORMDIR}/images/vexpress-v2p-ca9.dtb )
 # the barebox device tree has a state node for bootchooser
-QEMU_BAREBOX_ARGS=( -dtb ${PTXDIST_PLATFORMDIR}/images/bb-vexpress-v2p-ca9.dtb )
+QEMU_BAREBOX_ARGS=( -dtb ${PTXDIST_PLATFORMDIR}/images/vexpress-v2p-ca9.dtb-bb )
 
 check_hd() {
 	if [ ! -e "${PTXDIST_PLATFORMDIR}/images/vexpress.hdimg" ]; then

@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# PTXdist 2017.10.0
+# PTXdist 2017.11.0
 #
 PTXCONF__platformconfig_MAGIC__=y
 
@@ -19,7 +19,7 @@ PTXCONF_PLATFORM="rpi"
 PTXCONF_PLATFORM_VERSION="-2017.10.0"
 PTXCONF_RUNTIME=y
 PTXCONF_BUILDTIME=y
-PTXCONF_PLATFORMCONFIG_VERSION="2017.10.0"
+PTXCONF_PLATFORMCONFIG_VERSION="2017.11.0"
 
 #
 # architecture                  

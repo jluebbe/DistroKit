@@ -45,6 +45,9 @@ BAREBOX_MX6_MAKE_OPT := $(BAREBOX_MX6_CONF_OPT)
 BAREBOX_MX6_IMAGES := images/barebox-embest-imx6s-riotboard.img \
 	images/barebox-freescale-imx6dl-sabrelite.img \
 	images/barebox-freescale-imx6q-sabrelite.img \
+	images/barebox-boundarydevices-imx6q-nitrogen6x-1g.img \
+	images/barebox-boundarydevices-imx6q-nitrogen6x-2g.img \
+	images/barebox-boundarydevices-imx6qp-nitrogen6_max.img \
 	images/barebox-udoo-neo.img
 
 BAREBOX_MX6_IMAGES := $(addprefix $(BAREBOX_MX6_DIR)/,$(BAREBOX_MX6_IMAGES))

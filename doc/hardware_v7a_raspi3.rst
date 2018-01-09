@@ -1,7 +1,7 @@
 Raspberry Pi 3
 ==============
 
-Boot Media3
+Boot Media
 ----------
 Use the image ``platform-v7a/images/rpi3.hdimg`` and copy it onto your MicroSD-Card.
 

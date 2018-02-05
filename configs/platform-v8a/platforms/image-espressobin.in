@@ -1,0 +1,9 @@
+## SECTION=image
+
+config IMAGE_ESPRESSOBIN
+	tristate
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_EXT
+	prompt "Generate images/espressobin.hdimg"
+	help
+	  FIXME

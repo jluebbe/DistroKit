@@ -91,6 +91,20 @@ listed above, here is a short overview of the generic way:
 
 Refer to the :ref:`ptx_dev_manual` for a more thorough documentation.
 
+v8a Platform
+------------
+
+The stuff from the v7a section above applies here accordingly.
+
+Hardware for the v8a Platform
+-----------------------------
+
+Currently DistroKit only supports a single board; the Marvell espressobin.
+
+.. toctree::
+
+   hardware_v8a_espressobin
+
 rpi Platform
 ------------
 

@@ -1,0 +1,6 @@
+/*
+ * the vendor U-Boot expects the dtb to be called armada-3720-community.dtb
+ * so this dts with the same base name just includes the differently named dts
+ * from the kernel.
+ */
+#include <marvell/armada-3720-espressobin.dts>

@@ -30,11 +30,12 @@ BAREBOX_AM335X_MLO_SOURCE	:= $(SRCDIR)/$(BAREBOX_AM335X_MLO).$(BAREBOX_AM335X_ML
 # Prepare
 # ----------------------------------------------------------------------------
 
-BAREBOX_AM335X_MLO_BLACKLIST := \
+BAREBOX_AM335X_MLO_WRAPPER_BLACKLIST := \
 	TARGET_HARDEN_RELRO \
 	TARGET_HARDEN_BINDNOW \
 	TARGET_HARDEN_PIE \
-	TARGET_DEBUG
+	TARGET_DEBUG \
+	TARGET_BUILD_ID
 
 BAREBOX_AM335X_MLO_CONF_ENV := KCONFIG_NOTIMESTAMP=1
 BAREBOX_AM335X_MLO_CONF_OPT := $(call barebox-opts, BAREBOX_AM335X_MLO)
@@ -63,14 +64,16 @@ $(STATEDIR)/barebox-am335x-mlo.prepare: $(BAREBOX_AM335X_MLO_CONFIG)
 # Install
 # ----------------------------------------------------------------------------
 
-BAREBOX_AM335X_MLO_INSTALL_OPT := \
-	$(call barebox-opts, BAREBOX_AM335X_MLO)
-
 $(STATEDIR)/barebox-am335x-mlo.install:
 	@$(call targetinfo)
-#	@mkdir -p $(BAREBOX_AM335X_MLO_PKGDIR)/usr/lib/$(BAREBOX_AM335X_MLO)
-#		install -m 644 $(image)
-#			$(BAREBOX_AM335X_MLO_PKGDIR)/usr/lib/$(BAREBOX_AM335X_MLO)/$(notdir $(image));
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Targetinstall
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/barebox-am335x-mlo.targetinstall:
+	@$(call targetinfo)
 	@$(foreach image, $(BAREBOX_AM335X_MLO_IMAGES), \
 		install -m 644 \
 			$(image) $(IMAGEDIR)/$(notdir $(image));)

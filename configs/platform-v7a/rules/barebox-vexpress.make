@@ -30,11 +30,12 @@ BAREBOX_VEXPRESS_SOURCE		:= $(SRCDIR)/$(BAREBOX_VEXPRESS).$(BAREBOX_VEXPRESS_SUF
 # Prepare
 # ----------------------------------------------------------------------------
 
-BAREBOX_VEXPRESS_BLACKLIST := \
+BAREBOX_VEXPRESS_WRAPPER_BLACKLIST := \
 	TARGET_HARDEN_RELRO \
 	TARGET_HARDEN_BINDNOW \
 	TARGET_HARDEN_PIE \
-	TARGET_DEBUG
+	TARGET_DEBUG \
+	TARGET_BUILD_ID
 
 BAREBOX_VEXPRESS_CONF_ENV := KCONFIG_NOTIMESTAMP=1
 BAREBOX_VEXPRESS_CONF_OPT := $(call barebox-opts, BAREBOX_VEXPRESS)
@@ -62,10 +63,15 @@ $(STATEDIR)/barebox-vexpress.prepare: $(BAREBOX_VEXPRESS_CONFIG)
 # Install
 # ----------------------------------------------------------------------------
 
-BAREBOX_VEXPRESS_INSTALL_OPT := \
-	$(call barebox-opts, BAREBOX_VEXPRESS)
-
 $(STATEDIR)/barebox-vexpress.install:
+	@$(call targetinfo)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Targetinstall
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/barebox-vexpress.targetinstall:
 	@$(call targetinfo)
 	@$(foreach image, $(BAREBOX_VEXPRESS_IMAGES), \
 		install -m 644 \

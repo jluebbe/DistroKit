@@ -1868,11 +1868,7 @@ PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT4=y
 # PTXCONF_SQUASHFS_TOOLS is not set
 # PTXCONF_UNZIP is not set
 # PTXCONF_XFSPROGS is not set
-PTXCONF_XZ=y
-
-#
-# BusyBox' unxz is selected!
-#
+# PTXCONF_XZ is not set
 # PTXCONF_ZIP is not set
 
 #

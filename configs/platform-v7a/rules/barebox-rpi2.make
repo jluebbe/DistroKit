@@ -30,11 +30,12 @@ BAREBOX_RPI2_SOURCE	:= $(SRCDIR)/$(BAREBOX_RPI2).$(BAREBOX_RPI2_SUFFIX)
 # Prepare
 # ----------------------------------------------------------------------------
 
-BAREBOX_RPI2_BLACKLIST := \
+BAREBOX_RPI2_WRAPPER_BLACKLIST := \
 	TARGET_HARDEN_RELRO \
 	TARGET_HARDEN_BINDNOW \
 	TARGET_HARDEN_PIE \
-	TARGET_DEBUG
+	TARGET_DEBUG \
+	TARGET_BUILD_ID
 
 BAREBOX_RPI2_CONF_ENV := KCONFIG_NOTIMESTAMP=1
 BAREBOX_RPI2_CONF_OPT := $(call barebox-opts, BAREBOX_RPI2)
@@ -62,10 +63,15 @@ $(STATEDIR)/barebox-rpi2.prepare: $(BAREBOX_RPI2_CONFIG)
 # Install
 # ----------------------------------------------------------------------------
 
-BAREBOX_RPI2_INSTALL_OPT := \
-	$(call barebox-opts, BAREBOX_RPI2)
-
 $(STATEDIR)/barebox-rpi2.install:
+	@$(call targetinfo)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Targetinstall
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/barebox-rpi2.targetinstall:
 	@$(call targetinfo)
 	@$(foreach image, $(BAREBOX_RPI2_IMAGES), \
 		install -m 644 \

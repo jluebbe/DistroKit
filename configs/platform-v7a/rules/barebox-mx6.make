@@ -30,11 +30,12 @@ BAREBOX_MX6_SOURCE	:= $(SRCDIR)/$(BAREBOX_MX6).$(BAREBOX_MX6_SUFFIX)
 # Prepare
 # ----------------------------------------------------------------------------
 
-BAREBOX_MX6_BLACKLIST := \
+BAREBOX_MX6_WRAPPER_BLACKLIST := \
 	TARGET_HARDEN_RELRO \
 	TARGET_HARDEN_BINDNOW \
 	TARGET_HARDEN_PIE \
-	TARGET_DEBUG
+	TARGET_DEBUG \
+	TARGET_BUILD_ID
 
 BAREBOX_MX6_CONF_ENV := KCONFIG_NOTIMESTAMP=1
 BAREBOX_MX6_CONF_OPT := $(call barebox-opts, BAREBOX_MX6)
@@ -69,10 +70,15 @@ $(STATEDIR)/barebox-mx6.prepare: $(BAREBOX_MX6_CONFIG)
 # Install
 # ----------------------------------------------------------------------------
 
-BAREBOX_MX6_INSTALL_OPT := \
-	$(call barebox-opts, BAREBOX_MX6)
-
 $(STATEDIR)/barebox-mx6.install:
+	@$(call targetinfo)
+	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Targetinstall
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/barebox-mx6.targetinstall:
 	@$(call targetinfo)
 	@$(foreach image, $(BAREBOX_MX6_IMAGES), \
 		install -m 644 \

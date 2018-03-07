@@ -1,0 +1,15 @@
+# umpf-base: v2018.03.0
+# umpf-name: pengutronix/multi_v7
+# umpf-version: pengutronix/multi_v7/20180307-1
+# umpf-topic: v2018.03.0/customers/pengutronix/beaglebone
+# umpf-hashinfo: 564eab923b9ba35e2c79addd52762895b05130f4
+# umpf-topic-range: 610d8769ed1a620c4a048c625b540a4d8ee14ffb..564eab923b9ba35e2c79addd52762895b05130f4
+0001-beaglebone-add-state-entry-for-mmc0-and-mmc1.patch
+# umpf-topic: v2018.03.0/customers/pengutronix/udoo-neo
+# umpf-hashinfo: 1afa824d0652c236ef0ddeabff71a699e1d97219
+# umpf-topic-range: 564eab923b9ba35e2c79addd52762895b05130f4..ebf40cb7ee7c8a31f5e43dc438697b5aebcc30d8
+0101-ARM-imx-add-support-for-Udoo-Neo-full.patch
+# umpf-release: pengutronix/multi_v7/20180307-1
+# umpf-topic-range: ebf40cb7ee7c8a31f5e43dc438697b5aebcc30d8..e0ce9f4c185dee6f4d4c2ff42d340d047916e884
+0201-Release-pengutronix-multi_v7-20180307-1.patch
+# umpf-end

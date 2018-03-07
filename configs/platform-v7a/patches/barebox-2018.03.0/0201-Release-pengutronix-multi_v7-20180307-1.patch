@@ -1,0 +1,22 @@
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Wed, 7 Mar 2018 07:53:26 +0100
+Subject: [PATCH] Release pengutronix/multi_v7/20180307-1
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index b4f315d2672f..e15bd2c277ae 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,7 +1,7 @@
+ VERSION = 2018
+ PATCHLEVEL = 03
+ SUBLEVEL = 0
+-EXTRAVERSION =
++EXTRAVERSION =-20180307-1
+ NAME = None
+ 
+ # *DOCUMENTATION*

@@ -8,16 +8,16 @@ Content-Transfer-Encoding: 8bit
 Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 Forwarded: id:20170627190317.19253-1-uwe@kleine-koenig.org
 ---
- arch/arm/boards/Makefile                           |   1 +
- arch/arm/boards/udoo-neo/Makefile                  |   2 +
- arch/arm/boards/udoo-neo/board.c                   |  27 +++++
- .../flash-header-mx6sx-udoo-neo_full.imxcfg        | 124 +++++++++++++++++++++
- arch/arm/boards/udoo-neo/lowlevel.c                |  39 +++++++
- arch/arm/dts/Makefile                              |   1 +
- arch/arm/dts/imx6sx-udoo-neo-full.dts              |   4 +
- arch/arm/mach-imx/Kconfig                          |   4 +
- arch/arm/mach-imx/include/mach/esdctl.h            |   1 +
- images/Makefile.imx                                |   5 +
+ arch/arm/boards/Makefile                      |   1 +
+ arch/arm/boards/udoo-neo/Makefile             |   2 +
+ arch/arm/boards/udoo-neo/board.c              |  27 ++++
+ .../flash-header-mx6sx-udoo-neo_full.imxcfg   | 124 ++++++++++++++++++
+ arch/arm/boards/udoo-neo/lowlevel.c           |  39 ++++++
+ arch/arm/dts/Makefile                         |   1 +
+ arch/arm/dts/imx6sx-udoo-neo-full.dts         |   4 +
+ arch/arm/mach-imx/Kconfig                     |   4 +
+ arch/arm/mach-imx/include/mach/esdctl.h       |   1 +
+ images/Makefile.imx                           |   5 +
  10 files changed, 208 insertions(+)
  create mode 100644 arch/arm/boards/udoo-neo/Makefile
  create mode 100644 arch/arm/boards/udoo-neo/board.c
@@ -26,10 +26,10 @@ Forwarded: id:20170627190317.19253-1-uwe@kleine-koenig.org
  create mode 100644 arch/arm/dts/imx6sx-udoo-neo-full.dts
 
 diff --git a/arch/arm/boards/Makefile b/arch/arm/boards/Makefile
-index ca187ccb8998..88ccc1d16fbe 100644
+index 30f4c299f1a1..f70fbac8f379 100644
 --- a/arch/arm/boards/Makefile
 +++ b/arch/arm/boards/Makefile
-@@ -134,6 +134,7 @@ obj-$(CONFIG_MACH_TX51)				+= karo-tx51/
+@@ -135,6 +135,7 @@ obj-$(CONFIG_MACH_TX51)				+= karo-tx51/
  obj-$(CONFIG_MACH_TX53)				+= karo-tx53/
  obj-$(CONFIG_MACH_TX6X)				+= karo-tx6x/
  obj-$(CONFIG_MACH_UDOO)				+= udoo/
@@ -254,10 +254,10 @@ index 000000000000..e78c2685fd78
 +	imx6sx_barebox_entry(fdt);
 +}
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index 0526a6f40724..4c954bb67cdb 100644
+index e60e0ea0c6be..b87e27c8c263 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -90,6 +90,7 @@ pbl-dtb-$(CONFIG_MACH_TX6X) += imx6dl-tx6u.dtb.o
+@@ -93,6 +93,7 @@ pbl-dtb-$(CONFIG_MACH_TX6X) += imx6dl-tx6u.dtb.o
  pbl-dtb-$(CONFIG_MACH_TX6X) += imx6q-tx6q.dtb.o
  pbl-dtb-$(CONFIG_MACH_TURRIS_OMNIA) += armada-385-turris-omnia-bb.dtb.o
  pbl-dtb-$(CONFIG_MACH_UDOO) += imx6q-udoo.dtb.o
@@ -276,10 +276,10 @@ index 000000000000..9203d40207c5
 +/{
 +};
 diff --git a/arch/arm/mach-imx/Kconfig b/arch/arm/mach-imx/Kconfig
-index eb135c3f534c..b2af8d938f11 100644
+index 9052a94ea071..9ec95bb6df09 100644
 --- a/arch/arm/mach-imx/Kconfig
 +++ b/arch/arm/mach-imx/Kconfig
-@@ -367,6 +367,10 @@ config MACH_UDOO
+@@ -377,6 +377,10 @@ config MACH_UDOO
  	bool "Freescale i.MX6 UDOO Board"
  	select ARCH_IMX6
  
@@ -303,10 +303,10 @@ index 66dcc8974cfb..bd6092febca4 100644
  #endif
  
 diff --git a/images/Makefile.imx b/images/Makefile.imx
-index 5e0043f1f014..021e3a5b0f68 100644
+index 90da95d4d025..6420490811f9 100644
 --- a/images/Makefile.imx
 +++ b/images/Makefile.imx
-@@ -260,6 +260,11 @@ CFG_start_imx6q_sabresd.pblx.imximg = $(board)/freescale-mx6-sabresd/flash-heade
+@@ -275,6 +275,11 @@ CFG_start_imx6q_sabresd.pblx.imximg = $(board)/freescale-mx6-sabresd/flash-heade
  FILE_barebox-freescale-imx6q-sabresd.img = start_imx6q_sabresd.pblx.imximg
  image-$(CONFIG_MACH_SABRESD) += barebox-freescale-imx6q-sabresd.img
  

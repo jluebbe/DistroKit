@@ -8,7 +8,7 @@ Signed-off-by: Michael Grzeschik <m.grzeschik@pengutronix.de>
  1 file changed, 15 insertions(+)
 
 diff --git a/arch/arm/dts/am335x-bone-common.dtsi b/arch/arm/dts/am335x-bone-common.dtsi
-index ef97d906616c..d14c6ded6a55 100644
+index 0413724e0ca1..6e58714516fd 100644
 --- a/arch/arm/dts/am335x-bone-common.dtsi
 +++ b/arch/arm/dts/am335x-bone-common.dtsi
 @@ -11,6 +11,21 @@

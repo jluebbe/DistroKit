@@ -5,6 +5,7 @@ config IMAGE_BOOT_VFAT
 	select HOST_GENIMAGE
 	select HOST_MTOOLS
 	select HOST_DOSFSTOOLS
+	select BAREBOX
 	select KERNEL
 	prompt "Generate image/boot.vfat"
 	help

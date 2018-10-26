@@ -21,7 +21,7 @@ BAREBOX_AM335X_MD5	:= 8286a8ea2cdd88104e5c6762d93d81db
 BAREBOX_AM335X		:= barebox-$(BAREBOX_AM335X_VERSION)
 BAREBOX_AM335X_SUFFIX	:= tar.bz2
 BAREBOX_AM335X_DIR	:= $(BUILDDIR)/barebox-am335x-$(BAREBOX_AM335X_VERSION)
-BAREBOX_AM335X_CONFIG	:= $(PTXDIST_PLATFORMCONFIGDIR)/barebox-am335x.config
+BAREBOX_AM335X_CONFIG	:= $(call ptx/in-platformconfigdir, barebox-am335x.config)
 BAREBOX_AM335X_LICENSE	:= GPL-2.0
 BAREBOX_AM335X_URL	:= $(call barebox-url, BAREBOX_AM335X)
 BAREBOX_AM335X_SOURCE	:= $(SRCDIR)/$(BAREBOX_AM335X).$(BAREBOX_AM335X_SUFFIX)
@@ -59,6 +59,12 @@ $(BAREBOX_AM335X_CONFIG):
 endif
 
 $(STATEDIR)/barebox-am335x.prepare: $(BAREBOX_AM335X_CONFIG)
+	@$(call targetinfo)
+	@rm -f "$(BAREBOX_AM335X_DIR)/.ptxdist-defaultenv"
+	@ln -s "$(call ptx/in-platformconfigdir, barebox-am335x-defaultenv)" \
+		"$(BAREBOX_AM335X_DIR)/.ptxdist-defaultenv"
+	@$(call world/prepare, BAREBOX_AM335X)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install

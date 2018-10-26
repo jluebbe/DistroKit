@@ -21,7 +21,7 @@ BAREBOX_VEXPRESS_MD5		:= 8286a8ea2cdd88104e5c6762d93d81db
 BAREBOX_VEXPRESS		:= barebox-$(BAREBOX_VEXPRESS_VERSION)
 BAREBOX_VEXPRESS_SUFFIX		:= tar.bz2
 BAREBOX_VEXPRESS_DIR		:= $(BUILDDIR)/barebox-vexpress-$(BAREBOX_VEXPRESS_VERSION)
-BAREBOX_VEXPRESS_CONFIG		:= $(PTXDIST_PLATFORMCONFIGDIR)/barebox-vexpress.config
+BAREBOX_VEXPRESS_CONFIG		:= $(call ptx/in-platformconfigdir, barebox-vexpress.config)
 BAREBOX_VEXPRESS_LICENSE	:= GPL-2.0
 BAREBOX_VEXPRESS_URL		:= $(call barebox-url, BAREBOX_VEXPRESS)
 BAREBOX_VEXPRESS_SOURCE		:= $(SRCDIR)/$(BAREBOX_VEXPRESS).$(BAREBOX_VEXPRESS_SUFFIX)
@@ -58,6 +58,12 @@ $(BAREBOX_VEXPRESS_CONFIG):
 endif
 
 $(STATEDIR)/barebox-vexpress.prepare: $(BAREBOX_VEXPRESS_CONFIG)
+	@$(call targetinfo)
+	@rm -f "$(BAREBOX_VEXPRESS_DIR)/.ptxdist-defaultenv"
+	@ln -s "$(call ptx/in-platformconfigdir, barebox-vexpress-defaultenv)" \
+		"$(BAREBOX_VEXPRESS_DIR)/.ptxdist-defaultenv"
+	@$(call world/prepare, BAREBOX_VEXPRESS)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install

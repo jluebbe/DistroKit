@@ -21,7 +21,7 @@ BAREBOX_MX6_MD5		:= 8286a8ea2cdd88104e5c6762d93d81db
 BAREBOX_MX6		:= barebox-$(BAREBOX_MX6_VERSION)
 BAREBOX_MX6_SUFFIX	:= tar.bz2
 BAREBOX_MX6_DIR		:= $(BUILDDIR)/barebox-mx6-$(BAREBOX_MX6_VERSION)
-BAREBOX_MX6_CONFIG	:= $(PTXDIST_PLATFORMCONFIGDIR)/barebox-mx6.config
+BAREBOX_MX6_CONFIG	:= $(call ptx/in-platformconfigdir, barebox-mx6.config)
 BAREBOX_MX6_LICENSE	:= GPL-2.0
 BAREBOX_MX6_URL		:= $(call barebox-url, BAREBOX_MX6)
 BAREBOX_MX6_SOURCE	:= $(SRCDIR)/$(BAREBOX_MX6).$(BAREBOX_MX6_SUFFIX)
@@ -65,6 +65,12 @@ $(BAREBOX_MX6_CONFIG):
 endif
 
 $(STATEDIR)/barebox-mx6.prepare: $(BAREBOX_MX6_CONFIG)
+	@$(call targetinfo)
+	@rm -f "$(BAREBOX_MX6_DIR)/.ptxdist-defaultenv"
+	@ln -s "$(call ptx/in-platformconfigdir, barebox-mx6-defaultenv)" \
+		"$(BAREBOX_MX6_DIR)/.ptxdist-defaultenv"
+	@$(call world/prepare, BAREBOX_MX6)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install

@@ -21,7 +21,7 @@ BAREBOX_RPI2_MD5	:= 8286a8ea2cdd88104e5c6762d93d81db
 BAREBOX_RPI2		:= barebox-$(BAREBOX_RPI2_VERSION)
 BAREBOX_RPI2_SUFFIX	:= tar.bz2
 BAREBOX_RPI2_DIR	:= $(BUILDDIR)/barebox-rpi2-$(BAREBOX_RPI2_VERSION)
-BAREBOX_RPI2_CONFIG	:= $(PTXDIST_PLATFORMCONFIGDIR)/barebox-rpi2.config
+BAREBOX_RPI2_CONFIG	:= $(call ptx/in-platformconfigdir, barebox-rpi2.config)
 BAREBOX_RPI2_LICENSE	:= GPL-2.0
 BAREBOX_RPI2_URL	:= $(call barebox-url, BAREBOX_RPI2)
 BAREBOX_RPI2_SOURCE	:= $(SRCDIR)/$(BAREBOX_RPI2).$(BAREBOX_RPI2_SUFFIX)
@@ -58,6 +58,12 @@ $(BAREBOX_RPI2_CONFIG):
 endif
 
 $(STATEDIR)/barebox-rpi2.prepare: $(BAREBOX_RPI2_CONFIG)
+	@$(call targetinfo)
+	@rm -f "$(BAREBOX_RPI2_DIR)/.ptxdist-defaultenv"
+	@ln -s "$(call ptx/in-platformconfigdir, barebox-rpi2-defaultenv)" \
+		"$(BAREBOX_RPI2_DIR)/.ptxdist-defaultenv"
+	@$(call world/prepare, BAREBOX_RPI2)
+	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Install

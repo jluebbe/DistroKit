@@ -21,11 +21,12 @@ IMAGE_RPI2_DIR	:= $(BUILDDIR)/$(IMAGE_RPI2)
 IMAGE_RPI2_IMAGE	:= $(IMAGEDIR)/rpi2.hdimg
 IMAGE_RPI2_FILES	:= $(IMAGEDIR)/root.tgz
 IMAGE_RPI2_CONFIG	:= rpi2.config
-IMAGE_RPI2_DATA    := \
-        $(wildcard $(PTXDIST_PLATFORMCONFIGDIR)/rpi-firmware/*.bin) \
-        $(wildcard $(PTXDIST_PLATFORMCONFIGDIR)/rpi-firmware/*.elf) \
-        $(wildcard $(PTXDIST_PLATFORMCONFIGDIR)/rpi-firmware/*.dat) \
-        $(wildcard $(PTXDIST_PLATFORMCONFIGDIR)/rpi-firmware/config.txt)
+IMAGE_RPI2_DATA_DIR	:= $(call ptx/in-platformconfigdir, rpi-firmware)
+IMAGE_RPI2_DATA		:= \
+	$(wildcard $(IMAGE_RPI2_DATA_DIR)/*.bin) \
+	$(wildcard $(IMAGE_RPI2_DATA_DIR)/*.elf) \
+	$(wildcard $(IMAGE_RPI2_DATA_DIR)/*.dat) \
+	$(wildcard $(IMAGE_RPI2_DATA_DIR)/config.txt)
 
 # ----------------------------------------------------------------------------
 # Image
@@ -41,7 +42,7 @@ IMAGE_RPI2_ENV := \
 $(IMAGE_RPI2_IMAGE):
 	@$(call targetinfo)
 	@GPU_MEM=$(PTXCONF_IMAGE_RPI2_GPU_MEM) \
-		ptxd_replace_magic "$(PTXDIST_PLATFORMCONFIGDIR)/rpi-firmware/config.txt" > \
+		ptxd_replace_magic "$(IMAGE_RPI2_DATA_DIR)/config.txt" > \
 		"$(PTXDIST_TEMPDIR)/config.txt"
 	@$(call image/genimage, IMAGE_RPI2)
 	@$(call finish)

@@ -1,3 +1,5 @@
+# enable debug of early bootloader
+uart_2ndstage=1
 # Set barebox as third state bootloader
 kernel=barebox
 # Set stdv mode to PAL (as used in Europe)

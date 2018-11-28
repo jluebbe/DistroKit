@@ -5,9 +5,7 @@ if [ -n "$nv.boot.default" ]; then
 fi
 
 if [ $bootsource = mmc ]; then
-	global.boot.default="bootchooser net"
-elif [ $bootsource = net ]; then
-	global.boot.default="net bootchooser"
+	global.boot.default="mmc$bootsource_instance net"
 else
-	global.boot.default="disk0.1 net"
+	global.boot.default="net mmc0 mmc1"
 fi

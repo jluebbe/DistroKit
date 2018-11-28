@@ -1,5 +1,7 @@
+# enable debug of early bootloader
+uart_2ndstage=1
 # Set barebox as third state bootloader
-kernel=barebox.bin
+kernel=barebox
 # Set stdv mode to PAL (as used in Europe)
 sdtv_mode=2
 # Force the monitor to HDMI mode so that sound will be sent over HDMI cable

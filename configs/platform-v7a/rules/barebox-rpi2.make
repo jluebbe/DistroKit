@@ -43,7 +43,7 @@ BAREBOX_RPI2_CONF_OPT := $(call barebox-opts, BAREBOX_RPI2)
 BAREBOX_RPI2_MAKE_ENV := $(BAREBOX_RPI2_CONF_ENV)
 BAREBOX_RPI2_MAKE_OPT := $(BAREBOX_RPI2_CONF_OPT)
 
-BAREBOX_RPI2_IMAGES := images/barebox-raspberry-pi-2.img
+BAREBOX_RPI2_IMAGES := images/barebox-raspberry-pi-2.img images/barebox-raspberry-pi-3.img
 BAREBOX_RPI2_IMAGES := $(addprefix $(BAREBOX_RPI2_DIR)/,$(BAREBOX_RPI2_IMAGES))
 
 ifdef PTXCONF_BAREBOX_RPI2

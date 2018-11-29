@@ -1,0 +1,24 @@
+From: Rouven Czerwinski <r.czerwinski@pengutronix.de>
+Date: Wed, 12 Dec 2018 15:06:49 +0100
+Subject: [PATCH] doc: bcm283x: remove miniuart overlay instruction
+
+Since we now use the miniuart on the raspberry pi 3, the miniuart overlay is no
+longer needed.
+
+Signed-off-by: Rouven Czerwinski <r.czerwinski@pengutronix.de>
+---
+ Documentation/boards/bcm2835.rst | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/Documentation/boards/bcm2835.rst b/Documentation/boards/bcm2835.rst
+index 79ea0ff7a78b..ea80d5834861 100644
+--- a/Documentation/boards/bcm2835.rst
++++ b/Documentation/boards/bcm2835.rst
+@@ -22,7 +22,6 @@ Raspberry Pi
+ 
+          kernel=barebox.img
+          enable_uart=1
+-         dtoverlay=pi3-miniuart-bt
+ 
+      (For more information, refer to the `documentation for config.txt`_.)
+ 

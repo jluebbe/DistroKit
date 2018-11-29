@@ -26,6 +26,7 @@ IMAGE_RPI2_DATA		:= \
 	$(wildcard $(IMAGE_RPI2_DATA_DIR)/*.bin) \
 	$(wildcard $(IMAGE_RPI2_DATA_DIR)/*.elf) \
 	$(wildcard $(IMAGE_RPI2_DATA_DIR)/*.dat) \
+	$(wildcard $(IMAGE_RPI2_DATA_DIR)/*.dtb) \
 	$(wildcard $(IMAGE_RPI2_DATA_DIR)/config.txt)
 
 # ----------------------------------------------------------------------------

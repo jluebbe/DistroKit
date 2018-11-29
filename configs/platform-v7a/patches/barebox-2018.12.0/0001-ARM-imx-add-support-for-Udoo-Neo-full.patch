@@ -8,16 +8,16 @@ Content-Transfer-Encoding: 8bit
 Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
 Forwarded: id:20170627190317.19253-1-uwe@kleine-koenig.org
 ---
- arch/arm/boards/Makefile                      |   1 +
- arch/arm/boards/udoo-neo/Makefile             |   2 +
- arch/arm/boards/udoo-neo/board.c              |  27 ++++
- .../flash-header-mx6sx-udoo-neo_full.imxcfg   | 124 ++++++++++++++++++
- arch/arm/boards/udoo-neo/lowlevel.c           |  39 ++++++
- arch/arm/dts/Makefile                         |   1 +
- arch/arm/dts/imx6sx-udoo-neo-full.dts         |   4 +
- arch/arm/mach-imx/Kconfig                     |   4 +
- arch/arm/mach-imx/include/mach/esdctl.h       |   1 +
- images/Makefile.imx                           |   5 +
+ arch/arm/boards/Makefile                           |   1 +
+ arch/arm/boards/udoo-neo/Makefile                  |   2 +
+ arch/arm/boards/udoo-neo/board.c                   |  27 +++++
+ .../flash-header-mx6sx-udoo-neo_full.imxcfg        | 124 +++++++++++++++++++++
+ arch/arm/boards/udoo-neo/lowlevel.c                |  39 +++++++
+ arch/arm/dts/Makefile                              |   1 +
+ arch/arm/dts/imx6sx-udoo-neo-full.dts              |   4 +
+ arch/arm/mach-imx/Kconfig                          |   4 +
+ arch/arm/mach-imx/include/mach/esdctl.h            |   1 +
+ images/Makefile.imx                                |   5 +
  10 files changed, 208 insertions(+)
  create mode 100644 arch/arm/boards/udoo-neo/Makefile
  create mode 100644 arch/arm/boards/udoo-neo/board.c

@@ -1,16 +1,4 @@
-# enable debug of early bootloader
-uart_2ndstage=1
+# Enable the UART (miniuart for RPI3, PL011 for RPI2)
+enable_uart=1
 # Set barebox as third state bootloader
-kernel=barebox
-# Set stdv mode to PAL (as used in Europe)
-sdtv_mode=2
-# Force the monitor to HDMI mode so that sound will be sent over HDMI cable
-hdmi_drive=2
-# Set monitor mode to DMT
-hdmi_group=1
-# Set monitor resolution to 1080p60
-hdmi_mode=16
-# No overscan
-disable_overscan=1
-# GPU memory in megabyte
-gpu_mem=@GPU_MEM@
+kernel=barebox.img

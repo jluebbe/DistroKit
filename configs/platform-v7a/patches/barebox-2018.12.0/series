@@ -1,0 +1,11 @@
+# umpf-base: v2018.12.0
+# umpf-name: 2018.12.0/customers/pengutronix/multiv7
+# umpf-version: 2018.12.0/customers/pengutronix/multiv7/20181207-1
+# umpf-topic: v2018.11.0/customers/pengutronix/udoo-neo
+# umpf-hashinfo: c5f2e150d7e8d5439458df1a2cab71b25fc36e19
+# umpf-topic-range: 0b5361a328632e64c14a54306119093a0c7fecdf..91bbdb966ae2431a0fa298d5976e9435312f555a
+0001-ARM-imx-add-support-for-Udoo-Neo-full.patch
+# umpf-release: 2018.12.0/customers/pengutronix/multiv7/20181207-1
+# umpf-topic-range: 91bbdb966ae2431a0fa298d5976e9435312f555a..aaff0754c24c6911d3ba72f96d37fedf8007d3e6
+0101-Release-2018.12.0-customers-pengutronix-multiv7-2018.patch
+# umpf-end

@@ -1,21 +1,21 @@
 From: Rouven Czerwinski <r.czerwinski@pengutronix.de>
-Date: Thu, 13 Dec 2018 11:14:57 +0100
-Subject: [PATCH] Release 2018.12.0/customers/pengutronix/multiv7/20181213-1
+Date: Fri, 18 Jan 2019 11:36:33 +0100
+Subject: [PATCH] Release 2019.01.0/customers/pengutronix/multi_v7/20190118-1
 
 ---
  Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index 1ce50d025e47..f378f3dc7adf 100644
+index d6423b84fef0..6617637ca045 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1,7 +1,7 @@
- VERSION = 2018
- PATCHLEVEL = 12
+ VERSION = 2019
+ PATCHLEVEL = 01
  SUBLEVEL = 0
 -EXTRAVERSION =
-+EXTRAVERSION =-20181213-1
++EXTRAVERSION =-20190118-1
  NAME = None
  
  # *DOCUMENTATION*

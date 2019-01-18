@@ -5,20 +5,25 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Original patch from Uwe Kleine-König, I fixed the
+review comments and the imxcfg file to use the udoo neo values.
+
+I also tested the support on the udoo neo full board.
+
 Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-Forwarded: id:20170627190317.19253-1-uwe@kleine-koenig.org
+Signed-off-by: Rouven Czerwinski <r.czerwinski@pengutronix.de>
 ---
  arch/arm/boards/Makefile                           |   1 +
  arch/arm/boards/udoo-neo/Makefile                  |   2 +
  arch/arm/boards/udoo-neo/board.c                   |  27 +++++
- .../flash-header-mx6sx-udoo-neo_full.imxcfg        | 124 +++++++++++++++++++++
- arch/arm/boards/udoo-neo/lowlevel.c                |  39 +++++++
+ .../flash-header-mx6sx-udoo-neo_full.imxcfg        | 131 +++++++++++++++++++++
+ arch/arm/boards/udoo-neo/lowlevel.c                |  39 ++++++
  arch/arm/dts/Makefile                              |   1 +
  arch/arm/dts/imx6sx-udoo-neo-full.dts              |   4 +
  arch/arm/mach-imx/Kconfig                          |   4 +
  arch/arm/mach-imx/include/mach/esdctl.h            |   1 +
  images/Makefile.imx                                |   5 +
- 10 files changed, 208 insertions(+)
+ 10 files changed, 215 insertions(+)
  create mode 100644 arch/arm/boards/udoo-neo/Makefile
  create mode 100644 arch/arm/boards/udoo-neo/board.c
  create mode 100644 arch/arm/boards/udoo-neo/flash-header-mx6sx-udoo-neo_full.imxcfg
@@ -80,10 +85,17 @@ index 000000000000..9bf480305d70
 +coredevice_initcall(imx6sx_udoneo_coredevices_init);
 diff --git a/arch/arm/boards/udoo-neo/flash-header-mx6sx-udoo-neo_full.imxcfg b/arch/arm/boards/udoo-neo/flash-header-mx6sx-udoo-neo_full.imxcfg
 new file mode 100644
-index 000000000000..176aff49b3ec
+index 000000000000..39f2a8a221f7
 --- /dev/null
 +++ b/arch/arm/boards/udoo-neo/flash-header-mx6sx-udoo-neo_full.imxcfg
-@@ -0,0 +1,124 @@
+@@ -0,0 +1,131 @@
++/*
++ * These values are taken from:
++ * repository: https://github.com/UDOOboard/uboot-imx
++ * branch: udoo/2015.04.imx
++ * file: board/udoo/udoo_neo/udoo_neo.cfg
++ */
++
 +loadaddr 0x80000000
 +soc imx6
 +dcdofs 0x400
@@ -150,18 +162,18 @@ index 000000000000..176aff49b3ec
 +/********************************************/
 +
 +/* write leveling */
-+wm 32 0x021b080c 0x001E0022
-+wm 32 0x021b0810 0x001C0019
++wm 32 0x021b080c 0x000E000B
++wm 32 0x021b0810 0x000E0010
 +/********************************************/
 +
 +/* DQS Read Gate */
-+wm 32 0x021b083c 0x41540150
-+wm 32 0x021b0840 0x01440138
++wm 32 0x021b083c 0x41600158
++wm 32 0x021b0840 0x01500140
 +/********************************************/
 +
 +/* Read/Write Delay */
-+wm 32 0x021b0848 0x403E4644
-+wm 32 0x021b0850 0x3C3A4038
++wm 32 0x021b0848 0x3A383E3E
++wm 32 0x021b0850 0x3A383C38
 +/********************************************/
 +
 +/* read data bit delay */
@@ -210,7 +222,7 @@ index 000000000000..176aff49b3ec
 +/********************************************/
 diff --git a/arch/arm/boards/udoo-neo/lowlevel.c b/arch/arm/boards/udoo-neo/lowlevel.c
 new file mode 100644
-index 000000000000..e78c2685fd78
+index 000000000000..bb6b7d833278
 --- /dev/null
 +++ b/arch/arm/boards/udoo-neo/lowlevel.c
 @@ -0,0 +1,39 @@
@@ -249,15 +261,15 @@ index 000000000000..e78c2685fd78
 +	if (IS_ENABLED(CONFIG_DEBUG_LL))
 +		setup_uart();
 +
-+	fdt = __dtb_imx6sx_udoo_neo_full_start - get_runtime_offset();
++	fdt = __dtb_imx6sx_udoo_neo_full_start + get_runtime_offset();
 +
 +	imx6sx_barebox_entry(fdt);
 +}
 diff --git a/arch/arm/dts/Makefile b/arch/arm/dts/Makefile
-index 503d9b18f9c1..eadffc7b7c44 100644
+index c08b35a10132..1c6bfd900b99 100644
 --- a/arch/arm/dts/Makefile
 +++ b/arch/arm/dts/Makefile
-@@ -98,6 +98,7 @@ pbl-dtb-$(CONFIG_MACH_TX6X) += imx6dl-tx6u.dtb.o
+@@ -99,6 +99,7 @@ pbl-dtb-$(CONFIG_MACH_TX6X) += imx6dl-tx6u.dtb.o
  pbl-dtb-$(CONFIG_MACH_TX6X) += imx6q-tx6q.dtb.o
  pbl-dtb-$(CONFIG_MACH_TURRIS_OMNIA) += armada-385-turris-omnia-bb.dtb.o
  pbl-dtb-$(CONFIG_MACH_UDOO) += imx6q-udoo.dtb.o
@@ -276,10 +288,10 @@ index 000000000000..9203d40207c5
 +/{
 +};
 diff --git a/arch/arm/mach-imx/Kconfig b/arch/arm/mach-imx/Kconfig
-index edfc85113880..6f86175b24e9 100644
+index d9b60053db03..53226c55944f 100644
 --- a/arch/arm/mach-imx/Kconfig
 +++ b/arch/arm/mach-imx/Kconfig
-@@ -392,6 +392,10 @@ config MACH_UDOO
+@@ -384,6 +384,10 @@ config MACH_UDOO
  	bool "Freescale i.MX6 UDOO Board"
  	select ARCH_IMX6
  
@@ -303,18 +315,18 @@ index bc6c7339535e..18c4a2836007 100644
  #endif
  
 diff --git a/images/Makefile.imx b/images/Makefile.imx
-index 9b5cd577d285..257561464504 100644
+index 8b8a5452b770..4f6fd0489688 100644
 --- a/images/Makefile.imx
 +++ b/images/Makefile.imx
-@@ -271,6 +271,11 @@ CFG_start_imx6q_sabresd.pblx.imximg = $(board)/freescale-mx6-sabresd/flash-heade
- FILE_barebox-freescale-imx6q-sabresd.img = start_imx6q_sabresd.pblx.imximg
+@@ -254,6 +254,11 @@ CFG_start_imx6q_sabresd.pblb.imximg = $(board)/freescale-mx6-sabresd/flash-heade
+ FILE_barebox-freescale-imx6q-sabresd.img = start_imx6q_sabresd.pblb.imximg
  image-$(CONFIG_MACH_SABRESD) += barebox-freescale-imx6q-sabresd.img
  
-+pblx-$(CONFIG_MACH_UDOO_NEO) += start_imx6sx_udoo_neo
-+CFG_start_imx6sx_udoo_neo.pblx.imximg = $(board)/udoo-neo/flash-header-mx6sx-udoo-neo_full.imxcfg
-+FILE_barebox-udoo-neo.img = start_imx6sx_udoo_neo.pblx.imximg
++pblb-$(CONFIG_MACH_UDOO_NEO) += start_imx6sx_udoo_neo
++CFG_start_imx6sx_udoo_neo.pblb.imximg = $(board)/udoo-neo/flash-header-mx6sx-udoo-neo_full.imxcfg
++FILE_barebox-udoo-neo.img = start_imx6sx_udoo_neo.pblb.imximg
 +image-$(CONFIG_MACH_UDOO_NEO) += barebox-udoo-neo.img
 +
- pblx-$(CONFIG_MACH_FREESCALE_IMX6SX_SABRESDB) += start_imx6sx_sabresdb
- CFG_start_imx6sx_sabresdb.pblx.imximg = $(board)/freescale-mx6sx-sabresdb/flash-header-mx6sx-sabresdb.imxcfg
- FILE_barebox-freescale-imx6sx-sabresdb.img = start_imx6sx_sabresdb.pblx.imximg
+ pblb-$(CONFIG_MACH_FREESCALE_IMX6SX_SABRESDB) += start_imx6sx_sabresdb
+ CFG_start_imx6sx_sabresdb.pblb.imximg = $(board)/freescale-mx6sx-sabresdb/flash-header-mx6sx-sabresdb.imxcfg
+ FILE_barebox-freescale-imx6sx-sabresdb.img = start_imx6sx_sabresdb.pblb.imximg

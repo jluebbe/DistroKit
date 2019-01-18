@@ -1,9 +1,9 @@
 From: Rouven Czerwinski <r.czerwinski@pengutronix.de>
-Date: Wed, 12 Dec 2018 14:33:43 +0100
+Date: Wed, 19 Dec 2018 12:09:23 +0100
 Subject: [PATCH] ARM: rpi: add NS16550 support
 
 Since the 16550 driver now supports the RPI3 miniuart, enable it in the default
-config.
+ config.
 
 Signed-off-by: Rouven Czerwinski <r.czerwinski@pengutronix.de>
 ---

@@ -16,10 +16,10 @@ Signed-off-by: Rouven Czerwinski <r.czerwinski@pengutronix.de>
  2 files changed, 19 insertions(+), 19 deletions(-)
 
 diff --git a/arch/arm/boards/raspberry-pi/rpi-common.c b/arch/arm/boards/raspberry-pi/rpi-common.c
-index 9f0531fd05d9..490aeef12306 100644
+index 840f525bbbf6..887f096f7e4e 100644
 --- a/arch/arm/boards/raspberry-pi/rpi-common.c
 +++ b/arch/arm/boards/raspberry-pi/rpi-common.c
-@@ -297,6 +297,25 @@ static int rpi_clock_init(void)
+@@ -298,6 +298,25 @@ static int rpi_clock_init(void)
  }
  postconsole_initcall(rpi_clock_init);
  

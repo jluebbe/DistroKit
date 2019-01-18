@@ -15,10 +15,10 @@ Signed-off-by: Rouven Czerwinski <r.czerwinski@pengutronix.de>
  1 file changed, 7 insertions(+)
 
 diff --git a/arch/arm/boards/raspberry-pi/rpi-common.c b/arch/arm/boards/raspberry-pi/rpi-common.c
-index 490aeef12306..e29177d08e20 100644
+index 887f096f7e4e..f22239c7ccb6 100644
 --- a/arch/arm/boards/raspberry-pi/rpi-common.c
 +++ b/arch/arm/boards/raspberry-pi/rpi-common.c
-@@ -309,6 +309,13 @@ static int rpi_console_clock_init(void)
+@@ -310,6 +310,13 @@ static int rpi_console_clock_init(void)
  	clkdev_add_physbase(clk, 0x20201000, NULL);
  	clkdev_add_physbase(clk, 0x3f201000, NULL);
  

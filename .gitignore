@@ -1,4 +1,4 @@
-/configs/platform-*/platformconfig.old
+/configs/platform-*/*.old
 /configs/ptxconfig.old
 /platform-*
 /selected_collectionconfig

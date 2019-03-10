@@ -1,0 +1,6 @@
+#!/bin/sh
+# Run ptxdist on all platformconfigs
+PLATFORMS="v7a v8a rpi"
+for p in $PLATFORMS; do
+	ptxdist --platformconfig=configs/platform-${p}/platformconfig "$@"
+done

@@ -1,6 +1,13 @@
 #!/bin/sh
 # Run ptxdist on all platformconfigs
+if [ -z "$PTXDIST" ]; then
+	PTXDIST=ptxdist
+else
+	tput setaf 3 # yellow
+	echo Note: using PTXDIST=$PTXDIST
+	tput sgr 0   # back to normal
+fi
 PLATFORMS="v7a v8a rpi"
 for p in $PLATFORMS; do
-	ptxdist --platformconfig=configs/platform-${p}/platformconfig "$@"
+	$PTXDIST --platformconfig=configs/platform-${p}/platformconfig "$@"
 done

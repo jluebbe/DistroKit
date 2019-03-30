@@ -1,9 +1,2 @@
 includes:
   - file: ptxdist.ref
-
-ptxdist_debug_sftp:
-  description: |
-    In DistroKit, it is possible to access the target filesystem via
-    p9, at least on qemu-vexpress. This might be enabled later again,
-    once we do more testing on real hardware.
-  value: False

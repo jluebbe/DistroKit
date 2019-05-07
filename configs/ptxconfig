@@ -2054,7 +2054,6 @@ PTXCONF_ZLIB=y
 # Middleware                    
 #
 # PTXCONF_BUSTLE is not set
-PTXCONF_DBUS_BROKER=y
 # PTXCONF_DBUS_GLIB is not set
 PTXCONF_DBUS=y
 PTXCONF_DBUS_SYSTEMD=y

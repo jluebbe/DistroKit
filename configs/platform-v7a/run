@@ -68,7 +68,7 @@ fi
 BASE_CMDLINE="console=ttyAMA0,115200 loglevel=5 systemd.log_level=warning systemd.show_status=auto"
 
 # Machine to emulate
-QEMU_ARGS=( -machine vexpress-a9 -cpu cortex-a9 -m 1024M )
+QEMU_ARGS=( -machine vexpress-a9 -cpu cortex-a9 -smp 4 -m 1024M )
 # disable graphics output
 QEMU_ARGS[${#QEMU_ARGS[@]}]="-nographic"
 # Exit qemu on reboot

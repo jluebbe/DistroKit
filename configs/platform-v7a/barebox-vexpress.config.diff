@@ -5,48 +5,12 @@ CONFIG_ARCH_VEXPRESS=y
 # CONFIG_ARM_SECURE_MONITOR is undefined
 # CONFIG_ARM_SMCCC is undefined
 CONFIG_BOOTM_INITRD=y
-# CONFIG_BZLIB is not set
 # CONFIG_CFI_BUFFER_WRITE is not set
 # CONFIG_CLOCKSOURCE_BCM283X is undefined
-# CONFIG_CMD_ARM_MMUINFO is not set
-# CONFIG_CMD_BOOTZ is not set
-# CONFIG_CMD_CLK is not set
 # CONFIG_CMD_GPIO is undefined
-# CONFIG_CMD_I2C is undefined
-# CONFIG_CMD_IMD is not set
-# CONFIG_CMD_LED is undefined
-# CONFIG_CMD_LED_TRIGGER is undefined
-# CONFIG_CMD_LET is not set
-# CONFIG_CMD_LN is not set
-CONFIG_CMD_LOADB=y
-# CONFIG_CMD_MEMTEST is not set
-# CONFIG_CMD_MENU is undefined
-# CONFIG_CMD_MENUTREE is undefined
-# CONFIG_CMD_MENU_MANAGEMENT is undefined
-# CONFIG_CMD_MM is not set
-# CONFIG_CMD_MSLEEP is not set
-# CONFIG_CMD_OF_NODE is not set
-# CONFIG_CMD_OF_PROPERTY is not set
-# CONFIG_CMD_READF is not set
-# CONFIG_CMD_REGULATOR is undefined
-# CONFIG_CMD_SHA1SUM is not set
-# CONFIG_CMD_SPI is undefined
-# CONFIG_CMD_STATE is undefined
-# CONFIG_CMD_TIME is not set
-# CONFIG_CMD_USB is undefined
-# CONFIG_CMD_USBGADGET is undefined
-# CONFIG_CMD_WD is undefined
-# CONFIG_CMD_WD_DEFAULT_TIMOUT is undefined
 CONFIG_COMMON_CLK_OF_PROVIDER=y
-CONFIG_COMPILE_LOGLEVEL=6
 CONFIG_CONSOLE_ACTIVATE_ALL=y
 # CONFIG_CONSOLE_ACTIVATE_FIRST is not set
-# CONFIG_DEFAULT_COMPRESSION_BZIP2 is undefined
-# CONFIG_DEFAULT_COMPRESSION_GZIP is undefined
-# CONFIG_DEFAULT_COMPRESSION_LZO is undefined
-# CONFIG_DEFAULT_COMPRESSION_XZ is undefined
-# CONFIG_DEFAULT_ENVIRONMENT_GENERIC_NEW_MENU is undefined
-# CONFIG_DIGEST_SHA1_GENERIC is not set
 CONFIG_DRIVER_CFI=y
 CONFIG_DRIVER_CFI_AMD=y
 CONFIG_DRIVER_CFI_BANK_WIDTH_1=y
@@ -54,17 +18,9 @@ CONFIG_DRIVER_CFI_BANK_WIDTH_2=y
 CONFIG_DRIVER_CFI_BANK_WIDTH_4=y
 # CONFIG_DRIVER_CFI_BANK_WIDTH_8 is not set
 CONFIG_DRIVER_CFI_INTEL=y
-# CONFIG_DRIVER_NET_ENC28J60 is undefined
-# CONFIG_DRIVER_NET_MICREL is undefined
 CONFIG_DRIVER_NET_SMC911X=y
 # CONFIG_DRIVER_SPI_GPIO is undefined
-# CONFIG_EEPROM_AT24 is undefined
-# CONFIG_EEPROM_AT25 is undefined
-# CONFIG_FILE_LIST is undefined
 # CONFIG_FIRMWARE_ALTERA_SERIAL is undefined
-# CONFIG_FS_FAT_LFN is not set
-# CONFIG_FS_FAT_WRITE is not set
-# CONFIG_FS_NFS is not set
 # CONFIG_GENERIC_GPIO is undefined
 # CONFIG_GPIOLIB is undefined
 # CONFIG_GPIO_74164 is undefined
@@ -74,89 +30,28 @@ CONFIG_DRIVER_NET_SMC911X=y
 # CONFIG_GPIO_PCA953X is undefined
 # CONFIG_GPIO_PL061 is undefined
 # CONFIG_GPIO_SX150X is undefined
-# CONFIG_HWRNG is not set
-# CONFIG_I2C is not set
 # CONFIG_I2C_ALGOBIT is undefined
-# CONFIG_I2C_DESIGNWARE is undefined
 # CONFIG_I2C_GPIO is undefined
-# CONFIG_I2C_MUX is undefined
-# CONFIG_I2C_MV64XXX is undefined
 # CONFIG_JTAG is undefined
 # CONFIG_KEYBOARD_GPIO is undefined
 # CONFIG_KEYBOARD_QT1070 is undefined
-# CONFIG_KEYBOARD_USB is undefined
-# CONFIG_LED is not set
 # CONFIG_LED_GPIO is undefined
 # CONFIG_LED_GPIO_BICOLOR is undefined
 # CONFIG_LED_GPIO_OF is undefined
 # CONFIG_LED_GPIO_RGB is undefined
-# CONFIG_LED_PCA955X is undefined
-# CONFIG_LED_TRIGGERS is undefined
-# CONFIG_LZO_DECOMPRESS is not set
 # CONFIG_MACH_RPI2 is undefined
 # CONFIG_MACH_RPI3 is undefined
 # CONFIG_MACH_RPI is undefined
 # CONFIG_MACH_RPI_COMMON is undefined
 CONFIG_MACH_VEXPRESS=y
 # CONFIG_MCI_BCM283X is undefined
-# CONFIG_MCI_SPI is undefined
 # CONFIG_MDIO_BUS_MUX_GPIO is undefined
-# CONFIG_MENU is not set
-# CONFIG_MENUTREE is undefined
-# CONFIG_MFD_ACT8846 is undefined
-# CONFIG_MFD_DA9053 is undefined
-# CONFIG_MFD_DA9063 is undefined
-# CONFIG_MFD_LP3972 is undefined
-# CONFIG_MFD_MC13XXX is undefined
-# CONFIG_MFD_MC34704 is undefined
-# CONFIG_MFD_MC9SDZ60 is undefined
-# CONFIG_MFD_STMPE is undefined
-# CONFIG_MFD_TWL4030 is undefined
-# CONFIG_MFD_TWL6030 is undefined
 CONFIG_MTD_CONCAT=y
-# CONFIG_MTD_DATAFLASH is undefined
-# CONFIG_MTD_M25P80 is undefined
-# CONFIG_NET_USB is undefined
-# CONFIG_NET_USB_ASIX is undefined
-# CONFIG_NET_USB_SMSC95XX is undefined
 # CONFIG_OF_GPIO is undefined
 CONFIG_PBL_CONSOLE=y
-# CONFIG_PINCTRL is not set
-# CONFIG_PINCTRL_SINGLE is undefined
 CONFIG_PROMPT="vexpress: "
-# CONFIG_REGULATOR is not set
 # CONFIG_REGULATOR_BCM283X is undefined
 # CONFIG_REGULATOR_FIXED is undefined
 CONFIG_SERIAL_AMBA_PL011=y
-# CONFIG_SHA1 is undefined
-# CONFIG_SPI is not set
 CONFIG_SRAM=y
-# CONFIG_STATE is not set
-# CONFIG_STATE_BACKWARD_COMPATIBLE is undefined
-# CONFIG_STATE_CRYPTO is undefined
-# CONFIG_STATE_DRV is undefined
-# CONFIG_USB is undefined
-# CONFIG_USBGADGET_START is undefined
-# CONFIG_USB_EHCI is undefined
-# CONFIG_USB_GADGET is not set
-# CONFIG_USB_GADGET_AUTOSTART is undefined
-# CONFIG_USB_GADGET_DFU is undefined
-# CONFIG_USB_GADGET_FASTBOOT is undefined
-# CONFIG_USB_GADGET_FASTBOOT_SPARSE is undefined
-# CONFIG_USB_GADGET_SERIAL is undefined
-# CONFIG_USB_HOST is not set
-# CONFIG_USB_STORAGE is undefined
-# CONFIG_USB_ULPI is undefined
-# CONFIG_USB_XHCI is undefined
-# CONFIG_WATCHDOG is not set
 # CONFIG_WATCHDOG_BCM2835 is undefined
-# CONFIG_WATCHDOG_DW is undefined
-# CONFIG_WATCHDOG_POLLER is undefined
-# CONFIG_XZ_DECOMPRESS is not set
-# CONFIG_XZ_DEC_ARM is undefined
-# CONFIG_XZ_DEC_ARMTHUMB is undefined
-# CONFIG_XZ_DEC_IA64 is undefined
-# CONFIG_XZ_DEC_POWERPC is undefined
-# CONFIG_XZ_DEC_SPARC is undefined
-# CONFIG_XZ_DEC_X86 is undefined
-# CONFIG_ZLIB is not set

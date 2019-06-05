@@ -3,18 +3,6 @@
 menuconfig BAREBOX_RPI2
 	tristate
 	prompt "Barebox (rpi2)"
-	select HOST_LZOP if BAREBOX_RPI2_NEEDS_HOST_LZOP
+	select BAREBOX_COMMON
 	help
 	  Raspberry Pi 2 support for barebox.
-
-if BAREBOX_RPI2
-
-config BAREBOX_RPI2_NEEDS_HOST_LZOP
-	prompt "barebox rpi2 needs lzop"
-	bool
-	help
-	  The barebox rpi2 can be compressed. Select this if lzop
-	  is used in order to compile lzop for your development
-	  host.
-
-endif

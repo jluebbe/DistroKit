@@ -3,5 +3,6 @@
 config BAREBOX_AM335X_MLO
 	tristate
 	prompt "Barebox (am335x-mlo)"
+	select BAREBOX_COMMON
 	help
 	  FIXME

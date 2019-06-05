@@ -3,5 +3,6 @@
 config BAREBOX_MX6
 	tristate
 	prompt "Barebox (mx6)"
+	select BAREBOX_COMMON
 	help
 	  Barebox image for i.MX6

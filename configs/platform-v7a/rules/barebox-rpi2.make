@@ -22,6 +22,7 @@ BAREBOX_RPI2		:= barebox-$(BAREBOX_RPI2_VERSION)
 BAREBOX_RPI2_SUFFIX	:= tar.bz2
 BAREBOX_RPI2_DIR	:= $(BUILDDIR)/barebox-rpi2-$(BAREBOX_RPI2_VERSION)
 BAREBOX_RPI2_CONFIG	:= $(call ptx/in-platformconfigdir, barebox-rpi2.config)
+BAREBOX_RPI2_REF_CONFIG := $(call ptx/in-platformconfigdir, barebox.config)
 BAREBOX_RPI2_LICENSE	:= GPL-2.0
 BAREBOX_RPI2_URL	:= $(call barebox-url, BAREBOX_RPI2)
 BAREBOX_RPI2_SOURCE	:= $(SRCDIR)/$(BAREBOX_RPI2).$(BAREBOX_RPI2_SUFFIX)

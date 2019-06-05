@@ -22,6 +22,7 @@ BAREBOX_MX6		:= barebox-$(BAREBOX_MX6_VERSION)
 BAREBOX_MX6_SUFFIX	:= tar.bz2
 BAREBOX_MX6_DIR		:= $(BUILDDIR)/barebox-mx6-$(BAREBOX_MX6_VERSION)
 BAREBOX_MX6_CONFIG	:= $(call ptx/in-platformconfigdir, barebox-mx6.config)
+BAREBOX_MX6_REF_CONFIG	:= $(call ptx/in-platformconfigdir, barebox.config)
 BAREBOX_MX6_LICENSE	:= GPL-2.0
 BAREBOX_MX6_URL		:= $(call barebox-url, BAREBOX_MX6)
 BAREBOX_MX6_SOURCE	:= $(SRCDIR)/$(BAREBOX_MX6).$(BAREBOX_MX6_SUFFIX)

@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# PTXdist 2019.06.0
+# PTXdist 2019.07.0
 #
 PTXCONF_DATAPARTITION=y
 
@@ -64,7 +64,7 @@ PTXCONF_REPRODUCIBLE_TIMESTAMP="ptxdist"
 PTXCONF_RUNTIME=y
 PTXCONF_BUILDTIME=y
 PTXCONF_VIRTUAL=y
-PTXCONF_CONFIGFILE_VERSION="2019.06.0"
+PTXCONF_CONFIGFILE_VERSION="2019.07.0"
 PTXCONF__ptxconfig_MAGIC__=y
 
 #
@@ -82,6 +82,7 @@ PTXCONF__ptxconfig_MAGIC__=y
 # Host Tools                    
 #
 # PTXCONF_HOST_DFU_UTIL is not set
+# PTXCONF_HOST_OPENOCD is not set
 PTXCONF_HOST_QEMU=y
 PTXCONF_HOST_QEMU_SYS=y
 PTXCONF_HOST_QEMU_USR=y
@@ -150,6 +151,7 @@ PTXCONF_GDBSERVER_SHARED=y
 # PTXCONF_LATRACE is not set
 # PTXCONF_LDD is not set
 # PTXCONF_LIBFAKETIME is not set
+# PTXCONF_LIBJAYLINK is not set
 # PTXCONF_LTRACE is not set
 # PTXCONF_LTT_CONTROL is not set
 # PTXCONF_MEMTEST is not set
@@ -202,7 +204,11 @@ PTXCONF_ROOTFS_PROC=y
 PTXCONF_ROOTFS_RUN=y
 PTXCONF_ROOTFS_SYS=y
 PTXCONF_ROOTFS_TMP=y
-PTXCONF_ROOTFS_VAR=y
+
+#
+# /var                        
+#
+# PTXCONF_ROOTFS_VAR_OVERLAYFS is not set
 PTXCONF_ROOTFS_VAR_RUN=y
 PTXCONF_ROOTFS_VAR_LOG=y
 PTXCONF_ROOTFS_VAR_LOCK=y
@@ -1726,6 +1732,7 @@ PTXCONF_OPENSSL=y
 # PTXCONF_ACL is not set
 # PTXCONF_ARCHIVEMOUNT is not set
 # PTXCONF_ATTR is not set
+# PTXCONF_BLKTRACE is not set
 # PTXCONF_CIFS_UTILS is not set
 # PTXCONF_CRYPTSETUP is not set
 # PTXCONF_DDRESCUE is not set
@@ -1987,6 +1994,8 @@ PTXCONF_NCURSES_TERMCAP=y
 # PTXCONF_NICKEL is not set
 # PTXCONF_NPTH is not set
 # PTXCONF_OWFS is not set
+# PTXCONF_PAHO_MQTT_C is not set
+# PTXCONF_PAHO_MQTT_CPP is not set
 # PTXCONF_POCO is not set
 # PTXCONF_POLKIT is not set
 # PTXCONF_POSTGRESQL is not set
@@ -2024,7 +2033,6 @@ PTXCONF_ZLIB=y
 # PTXCONF_LIBSEMANAGE is not set
 # PTXCONF_LIBSEPOL is not set
 # PTXCONF_POLICYCOREUTILS is not set
-# PTXCONF_SEPOLGEN is not set
 # PTXCONF_EASY_RSA is not set
 # PTXCONF_ECRYPTFS_UTILS is not set
 # PTXCONF_KRB5 is not set
@@ -2034,6 +2042,13 @@ PTXCONF_ZLIB=y
 # PTXCONF_OPTEE_TEST is not set
 # PTXCONF_P11_KIT is not set
 # PTXCONF_TOMOYO_TOOLS is not set
+
+#
+# tpm                           
+#
+# PTXCONF_TPM2_ABRMD is not set
+# PTXCONF_TPM2_TOOLS is not set
+# PTXCONF_TPM2_TSS is not set
 
 #
 # Middleware                    

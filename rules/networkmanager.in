@@ -5,6 +5,8 @@ menuconfig NETWORKMANAGER
 	# intltool is unconditionally requested by configure
 	select HOST_GLIB
 	select HOST_INTLTOOL
+	select HOST_LIBXSLT
+	select HOST_MESON
 	select LIBC_M
 	select LIBC_DL
 	select LIBC_PTHREAD

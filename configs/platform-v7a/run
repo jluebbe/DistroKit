@@ -80,6 +80,7 @@ QEMU_ARGS=( "${QEMU_ARGS[@]}" -rtc base=2000-01-01 )
 # Configure watchdog
 # no watchdog available on vexpress
 #QEMU_ARGS=( "${QEMU_ARGS[@]}" -watchdog i6300esb -watchdog-action poweroff )
+QEMU_ARGS=( "${QEMU_ARGS[@]}" -object rng-random,filename=/dev/random,id=rng0 -device virtio-rng-device,rng=rng0 )
 # SCSI bus
 QEMU_ARGS=( "${QEMU_ARGS[@]}" -device virtio-scsi-device,id=scsi )
 # Add virtual SCSI device if available

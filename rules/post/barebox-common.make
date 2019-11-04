@@ -10,4 +10,13 @@ endif
 barebox-common_oldconfig: \
 	$(addsuffix _oldconfig,$(filter-out barebox-common, \
 		$(filter barebox-%, $(PTX_PACKAGES_SELECTED))))
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/barebox-common.clean: \
+		$(addprefix $(STATEDIR)/, $(addsuffix .clean, \
+			$(filter barebox-%, \ $(PTX_PACKAGES_SELECTED))))
+
 # vim: syntax=make

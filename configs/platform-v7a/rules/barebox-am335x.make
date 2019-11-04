@@ -95,7 +95,7 @@ $(STATEDIR)/barebox-am335x.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, BAREBOX_AM335X)
 	@$(foreach image, $(BAREBOX_AM335X_IMAGES), \
-		rm -fv $(IMAGEDIR)/$(notdir $(image))-am335x$(ptx/nl))
+		rm -fv $(IMAGEDIR)/$(notdir $(image))$(ptx/nl))
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig

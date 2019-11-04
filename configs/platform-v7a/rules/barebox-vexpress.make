@@ -2,8 +2,6 @@
 #
 # Copyright (C) 2017 by Robert Schwebel <r.schwebel@pengutronix.de>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #
@@ -18,34 +16,37 @@ PACKAGES-$(PTXCONF_BAREBOX_VEXPRESS) += barebox-vexpress
 #
 BAREBOX_VEXPRESS_VERSION	:= $(call remove_quotes,$(PTXCONF_BAREBOX_COMMON_VERSION))
 BAREBOX_VEXPRESS_MD5		:= $(call remove_quotes,$(PTXCONF_BAREBOX_COMMON_MD5))
-BAREBOX_VEXPRESS		:= barebox-$(BAREBOX_VEXPRESS_VERSION)
+BAREBOX_VEXPRESS		:= barebox-vexpress-$(BAREBOX_VEXPRESS_VERSION)
 BAREBOX_VEXPRESS_SUFFIX		:= tar.bz2
-BAREBOX_VEXPRESS_DIR		:= $(BUILDDIR)/barebox-vexpress-$(BAREBOX_VEXPRESS_VERSION)
+BAREBOX_VEXPRESS_URL		:= $(call barebox-url, BAREBOX_VEXPRESS)
+BAREBOX_VEXPRESS_PATCHES	:= barebox-$(BAREBOX_VEXPRESS_VERSION)
+BAREBOX_VEXPRESS_SOURCE		:= $(SRCDIR)/$(BAREBOX_VEXPRESS_PATCHES).$(BAREBOX_VEXPRESS_SUFFIX)
+BAREBOX_VEXPRESS_DIR		:= $(BUILDDIR)/$(BAREBOX_VEXPRESS)
+BAREBOX_VEXPRESS_BUILD_DIR	:= $(BAREBOX_VEXPRESS_DIR)-build
 BAREBOX_VEXPRESS_CONFIG		:= $(call ptx/in-platformconfigdir, barebox-vexpress.config)
 BAREBOX_VEXPRESS_REF_CONFIG	:= $(call ptx/in-platformconfigdir, barebox.config)
-BAREBOX_VEXPRESS_LICENSE	:= GPL-2.0
-BAREBOX_VEXPRESS_URL		:= $(call barebox-url, BAREBOX_VEXPRESS)
-BAREBOX_VEXPRESS_SOURCE		:= $(SRCDIR)/$(BAREBOX_VEXPRESS).$(BAREBOX_VEXPRESS_SUFFIX)
+BAREBOX_VEXPRESS_LICENSE	:= GPL-2.0-only
+BAREBOX_VEXPRESS_BUILD_OOT	:= KEEP
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
+# use host pkg-config for host tools
+BAREBOX_VEXPRESS_PATH := PATH=$(HOST_PATH)
+
 BAREBOX_VEXPRESS_WRAPPER_BLACKLIST := \
-	TARGET_HARDEN_RELRO \
-	TARGET_HARDEN_BINDNOW \
-	TARGET_HARDEN_PIE \
-	TARGET_DEBUG \
-	TARGET_BUILD_ID
+	$(PTXDIST_LOWLEVEL_WRAPPER_BLACKLIST)
 
-BAREBOX_VEXPRESS_CONF_ENV := KCONFIG_NOTIMESTAMP=1
-BAREBOX_VEXPRESS_CONF_OPT := $(call barebox-opts, BAREBOX_VEXPRESS)
+BAREBOX_VEXPRESS_CONF_OPT := \
+	-C $(BAREBOX_VEXPRESS_DIR) \
+	O=$(BAREBOX_VEXPRESS_BUILD_DIR) \
+	$(call barebox-opts, BAREBOX_VEXPRESS)
 
-BAREBOX_VEXPRESS_MAKE_ENV := $(BAREBOX_VEXPRESS_CONF_ENV)
 BAREBOX_VEXPRESS_MAKE_OPT := $(BAREBOX_VEXPRESS_CONF_OPT)
 
 BAREBOX_VEXPRESS_IMAGES := images/barebox-vexpress-ca9.img
-BAREBOX_VEXPRESS_IMAGES := $(addprefix $(BAREBOX_VEXPRESS_DIR)/,$(BAREBOX_VEXPRESS_IMAGES))
+BAREBOX_VEXPRESS_IMAGES := $(addprefix $(BAREBOX_VEXPRESS_BUILD_DIR)/,$(BAREBOX_VEXPRESS_IMAGES))
 
 ifdef PTXCONF_BAREBOX_VEXPRESS
 $(BAREBOX_VEXPRESS_CONFIG):
@@ -60,10 +61,10 @@ endif
 
 $(STATEDIR)/barebox-vexpress.prepare: $(BAREBOX_VEXPRESS_CONFIG)
 	@$(call targetinfo)
+	@$(call world/prepare, BAREBOX_VEXPRESS)
 	@rm -f "$(BAREBOX_VEXPRESS_DIR)/.ptxdist-defaultenv"
 	@ln -s "$(call ptx/in-platformconfigdir, barebox-vexpress-defaultenv)" \
 		"$(BAREBOX_VEXPRESS_DIR)/.ptxdist-defaultenv"
-	@$(call world/prepare, BAREBOX_VEXPRESS)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -75,16 +76,16 @@ $(STATEDIR)/barebox-vexpress.install:
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Targetinstall
+# Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/barebox-vexpress.targetinstall:
 	@$(call targetinfo)
 	@$(foreach image, $(BAREBOX_VEXPRESS_IMAGES), \
 		install -m 644 \
-			$(image) $(IMAGEDIR)/$(notdir $(image));)
-	@install -D -m644 $(BAREBOX_VEXPRESS_DIR)/defaultenv/barebox_zero_env $(IMAGEDIR)/barebox-zero-env-vexpress
-	@install -D -m644 $(BAREBOX_VEXPRESS_DIR)/arch/arm/dts/vexpress-v2p-ca9.dtb $(IMAGEDIR)/vexpress-v2p-ca9.dtb-bb
+			$(image) $(IMAGEDIR)/$(notdir $(image))$(ptx/nl))
+	@install -D -m644 $(BAREBOX_VEXPRESS_BUILD_DIR)/defaultenv/barebox_zero_env $(IMAGEDIR)/barebox-zero-env-vexpress
+	@install -D -m644 $(BAREBOX_VEXPRESS_BUILD_DIR)/arch/arm/dts/vexpress-v2p-ca9.dtb $(IMAGEDIR)/vexpress-v2p-ca9.dtb-bb
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -95,7 +96,7 @@ $(STATEDIR)/barebox-vexpress.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, BAREBOX_VEXPRESS)
 	@$(foreach image, $(BAREBOX_VEXPRESS_IMAGES), \
-		rm -fv $(IMAGEDIR)/$(notdir $(image));)
+		rm -fv $(IMAGEDIR)/$(notdir $(image))$(ptx/nl))
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig

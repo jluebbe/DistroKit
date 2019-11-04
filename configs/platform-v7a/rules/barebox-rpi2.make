@@ -62,9 +62,9 @@ endif
 $(STATEDIR)/barebox-rpi2.prepare: $(BAREBOX_RPI2_CONFIG)
 	@$(call targetinfo)
 	@$(call world/prepare, BAREBOX_RPI2)
-	@rm -f "$(BAREBOX_RPI2_DIR)/.ptxdist-defaultenv"
+	@rm -f "$(BAREBOX_RPI2_BUILD_DIR)/.ptxdist-defaultenv"
 	@ln -s "$(call ptx/in-platformconfigdir, barebox-rpi2-defaultenv)" \
-		"$(BAREBOX_RPI2_DIR)/.ptxdist-defaultenv"
+		"$(BAREBOX_RPI2_BUILD_DIR)/.ptxdist-defaultenv"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

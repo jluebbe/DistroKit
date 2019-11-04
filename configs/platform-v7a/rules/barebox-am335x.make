@@ -63,9 +63,9 @@ endif
 $(STATEDIR)/barebox-am335x.prepare: $(BAREBOX_AM335X_CONFIG)
 	@$(call targetinfo)
 	@$(call world/prepare, BAREBOX_AM335X)
-	@rm -f "$(BAREBOX_AM335X_DIR)/.ptxdist-defaultenv"
+	@rm -f "$(BAREBOX_AM335X_BUILD_DIR)/.ptxdist-defaultenv"
 	@ln -s "$(call ptx/in-platformconfigdir, barebox-am335x-defaultenv)" \
-		"$(BAREBOX_AM335X_DIR)/.ptxdist-defaultenv"
+		"$(BAREBOX_AM335X_BUILD_DIR)/.ptxdist-defaultenv"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

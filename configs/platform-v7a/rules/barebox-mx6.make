@@ -69,9 +69,9 @@ endif
 $(STATEDIR)/barebox-mx6.prepare: $(BAREBOX_MX6_CONFIG)
 	@$(call targetinfo)
 	@$(call world/prepare, BAREBOX_MX6)
-	@rm -f "$(BAREBOX_MX6_DIR)/.ptxdist-defaultenv"
+	@rm -f "$(BAREBOX_MX6_BUILD_DIR)/.ptxdist-defaultenv"
 	@ln -s "$(call ptx/in-platformconfigdir, barebox-mx6-defaultenv)" \
-		"$(BAREBOX_MX6_DIR)/.ptxdist-defaultenv"
+		"$(BAREBOX_MX6_BUILD_DIR)/.ptxdist-defaultenv"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

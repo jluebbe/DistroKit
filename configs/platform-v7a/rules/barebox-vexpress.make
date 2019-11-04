@@ -62,9 +62,9 @@ endif
 $(STATEDIR)/barebox-vexpress.prepare: $(BAREBOX_VEXPRESS_CONFIG)
 	@$(call targetinfo)
 	@$(call world/prepare, BAREBOX_VEXPRESS)
-	@rm -f "$(BAREBOX_VEXPRESS_DIR)/.ptxdist-defaultenv"
+	@rm -f "$(BAREBOX_VEXPRESS_BUILD_DIR)/.ptxdist-defaultenv"
 	@ln -s "$(call ptx/in-platformconfigdir, barebox-vexpress-defaultenv)" \
-		"$(BAREBOX_VEXPRESS_DIR)/.ptxdist-defaultenv"
+		"$(BAREBOX_VEXPRESS_BUILD_DIR)/.ptxdist-defaultenv"
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

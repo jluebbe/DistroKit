@@ -2,8 +2,6 @@
 #
 # Copyright (C) 2016 by Alexander Aring <aar@pengutronix.de>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #
@@ -18,34 +16,37 @@ PACKAGES-$(PTXCONF_BAREBOX_RPI2) += barebox-rpi2
 #
 BAREBOX_RPI2_VERSION	:= $(call remove_quotes,$(PTXCONF_BAREBOX_COMMON_VERSION))
 BAREBOX_RPI2_MD5	:= $(call remove_quotes,$(PTXCONF_BAREBOX_COMMON_MD5))
-BAREBOX_RPI2		:= barebox-$(BAREBOX_RPI2_VERSION)
+BAREBOX_RPI2		:= barebox-rpi2-$(BAREBOX_RPI2_VERSION)
 BAREBOX_RPI2_SUFFIX	:= tar.bz2
-BAREBOX_RPI2_DIR	:= $(BUILDDIR)/barebox-rpi2-$(BAREBOX_RPI2_VERSION)
+BAREBOX_RPI2_URL	:= $(call barebox-url, BAREBOX_RPI2)
+BAREBOX_RPI2_PATCHES	:= barebox-$(BAREBOX_RPI2_VERSION)
+BAREBOX_RPI2_SOURCE	:= $(SRCDIR)/$(BAREBOX_RPI2_PATCHES).$(BAREBOX_RPI2_SUFFIX)
+BAREBOX_RPI2_DIR	:= $(BUILDDIR)/$(BAREBOX_RPI2)
+BAREBOX_RPI2_BUILD_DIR	:= $(BAREBOX_RPI2_DIR)-build
 BAREBOX_RPI2_CONFIG	:= $(call ptx/in-platformconfigdir, barebox-rpi2.config)
 BAREBOX_RPI2_REF_CONFIG := $(call ptx/in-platformconfigdir, barebox.config)
-BAREBOX_RPI2_LICENSE	:= GPL-2.0
-BAREBOX_RPI2_URL	:= $(call barebox-url, BAREBOX_RPI2)
-BAREBOX_RPI2_SOURCE	:= $(SRCDIR)/$(BAREBOX_RPI2).$(BAREBOX_RPI2_SUFFIX)
+BAREBOX_RPI2_LICENSE	:= GPL-2.0-only
+BAREBOX_RPI2_BUILD_OOT	:= KEEP
 
 # ----------------------------------------------------------------------------
 # Prepare
 # ----------------------------------------------------------------------------
 
+# use host pkg-config for host tools
+BAREBOX_RPI2_PATH := PATH=$(HOST_PATH)
+
 BAREBOX_RPI2_WRAPPER_BLACKLIST := \
-	TARGET_HARDEN_RELRO \
-	TARGET_HARDEN_BINDNOW \
-	TARGET_HARDEN_PIE \
-	TARGET_DEBUG \
-	TARGET_BUILD_ID
+	$(PTXDIST_LOWLEVEL_WRAPPER_BLACKLIST)
 
-BAREBOX_RPI2_CONF_ENV := KCONFIG_NOTIMESTAMP=1
-BAREBOX_RPI2_CONF_OPT := $(call barebox-opts, BAREBOX_RPI2)
+BAREBOX_RPI2_CONF_OPT := \
+	-C $(BAREBOX_RPI2_DIR) \
+	O=$(BAREBOX_RPI2_BUILD_DIR) \
+	$(call barebox-opts, BAREBOX_RPI2)
 
-BAREBOX_RPI2_MAKE_ENV := $(BAREBOX_RPI2_CONF_ENV)
 BAREBOX_RPI2_MAKE_OPT := $(BAREBOX_RPI2_CONF_OPT)
 
 BAREBOX_RPI2_IMAGES := images/barebox-raspberry-pi-2.img images/barebox-raspberry-pi-3.img
-BAREBOX_RPI2_IMAGES := $(addprefix $(BAREBOX_RPI2_DIR)/,$(BAREBOX_RPI2_IMAGES))
+BAREBOX_RPI2_IMAGES := $(addprefix $(BAREBOX_RPI2_BUILD_DIR)/,$(BAREBOX_RPI2_IMAGES))
 
 ifdef PTXCONF_BAREBOX_RPI2
 $(BAREBOX_RPI2_CONFIG):
@@ -60,10 +61,10 @@ endif
 
 $(STATEDIR)/barebox-rpi2.prepare: $(BAREBOX_RPI2_CONFIG)
 	@$(call targetinfo)
+	@$(call world/prepare, BAREBOX_RPI2)
 	@rm -f "$(BAREBOX_RPI2_DIR)/.ptxdist-defaultenv"
 	@ln -s "$(call ptx/in-platformconfigdir, barebox-rpi2-defaultenv)" \
 		"$(BAREBOX_RPI2_DIR)/.ptxdist-defaultenv"
-	@$(call world/prepare, BAREBOX_RPI2)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -75,14 +76,14 @@ $(STATEDIR)/barebox-rpi2.install:
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
-# Targetinstall
+# Target-Install
 # ----------------------------------------------------------------------------
 
 $(STATEDIR)/barebox-rpi2.targetinstall:
 	@$(call targetinfo)
 	@$(foreach image, $(BAREBOX_RPI2_IMAGES), \
 		install -m 644 \
-			$(image) $(IMAGEDIR)/$(notdir $(image))-rpi2;)
+			$(image) $(IMAGEDIR)/$(notdir $(image))-rpi2$(ptx/nl))
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -93,7 +94,7 @@ $(STATEDIR)/barebox-rpi2.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, BAREBOX_RPI2)
 	@$(foreach image, $(BAREBOX_RPI2_IMAGES), \
-		rm -fv $(IMAGEDIR)/$(notdir $(image));)
+		rm -fv $(IMAGEDIR)/$(notdir $(image))$(ptx/nl))
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig

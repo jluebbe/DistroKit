@@ -97,6 +97,8 @@ $(STATEDIR)/barebox-vexpress.clean:
 	@$(call clean_pkg, BAREBOX_VEXPRESS)
 	@$(foreach image, $(BAREBOX_VEXPRESS_IMAGES), \
 		rm -fv $(IMAGEDIR)/$(notdir $(image))$(ptx/nl))
+	@rm -vf $(IMAGEDIR)/barebox-zero-env-vexpress \
+		$(IMAGEDIR)/vexpress-v2p-ca9.dtb-bb
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig

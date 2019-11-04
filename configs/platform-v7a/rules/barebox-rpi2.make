@@ -83,7 +83,7 @@ $(STATEDIR)/barebox-rpi2.targetinstall:
 	@$(call targetinfo)
 	@$(foreach image, $(BAREBOX_RPI2_IMAGES), \
 		install -m 644 \
-			$(image) $(IMAGEDIR)/$(notdir $(image))-rpi2$(ptx/nl))
+			$(image) $(IMAGEDIR)/$(notdir $(image))$(ptx/nl))
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

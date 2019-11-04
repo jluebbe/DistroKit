@@ -101,7 +101,7 @@ $(STATEDIR)/barebox-mx6.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, BAREBOX_MX6)
 	@$(foreach image, $(BAREBOX_MX6_IMAGES), \
-		rm -fv $(IMAGEDIR)/$(notdir $(image))-mx6$(ptx/nl))
+		rm -fv $(IMAGEDIR)/$(notdir $(image))$(ptx/nl))
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig

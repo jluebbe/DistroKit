@@ -163,6 +163,7 @@ run_qemu_barebox() {
 	check_flash
 	exec ${QEMU_EXEC} \
 		"${QEMU_ARGS[@]}" \
+		-smp 1 \
 		-fsdev local,id=rootfs,path=${PTXDIST_PLATFORMDIR}/root,security_model=none \
 		-device virtio-9p-device,fsdev=rootfs,mount_tag=/dev/root \
 		-fsdev local,id=images,path=${PTXDIST_PLATFORMDIR}/images,security_model=none \

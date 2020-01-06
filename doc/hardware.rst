@@ -41,6 +41,7 @@ DistroKit supports various boards based on the ARMv7-A architecture.
 For the following boards there is separate documentation:
 
 .. toctree::
+   :maxdepth: 1
 
    hardware_v7a_qemu
    hardware_v7a_beaglebone_white
@@ -102,6 +103,7 @@ Hardware for the v8a Platform
 Currently DistroKit only supports a single board; the Marvell espressobin.
 
 .. toctree::
+   :maxdepth: 1
 
    hardware_v8a_espressobin
 
@@ -145,5 +147,6 @@ Hardware for the rpi Platform
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. toctree::
+   :maxdepth: 1
 
    hardware_rpi_raspi1

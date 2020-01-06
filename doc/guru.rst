@@ -3,7 +3,6 @@ Welcome to the PTXdist Universe
 
 .. toctree::
    :glob:
-   :numbered: 2
    :maxdepth: 3
 
    welcome

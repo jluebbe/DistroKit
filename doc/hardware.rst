@@ -108,6 +108,14 @@ Currently DistroKit only supports a single board; the Marvell espressobin.
 rpi Platform
 ------------
 
+.. note::
+
+  The rpi platform is currently not actively maintained,
+  as RPi 1 has been superseded by newer models
+  which are supported in the v7a platform.
+  However, if you are targeting a RPi 1,
+  we will be happy to merge your patches anyways.
+
 The rpi platform has support for the Raspberry Pi 1, which is based on
 the Broadcom BCM2835 SoC (ARMv6). Select the platform with
 

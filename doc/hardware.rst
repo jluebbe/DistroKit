@@ -35,7 +35,7 @@ Now everything is prepared to build the platform with
 	$ ptxdist images
 
 Hardware for the v7a Platform
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 DistroKit supports various boards based on the ARMv7-A architecture.
 For the following boards there is separate documentation:
@@ -97,7 +97,7 @@ v8a Platform
 The stuff from the v7a section above applies here accordingly.
 
 Hardware for the v8a Platform
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Currently DistroKit only supports a single board; the Marvell espressobin.
 
@@ -142,7 +142,7 @@ Now everything is prepared to build the platform with
 	$ ptxdist images
 
 Hardware for the rpi Platform
------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. toctree::
 

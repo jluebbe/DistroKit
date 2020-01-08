@@ -1,0 +1,23 @@
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Tue, 7 Jan 2020 10:58:37 +0100
+Subject: [PATCH] ARM: rpi_defconfig: Enable raspberry GPIO exp driver
+
+Enable the recently introduced GPIO exp driver.
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+ arch/arm/configs/rpi_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm/configs/rpi_defconfig b/arch/arm/configs/rpi_defconfig
+index 0ae0c42b12d7..3813b837dd35 100644
+--- a/arch/arm/configs/rpi_defconfig
++++ b/arch/arm/configs/rpi_defconfig
+@@ -72,6 +72,7 @@ CONFIG_LED_GPIO=y
+ CONFIG_LED_TRIGGERS=y
+ CONFIG_WATCHDOG=y
+ CONFIG_WATCHDOG_BCM2835=y
++CONFIG_GPIO_RASPBERRYPI_EXP=y
+ CONFIG_PINCTRL_BCM283X=y
+ CONFIG_REGULATOR=y
+ CONFIG_FS_EXT4=y

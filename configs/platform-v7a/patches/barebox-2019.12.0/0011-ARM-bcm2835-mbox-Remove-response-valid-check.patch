@@ -1,0 +1,29 @@
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Tue, 7 Jan 2020 10:45:35 +0100
+Subject: [PATCH] ARM: bcm2835 mbox: Remove response valid check
+
+Not all messages return a valid response as they do not send a response
+at all. This is at least true for the SET_GPIO_STATE and SET_GPIO_CONFIG
+messages.
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+ arch/arm/mach-bcm283x/mbox.c | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/arch/arm/mach-bcm283x/mbox.c b/arch/arm/mach-bcm283x/mbox.c
+index b295993359fa..4405efaffd39 100644
+--- a/arch/arm/mach-bcm283x/mbox.c
++++ b/arch/arm/mach-bcm283x/mbox.c
+@@ -137,11 +137,6 @@ int bcm2835_mbox_call_prop(u32 chan, struct bcm2835_mbox_hdr *buffer)
+ 	tag = (void *)(buffer + 1);
+ 	tag_index = 0;
+ 	while (tag->tag) {
+-		if (!(tag->val_len & BCM2835_MBOX_TAG_VAL_LEN_RESPONSE)) {
+-			printf("mbox: Tag %d missing val_len response bit\n",
+-				tag_index);
+-			return -EIO;
+-		}
+ 		/*
+ 		 * Clear the reponse bit so clients can just look right at the
+ 		 * length field without extra processing

@@ -1,0 +1,59 @@
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Wed, 18 Dec 2019 14:55:15 +0100
+Subject: [PATCH] ARM: rpi: Do not warn when firmware doesn't pass a dtb
+
+When there is no dtb placed in the boot partition then none is passed by
+the firmware to barebox. This may be intended, so do not warn about it.
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+ arch/arm/boards/raspberry-pi/lowlevel.c   |  9 ++++++++-
+ arch/arm/boards/raspberry-pi/rpi-common.c | 11 +++++++----
+ 2 files changed, 15 insertions(+), 5 deletions(-)
+
+diff --git a/arch/arm/boards/raspberry-pi/lowlevel.c b/arch/arm/boards/raspberry-pi/lowlevel.c
+index 70f1936522e2..d58beb605255 100644
+--- a/arch/arm/boards/raspberry-pi/lowlevel.c
++++ b/arch/arm/boards/raspberry-pi/lowlevel.c
+@@ -11,8 +11,15 @@ static void copy_vc_fdt(void *dest, void *src, unsigned long max_size)
+ {
+ 	struct fdt_header *oftree_src = src;
+ 	struct fdt_header *oftree_dest = dest;
++	unsigned long size;
+ 
+-	unsigned long size = be32_to_cpu(oftree_src->totalsize);
++	if (!src) {
++		oftree_dest->magic = cpu_to_be32(VIDEOCORE_FDT_ERROR);
++		oftree_dest->totalsize = cpu_to_be32(0);
++		return;
++	}
++
++	size = be32_to_cpu(oftree_src->totalsize);
+ 	if (size > max_size) {
+ 		oftree_dest->magic = cpu_to_be32(VIDEOCORE_FDT_ERROR);
+ 		/* Save an error code after the magic value for easier
+diff --git a/arch/arm/boards/raspberry-pi/rpi-common.c b/arch/arm/boards/raspberry-pi/rpi-common.c
+index dd6bbd5bdd9c..acb26f6a6491 100644
+--- a/arch/arm/boards/raspberry-pi/rpi-common.c
++++ b/arch/arm/boards/raspberry-pi/rpi-common.c
+@@ -433,13 +433,16 @@ static void rpi_vc_fdt(void)
+ 
+ 	oftree = saved_vc_fdt;
+ 	magic = be32_to_cpu(oftree->magic);
+-	if (magic != FDT_MAGIC) {
+-		pr_err("videocore fdt saved in pbl has invalid magic\n");
+ 
+-		if (magic == VIDEOCORE_FDT_ERROR) {
++	if (magic == VIDEOCORE_FDT_ERROR) {
++		if (oftree->totalsize)
+ 			pr_err("there was an error copying fdt in pbl: %d\n",
+ 					be32_to_cpu(oftree->totalsize));
+-		}
++		return;
++	}
++
++	if (magic != FDT_MAGIC) {
++		pr_err("videocore fdt saved in pbl has invalid magic\n");
+ 		return;
+ 	}
+ 

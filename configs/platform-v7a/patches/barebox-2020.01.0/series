@@ -1,9 +1,9 @@
-# umpf-base: v2019.12.0
-# umpf-name: 2019.12.0/customers/pengutronix/distrokit-v7a
-# umpf-version: 2019.12.0/customers/pengutronix/distrokit-v7a/20200108-1
-# umpf-topic: v2019.12.0/topic/raspberrypi
-# umpf-hashinfo: 3315e55b033d80c15865e0b936894ed773ce391c
-# umpf-topic-range: 48b57af0ab888bf88607d0e55ad3e79d13cc0a31..adbebd694167ede6aeb2a298918b24040c0ded97
+# umpf-base: v2020.01.0
+# umpf-name: 2020.01.0/customers/pengutronix/distrokit-v7a
+# umpf-version: 2020.01.0/customers/pengutronix/distrokit-v7a/20200114-1
+# umpf-topic: v2020.01.0/topic/raspberrypi
+# umpf-hashinfo: 8f5d62e51d27c625e7ae4a9111c958d9b9943bad
+# umpf-topic-range: 4cce60b7fe2798e81b04c5d9ad79dc9b443635a8..9e25fbceb1b17c750bba9b363d213667d52800c5
 0001-ARM-rpi-Do-not-warn-when-firmware-doesn-t-pass-a-dtb.patch
 0002-usb-Make-timeout-unit-clear.patch
 0003-of-Add-of_bus_n_xxx_cells.patch
@@ -20,7 +20,7 @@
 0014-ARM-rpi_defconfig-Enable-raspberry-GPIO-exp-driver.patch
 0015-ARM-rpi-mailbox-Use-non-interruptible-timeout.patch
 0016-ARM-rpi_defconfig-Enable-more-features.patch
-# umpf-release: 2019.12.0/customers/pengutronix/distrokit-v7a/20200108-1
-# umpf-topic-range: adbebd694167ede6aeb2a298918b24040c0ded97..0cc90c348816c16cded33c2ed48e918c9f69d8cd
-0101-Release-2019.12.0-customers-pengutronix-distrokit-v7.patch
+# umpf-release: 2020.01.0/customers/pengutronix/distrokit-v7a/20200114-1
+# umpf-topic-range: 9e25fbceb1b17c750bba9b363d213667d52800c5..7591731bd2a9906edd2ad92fa76c29887f2ef6d9
+0101-Release-2020.01.0-customers-pengutronix-distrokit-v7.patch
 # umpf-end

@@ -97,10 +97,10 @@ index 158b130b5765..1f97c28ec657 100644
  		__dma_inv_range(address, address + size);
  		if (outer_cache.inv_range)
 diff --git a/arch/arm/cpu/mmu_64.c b/arch/arm/cpu/mmu_64.c
-index b45a69661e22..1851fdd1a70a 100644
+index f7a13014aff3..98cd4c754edb 100644
 --- a/arch/arm/cpu/mmu_64.c
 +++ b/arch/arm/cpu/mmu_64.c
-@@ -244,6 +244,10 @@ void dma_flush_range(void *ptr, size_t size)
+@@ -245,6 +245,10 @@ void dma_flush_range(void *ptr, size_t size)
  void dma_sync_single_for_device(dma_addr_t address, size_t size,
                                  enum dma_data_direction dir)
  {
@@ -112,7 +112,7 @@ index b45a69661e22..1851fdd1a70a 100644
  		v8_inv_dcache_range(address, address + size - 1);
  	else
 diff --git a/include/driver.h b/include/driver.h
-index 300603fa3277..5ea3a862f2f0 100644
+index ad59ce90c3a3..74be1b3e8e41 100644
 --- a/include/driver.h
 +++ b/include/driver.h
 @@ -93,6 +93,8 @@ struct device_d {

@@ -52,7 +52,7 @@ index d29cd1328bbb..ad3bacf23655 100644
  	usb_host_release(host);
  
 diff --git a/include/usb/usb.h b/include/usb/usb.h
-index 0045608d6446..a9714ec28992 100644
+index d39de71aff95..95dedfd5b739 100644
 --- a/include/usb/usb.h
 +++ b/include/usb/usb.h
 @@ -140,9 +140,9 @@ struct usb_host {

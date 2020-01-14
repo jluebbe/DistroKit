@@ -11,7 +11,7 @@ Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
  2 files changed, 40 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/of/base.c b/drivers/of/base.c
-index 98ef5fc0d421..e1d3707d01ee 100644
+index 80ceeab13b34..9ede05227444 100644
 --- a/drivers/of/base.c
 +++ b/drivers/of/base.c
 @@ -78,36 +78,46 @@ static struct device_node *of_aliases;
@@ -80,7 +80,7 @@ index 98ef5fc0d421..e1d3707d01ee 100644
  
  struct property *of_find_property(const struct device_node *np,
 diff --git a/include/of.h b/include/of.h
-index 98ddf795cbb4..fb49f40c12a0 100644
+index f63a3efe13e9..67601ce80cad 100644
 --- a/include/of.h
 +++ b/include/of.h
 @@ -113,7 +113,9 @@ struct device_node *of_unflatten_dtb_const(const void *infdt);
@@ -93,7 +93,7 @@ index 98ddf795cbb4..fb49f40c12a0 100644
  extern int of_n_size_cells(struct device_node *np);
  
  extern struct property *of_find_property(const struct device_node *np,
-@@ -330,11 +332,21 @@ static inline struct device_d *of_platform_device_create(struct device_node *np,
+@@ -328,11 +330,21 @@ static inline struct device_d *of_platform_device_create(struct device_node *np,
  	return NULL;
  }
  

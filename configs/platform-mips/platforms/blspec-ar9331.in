@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_AR9331
+	tristate
+	prompt "/loader/entries/ar9331.conf bootloader spec entry"

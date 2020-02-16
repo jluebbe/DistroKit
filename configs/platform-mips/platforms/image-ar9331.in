@@ -1,0 +1,10 @@
+## SECTION=image
+
+config IMAGE_AR9331
+	tristate
+	select HOST_GENIMAGE
+	select BAREBOX_AR9331
+	select IMAGE_ROOT_EXT
+	prompt "Generate images/ar9331.hdimg"
+	help
+	  FIXME

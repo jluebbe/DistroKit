@@ -1,0 +1,9 @@
+## SECTION=kernel
+
+config KERNEL_AR9331
+	tristate
+	prompt "Linux kernel (ar9331)"
+	select HOST_LIBKMOD
+	#select HOST_U_BOOT_TOOLS
+	help
+	  FIXME

@@ -1,0 +1,8 @@
+## SECTION=bootloader
+
+config BAREBOX_AR9331
+	tristate
+	prompt "Barebox (ar9331)"
+	select BAREBOX_COMMON
+	help
+	  MIPS Malta support for barebox.

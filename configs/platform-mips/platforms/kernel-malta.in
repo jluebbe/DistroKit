@@ -1,0 +1,9 @@
+## SECTION=kernel
+
+config KERNEL_MALTA
+	tristate
+	prompt "Linux kernel (malta)"
+	select HOST_LIBKMOD
+	#select HOST_U_BOOT_TOOLS
+	help
+	  FIXME

@@ -1,0 +1,56 @@
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+Date: Wed, 5 Feb 2020 13:47:17 +0100
+Subject: [PATCH] HACK: MIPS: disable bogus code
+
+stack protector is not allowing to compile this code. So, disable it for
+now.
+
+Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+---
+ arch/mips/mti-malta/malta-init.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/arch/mips/mti-malta/malta-init.c b/arch/mips/mti-malta/malta-init.c
+index ff2c1d809538..50578f324143 100644
+--- a/arch/mips/mti-malta/malta-init.c
++++ b/arch/mips/mti-malta/malta-init.c
+@@ -87,6 +87,7 @@ static void __init console_config(void)
+ }
+ #endif
+ 
++#if 0
+ static void __init mips_nmi_setup(void)
+ {
+ 	void *base;
+@@ -95,7 +96,7 @@ static void __init mips_nmi_setup(void)
+ 	base = cpu_has_veic ?
+ 		(void *)(CAC_BASE + 0xa80) :
+ 		(void *)(CAC_BASE + 0x380);
+-	memcpy(base, &except_vec_nmi, 0x80);
++	//memcpy(base, &except_vec_nmi, 0x80);
+ 	flush_icache_range((unsigned long)base, (unsigned long)base + 0x80);
+ }
+ 
+@@ -107,9 +108,10 @@ static void __init mips_ejtag_setup(void)
+ 	base = cpu_has_veic ?
+ 		(void *)(CAC_BASE + 0xa00) :
+ 		(void *)(CAC_BASE + 0x300);
+-	memcpy(base, &except_vec_ejtag_debug, 0x80);
++	//memcpy(base, &except_vec_ejtag_debug, 0x80);
+ 	flush_icache_range((unsigned long)base, (unsigned long)base + 0x80);
+ }
++#endif
+ 
+ phys_addr_t mips_cpc_default_phys_base(void)
+ {
+@@ -277,8 +279,8 @@ void __init prom_init(void)
+ 		/* Unknown system controller */
+ 		while (1);	/* We die here... */
+ 	}
+-	board_nmi_handler_setup = mips_nmi_setup;
+-	board_ejtag_handler_setup = mips_ejtag_setup;
++//	board_nmi_handler_setup = mips_nmi_setup;
++//	board_ejtag_handler_setup = mips_ejtag_setup;
+ 
+ 	fw_init_cmdline();
+ 	fw_meminit();

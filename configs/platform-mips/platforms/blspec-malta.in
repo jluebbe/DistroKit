@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_MALTA
+	tristate
+	prompt "/loader/entries/malta.conf bootloader spec entry"

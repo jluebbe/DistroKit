@@ -1,0 +1,8 @@
+## SECTION=bootloader
+
+config BAREBOX_STM32MP
+	tristate
+	prompt "Barebox (stm32mp)"
+	select BAREBOX_COMMON
+	help
+	  Barebox image for STM32MP

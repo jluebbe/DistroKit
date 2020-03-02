@@ -184,6 +184,7 @@ PTXCONF_BOOTLOADER=y
 # PTXCONF_GRUB is not set
 # PTXCONF_HOST_MXS_UTILS is not set
 # PTXCONF_OPTEE is not set
+# PTXCONF_TF_A is not set
 # PTXCONF_U_BOOT is not set
 # PTXCONF_X_LOAD is not set
 

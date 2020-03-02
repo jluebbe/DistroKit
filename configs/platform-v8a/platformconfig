@@ -166,6 +166,7 @@ PTXCONF_BAREBOX_ARCH_STRING="arm"
 # PTXCONF_BAREBOX_MLO is not set
 # PTXCONF_GRUB is not set
 # PTXCONF_HOST_MXS_UTILS is not set
+# PTXCONF_TF_A is not set
 # PTXCONF_U_BOOT is not set
 
 #

@@ -1,0 +1,11 @@
+## SECTION=image
+
+config IMAGE_STM32MP157C_DK2
+	tristate
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_EXT
+	select BAREBOX_STM32MP
+	select TF_A
+	prompt "Generate images/stm32mp157c-dk2.hdimg"
+	help
+	  Generate GPT image for the STM32MP157C-DK2

@@ -3,8 +3,6 @@
 # Copyright (C) 2017 by Chris Fiege <c.fiege@pengutronix.de>
 # Copyright (C) 2020 by Oleksij Rempel <o.rempel@pengutronix.de>
 #
-# See CREDITS for details about who has contributed to this project.
-#
 # For further information about the PTXdist project and license conditions
 # see the README file.
 #

@@ -7,7 +7,7 @@ else
 	echo Note: using PTXDIST=$PTXDIST
 	tput sgr 0   # back to normal
 fi
-PLATFORMS="v7a v8a rpi"
-for p in $PLATFORMS; do
-	$PTXDIST --platformconfig=configs/platform-${p}/platformconfig "$@"
+
+for pcfg in configs/platform-*/platformconfig; do
+	$PTXDIST --platformconfig="$pcfg" "$@"
 done

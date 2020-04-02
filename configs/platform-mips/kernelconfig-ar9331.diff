@@ -1,4 +1,4 @@
-83b2086bc61f4ceee02a08d483c45962
+f47b9afb7eac36d6a81d38e9801a05bf
 # CONFIG_ACORN_PARTITION is undefined
 # CONFIG_ADFS_FS is undefined
 # CONFIG_AFFS_FS is undefined
@@ -36,7 +36,6 @@
 # CONFIG_EFI_PARTITION is undefined
 # CONFIG_EFS_FS is undefined
 # CONFIG_EROFS_FS is undefined
-# CONFIG_EXFAT_FS is undefined
 # CONFIG_EXT2_FS is undefined
 # CONFIG_EXT3_FS is undefined
 # CONFIG_EXT4_FS is undefined
@@ -86,6 +85,7 @@ CONFIG_LOCALVERSION="-ar9331"
 # CONFIG_SOLARIS_X86_PARTITION is undefined
 # CONFIG_SQUASHFS is undefined
 # CONFIG_SSFDC is undefined
+# CONFIG_STAGING_EXFAT_FS is undefined
 # CONFIG_SUN_PARTITION is undefined
 # CONFIG_SWAP is undefined
 # CONFIG_SYSV68_PARTITION is undefined

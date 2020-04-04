@@ -92,7 +92,7 @@ CONFIG_TICK_CPU_ACCOUNTING=y
 # CONFIG_PSI is not set
 # end of CPU/Task time and stats accounting
 
-CONFIG_CPU_ISOLATION=y
+# CONFIG_CPU_ISOLATION is not set
 
 #
 # RCU Subsystem
@@ -1261,7 +1261,7 @@ CONFIG_REGMAP_MMIO=y
 # CONFIG_SIMPLE_PM_BUS is not set
 # end of Bus devices
 
-CONFIG_CONNECTOR=m
+# CONFIG_CONNECTOR is not set
 # CONFIG_GNSS is not set
 CONFIG_MTD=y
 # CONFIG_MTD_TESTS is not set
@@ -2441,7 +2441,6 @@ CONFIG_FB_CIRRUS=y
 # CONFIG_FB_CYBER2000 is not set
 # CONFIG_FB_ASILIANT is not set
 # CONFIG_FB_IMSTT is not set
-# CONFIG_FB_UVESA is not set
 # CONFIG_FB_OPENCORES is not set
 # CONFIG_FB_S1D13XXX is not set
 # CONFIG_FB_NVIDIA is not set

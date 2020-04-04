@@ -23,7 +23,7 @@ else
 	PTXDIST_PLATFORMDIR="."
 fi
 
-if [ ! -e "${PTXDIST_PLATFORMDIR}/images/linuximage" ]; then
+if [ ! -e "${PTXDIST_PLATFORMDIR}/images/vmlinuz-malta" ]; then
 	echo "error: run 'ptxdist go' first"
 	exit 1
 fi

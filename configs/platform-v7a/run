@@ -67,6 +67,12 @@ fi
 
 BASE_CMDLINE="console=ttyAMA0,115200 loglevel=5 systemd.log_level=warning systemd.show_status=auto"
 
+if [ -d "${PTXDIST_PLATFORMDIR}/root/.virtfs_metadata" ]; then
+	security_model="mapped-file"
+else
+	security_model="none"
+fi
+
 # Machine to emulate
 QEMU_ARGS=( -machine vexpress-a9 -cpu cortex-a9 -smp 4 -m 1024M )
 # disable graphics output
@@ -122,7 +128,7 @@ check_flash() {
 run_qemu_9p() {
 	exec ${QEMU_EXEC} \
 		"${QEMU_ARGS[@]}" \
-		-fsdev local,id=rootfs,path=${PTXDIST_PLATFORMDIR}/root,security_model=none \
+		-fsdev local,id=rootfs,path=${PTXDIST_PLATFORMDIR}/root,security_model="${security_model}" \
 		-device virtio-9p-device,fsdev=rootfs,mount_tag=/dev/root \
 		"${QEMU_EXTRA_ARGS[@]}" \
 		"${QEMU_LINUX_ARGS[@]}" \
@@ -164,9 +170,9 @@ run_qemu_barebox() {
 	exec ${QEMU_EXEC} \
 		"${QEMU_ARGS[@]}" \
 		-smp 1 \
-		-fsdev local,id=rootfs,path=${PTXDIST_PLATFORMDIR}/root,security_model=none \
+		-fsdev local,id=rootfs,path=${PTXDIST_PLATFORMDIR}/root,security_model="${security_model}" \
 		-device virtio-9p-device,fsdev=rootfs,mount_tag=/dev/root \
-		-fsdev local,id=images,path=${PTXDIST_PLATFORMDIR}/images,security_model=none \
+		-fsdev local,id=images,path=${PTXDIST_PLATFORMDIR}/images,security_model="${security_model}" \
 		-device virtio-9p-device,fsdev=images,mount_tag=/dev/images \
 		-drive if=sd,format=raw,file=${PTXDIST_PLATFORMDIR}/images/vexpress.hdimg,id=mmc0 \
 		-drive if=pflash,format=raw,file=${PTXDIST_PLATFORMDIR}/images/vexpress.norimg,id=nor0 \

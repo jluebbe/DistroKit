@@ -43,7 +43,8 @@ BAREBOX_STM32MP_MAKE_ENV := $(BAREBOX_STM32MP_CONF_ENV)
 BAREBOX_STM32MP_MAKE_OPT := $(BAREBOX_STM32MP_CONF_OPT)
 
 BAREBOX_STM32MP_IMAGES := \
-	images/barebox-stm32mp157c-dk2.img
+	images/barebox-stm32mp157c-dk2.img \
+	images/barebox-stm32mp157c-lxa-mc1.img
 
 BAREBOX_STM32MP_IMAGES := $(addprefix $(BAREBOX_STM32MP_DIR)/,$(BAREBOX_STM32MP_IMAGES))
 

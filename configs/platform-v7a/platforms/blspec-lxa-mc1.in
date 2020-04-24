@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_LXA_MC1
+	tristate
+	prompt "/loader/entries/lxa-mc1.conf bootloader spec entry"

@@ -41,6 +41,10 @@ KERNEL_CONF_OPT := \
 	O=$(KERNEL_BUILD_DIR) \
 	$(call kernel-opts, KERNEL)
 
+# no gcc plugins; avoid config changes depending on the host compiler
+KERNEL_CONF_OPT += \
+	HOSTCXX=false
+
 ifdef PTXCONF_KERNEL
 $(KERNEL_CONFIG):
 	@echo

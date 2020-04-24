@@ -41,6 +41,10 @@ KERNEL_AR9331_CONF_OPT	:= \
 	O=$(KERNEL_AR9331_BUILD_DIR) \
 	$(call kernel-opts, KERNEL_AR9331)
 
+# no gcc plugins; avoid config changes depending on the host compiler
+KERNEL_AR9331_CONF_OPT += \
+	HOSTCXX=false
+
 KERNEL_AR9331_IMAGES := vmlinuz
 KERNEL_AR9331_IMAGES := $(addprefix $(KERNEL_AR9331_BUILD_DIR)/,$(KERNEL_AR9331_IMAGES))
 

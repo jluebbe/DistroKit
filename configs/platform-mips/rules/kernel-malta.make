@@ -41,6 +41,10 @@ KERNEL_MALTA_CONF_OPT	:= \
 	O=$(KERNEL_MALTA_BUILD_DIR) \
 	$(call kernel-opts, KERNEL_MALTA)
 
+# no gcc plugins; avoid config changes depending on the host compiler
+KERNEL_MALTA_CONF_OPT += \
+	HOSTCXX=false
+
 KERNEL_MALTA_IMAGES := vmlinuz
 KERNEL_MALTA_IMAGES := $(addprefix $(KERNEL_MALTA_BUILD_DIR)/,$(KERNEL_MALTA_IMAGES))
 

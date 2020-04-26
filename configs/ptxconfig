@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# PTXdist 2020.03.0
+# PTXdist 2020.04.0
 #
 PTXCONF_DATAPARTITION=y
 
@@ -65,7 +65,7 @@ PTXCONF_BSP=y
 PTXCONF_RUNTIME=y
 PTXCONF_BUILDTIME=y
 PTXCONF_VIRTUAL=y
-PTXCONF_CONFIGFILE_VERSION="2020.03.0"
+PTXCONF_CONFIGFILE_VERSION="2020.04.0"
 PTXCONF__ptxconfig_MAGIC__=y
 
 #
@@ -83,6 +83,7 @@ PTXCONF__ptxconfig_MAGIC__=y
 # Host Tools                    
 #
 # PTXCONF_HOST_DFU_UTIL is not set
+# PTXCONF_HOST_MFGTOOLS is not set
 # PTXCONF_HOST_OPENOCD is not set
 PTXCONF_HOST_QEMU=y
 PTXCONF_HOST_QEMU_SYS=y
@@ -1472,6 +1473,10 @@ PTXCONF_UTIL_LINUX_NG_HWCLOCK=y
 #
 # BusyBox' login is selected!
 #
+
+#
+# BusyBox' sulogin is selected!
+#
 # PTXCONF_WATCHDOG is not set
 
 #
@@ -1571,6 +1576,8 @@ PTXCONF_UTIL_LINUX_NG_HWCLOCK=y
 # PTXCONF_CLASSPATH is not set
 # PTXCONF_FRODO is not set
 # PTXCONF_JAMVM is not set
+# PTXCONF_NODEJS is not set
+# PTXCONF_NODEJS_PACKAGES is not set
 
 #
 # Networking Tools              
@@ -1615,6 +1622,7 @@ PTXCONF_IPROUTE2=y
 # PTXCONF_IPROUTE2_ARPD is not set
 # PTXCONF_IPROUTE2_BRIDGE is not set
 # PTXCONF_IPROUTE2_CTSTAT is not set
+# PTXCONF_IPROUTE2_DEVLINK is not set
 # PTXCONF_IPROUTE2_GENL is not set
 PTXCONF_IPROUTE2_IP=y
 # PTXCONF_IPROUTE2_IFCFG is not set
@@ -1637,7 +1645,6 @@ PTXCONF_IPROUTE2_IP=y
 # PTXCONF_IW is not set
 # PTXCONF_JSON_DBUS_BRIDGE is not set
 # PTXCONF_LIBCGI is not set
-# PTXCONF_LIBCGIC is not set
 # PTXCONF_LIBCGICC is not set
 # PTXCONF_LIBCOAP is not set
 # PTXCONF_LIBCURL is not set
@@ -1739,6 +1746,7 @@ PTXCONF_OPENSSL=y
 # PTXCONF_SIMPLERPL is not set
 # PTXCONF_SMCROUTE is not set
 # PTXCONF_SOCAT is not set
+# PTXCONF_SPAWN_FCGI is not set
 # PTXCONF_STRONGSWAN is not set
 # PTXCONF_STUNNEL is not set
 # PTXCONF_TCPDUMP is not set
@@ -1824,6 +1832,7 @@ PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT4=y
 # PTXCONF_LOGROTATE is not set
 # PTXCONF_LVM2 is not set
 # PTXCONF_MMC_UTILS is not set
+# PTXCONF_NCDU is not set
 # PTXCONF_OPKG is not set
 # PTXCONF_QUOTA_TOOLS is not set
 # PTXCONF_SAMBA is not set
@@ -1843,9 +1852,11 @@ PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT4=y
 # PTXCONF_CKERMIT is not set
 # PTXCONF_EFAX is not set
 # PTXCONF_HEIRLOOM_MAILX is not set
+# PTXCONF_IMX_UUC is not set
 # PTXCONF_LIBSOCKETCAN is not set
 # PTXCONF_LRZSZ is not set
 # PTXCONF_MGETTY is not set
+# PTXCONF_OPEN62541 is not set
 # PTXCONF_OPENCT is not set
 # PTXCONF_OPENSC is not set
 # PTXCONF_PCSC_LITE is not set
@@ -1886,7 +1897,6 @@ PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT4=y
 # PTXCONF_DB is not set
 PTXCONF_EXPAT=y
 # PTXCONF_FLEX is not set
-# PTXCONF_GETTEXT is not set
 # PTXCONF_GFLAGS is not set
 # PTXCONF_GPGME is not set
 # PTXCONF_GPSD is not set
@@ -1994,6 +2004,7 @@ PTXCONF_LIBUUID=y
 # PTXCONF_LXC is not set
 PTXCONF_LZ4=y
 # PTXCONF_LZ4_TOOLS is not set
+# PTXCONF_MBEDTLS is not set
 PTXCONF_NCURSES=y
 
 #
@@ -2200,7 +2211,6 @@ PTXCONF_DBUS_SYSTEMD_UNIT=y
 #
 # framebuffer                   
 #
-# PTXCONF_FBGRAB is not set
 # PTXCONF_FBSET is not set
 # PTXCONF_FBTERM is not set
 # PTXCONF_FBTEST is not set

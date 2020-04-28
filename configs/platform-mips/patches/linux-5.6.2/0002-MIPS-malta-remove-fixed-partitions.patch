@@ -1,0 +1,45 @@
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+Date: Tue, 28 Apr 2020 14:55:25 +0200
+Subject: [PATCH] MIPS: malta: remove fixed partitions
+
+this partition table should be provided by the bootloader
+
+Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+---
+ arch/mips/boot/dts/mti/malta.dts | 23 -----------------------
+ 1 file changed, 23 deletions(-)
+
+diff --git a/arch/mips/boot/dts/mti/malta.dts b/arch/mips/boot/dts/mti/malta.dts
+index f03279b1cde7..7642a7c53a3a 100644
+--- a/arch/mips/boot/dts/mti/malta.dts
++++ b/arch/mips/boot/dts/mti/malta.dts
+@@ -57,29 +57,6 @@ flash@1e000000 {
+ 		bank-width = <4>;
+ 		#address-cells = <1>;
+ 		#size-cells = <1>;
+-
+-		partitions {
+-			compatible = "fixed-partitions";
+-			#address-cells = <1>;
+-			#size-cells = <1>;
+-
+-			yamon@0 {
+-				label = "YAMON";
+-				reg = <0x0 0x100000>;
+-				read-only;
+-			};
+-
+-			user-fs@100000 {
+-				label = "User FS";
+-				reg = <0x100000 0x2e0000>;
+-			};
+-
+-			board-config@3e0000 {
+-				label = "Board Config";
+-				reg = <0x3e0000 0x20000>;
+-				read-only;
+-			};
+-		};
+ 	};
+ 
+ 	fpga_regs: system-controller@1f000000 {

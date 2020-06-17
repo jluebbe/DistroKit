@@ -1,22 +1,22 @@
 From: Ahmad Fatoum <a.fatoum@pengutronix.de>
-Date: Fri, 24 Apr 2020 18:03:30 +0200
+Date: Wed, 17 Jun 2020 16:50:59 +0200
 Subject: [PATCH] Release
- 2020.04.0/customers/pengutronix/distrokit-v7a/20200424-2
+ 2020.06.0/customers/pengutronix/distrokit-v7a/20200617-1
 
 ---
  Makefile | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index b3d67b0863ac..c51276a8b2af 100644
+index 0531a712d758..b3986a6ca995 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1,7 +1,7 @@
+@@ -2,7 +2,7 @@
  VERSION = 2020
- PATCHLEVEL = 04
+ PATCHLEVEL = 06
  SUBLEVEL = 0
 -EXTRAVERSION =
-+EXTRAVERSION =-20200424-2
++EXTRAVERSION =-20200617-1
  NAME = None
  
  # *DOCUMENTATION*

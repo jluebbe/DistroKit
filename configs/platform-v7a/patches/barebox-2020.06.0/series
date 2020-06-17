@@ -1,0 +1,11 @@
+# umpf-base: v2020.06.0
+# umpf-name: 2020.06.0/customers/pengutronix/distrokit-v7a
+# umpf-version: 2020.06.0/customers/pengutronix/distrokit-v7a/20200617-1
+# umpf-topic: v2020.06.0/topic/rpi-memory
+# umpf-hashinfo: 8ee934de1a8334b19f9e9caad6be29e0a8e93fdb
+# umpf-topic-range: ff087598f4cdc426ba883a8720367a4ff3d6b9fe..1607cbfce2ba75e7455c9ab7c3251a68b290c68e
+0001-ARM-rpi-dts-fix-MMIO-resources-clash-breaking-boot.patch
+# umpf-release: 2020.06.0/customers/pengutronix/distrokit-v7a/20200617-1
+# umpf-topic-range: 1607cbfce2ba75e7455c9ab7c3251a68b290c68e..af8e8583ac0ed9f48ef13a81caa4ec17030778d8
+0101-Release-2020.06.0-customers-pengutronix-distrokit-v7.patch
+# umpf-end

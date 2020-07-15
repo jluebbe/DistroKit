@@ -1,7 +1,20 @@
 SPDX-License-Identifier: GPL-2.0-only
 
-DistroKit is licensed under the GNU General Public License, version 2.0,
-as given hereafter:
+DistroKit is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License, version 2,
+as given below.
+
+Note: DistroKit is a pre-configured build system which enables you to
+generate a software distribution for embedded systems. DistroKit's
+license only covers the build system rules in DistroKit itself, and
+doesn't affect the license of managed software in any way, even if the
+managed software might be distributed together with DistroKit.
+
+Moreover, using DistroKit as a PTXdist base layer for your embedded
+system is an explicitely intended use case, and is considered as "mere
+aggregation" as per section 2 of the GPL (see the FAQ at
+<https://www.gnu.org/licenses/old-licenses/gpl-2.0-faq.html#MereAggregation>
+for more information.)
 
 		    
 		    GNU GENERAL PUBLIC LICENSE

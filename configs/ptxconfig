@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# PTXdist 2020.06.0
+# PTXdist 2020.07.0
 #
 PTXCONF_DATAPARTITION=y
 
@@ -65,7 +65,7 @@ PTXCONF_BSP=y
 PTXCONF_RUNTIME=y
 PTXCONF_BUILDTIME=y
 PTXCONF_VIRTUAL=y
-PTXCONF_CONFIGFILE_VERSION="2020.06.0"
+PTXCONF_CONFIGFILE_VERSION="2020.07.0"
 PTXCONF__ptxconfig_MAGIC__=y
 
 #
@@ -83,6 +83,7 @@ PTXCONF__ptxconfig_MAGIC__=y
 # Host Tools                    
 #
 # PTXCONF_HOST_DFU_UTIL is not set
+# PTXCONF_HOST_GENGETOPT is not set
 # PTXCONF_HOST_MFGTOOLS is not set
 # PTXCONF_HOST_OPENOCD is not set
 PTXCONF_HOST_QEMU=y
@@ -1620,6 +1621,7 @@ PTXCONF_GNUTLS=y
 # PTXCONF_GNUTLS_CXX is not set
 # PTXCONF_GNUTLS_CRYPTODEV is not set
 # PTXCONF_GNUTLS_OPENSSL is not set
+# PTXCONF_HAPROXY is not set
 # PTXCONF_HASERL is not set
 PTXCONF_HAVEGED=y
 # PTXCONF_HAVEGED_STARTSCRIPT is not set
@@ -1761,9 +1763,7 @@ PTXCONF_OPENSSL=y
 # PTXCONF_STUNNEL is not set
 # PTXCONF_SYSLOGNG is not set
 # PTXCONF_TCPDUMP is not set
-# PTXCONF_THTTPD is not set
 # PTXCONF_TNTNET is not set
-# PTXCONF_TOMCAT is not set
 # PTXCONF_URSHD is not set
 # PTXCONF_WAVEMON is not set
 # PTXCONF_WGET is not set
@@ -1864,7 +1864,6 @@ PTXCONF_E2FSPROGS_INSTALL_MKFS_EXT4=y
 # PTXCONF_IMX_UUC is not set
 # PTXCONF_LIBSOCKETCAN is not set
 # PTXCONF_LRZSZ is not set
-# PTXCONF_MGETTY is not set
 # PTXCONF_OPEN62541 is not set
 # PTXCONF_OPENCT is not set
 # PTXCONF_OPENSC is not set
@@ -2054,7 +2053,6 @@ PTXCONF_SLANG=y
 # PTXCONF_TERMCAP is not set
 # PTXCONF_TIMESCALEDB is not set
 # PTXCONF_UPOWER is not set
-# PTXCONF_USTR is not set
 # PTXCONF_XERCES is not set
 # PTXCONF_YAJL is not set
 PTXCONF_ZLIB=y
@@ -2162,6 +2160,7 @@ PTXCONF_DBUS_SYSTEMD_UNIT=y
 # PTXCONF_GLMARK2 is not set
 # PTXCONF_GLSLANG is not set
 # PTXCONF_GLU is not set
+# PTXCONF_GRAPHENE is not set
 # PTXCONF_GRAPHITE2 is not set
 # PTXCONF_HARFBUZZ is not set
 # PTXCONF_ICU is not set
@@ -2237,6 +2236,7 @@ PTXCONF_DBUS_SYSTEMD_UNIT=y
 #
 # gstreamer 1.0                 
 #
+# PTXCONF_GST_BAYER2RGB_NEON is not set
 # PTXCONF_GST_LIBAV1 is not set
 # PTXCONF_GST_PLUGINS_BAD1 is not set
 # PTXCONF_GST_PLUGINS_BASE1 is not set
@@ -2324,6 +2324,7 @@ PTXCONF_GLIB=y
 #
 # tools                         
 #
+# PTXCONF_BAYER2RGB3 is not set
 # PTXCONF_FONTCONFIG is not set
 # PTXCONF_IGT_GPU_TOOLS is not set
 # PTXCONF_IMAGEMAGICK is not set

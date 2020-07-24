@@ -35,6 +35,8 @@ LIBCAP_MAKE_OPT	:= \
 	DYNAMIC=yes \
 	LIBATTR=$(call ptx/yesno, PTXCONF_LIBCAP_SETCAP) \
 	lib=lib \
+	BUILD_GPERF=no \
+	GOLANG=no \
 	CC=$(CROSS_CC) \
 	BUILD_CC=$(HOSTCC)
 

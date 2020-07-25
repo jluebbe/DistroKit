@@ -1,2 +1,4 @@
 includes:
   - file: ptxdist.ref
+
+# vim: filetype=yaml shiftwidth=2 expandtab

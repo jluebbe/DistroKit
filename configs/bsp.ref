@@ -1,3 +1,13 @@
+ptxdist_debug_pci:
+  description: |
+    In DistroKit, we have platforms with and without PCI. As long as we
+    don't actively use PCI, disable check for lspci on platforms with
+    PCI.
+  type: bool
+  analyzer: |
+    True
+  value: True
+
 includes:
   - file: ptxdist.ref
 

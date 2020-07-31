@@ -1,14 +1,15 @@
-ptxdist_debug_pci:
-  description: |
-    In DistroKit, we have platforms with and without PCI. As long as we
-    don't actively use PCI, disable check for lspci on platforms with
-    PCI.
-  type: bool
-  analyzer: |
-    True
-  value: True
-
 includes:
   - file: ptxdist.ref
+
+ptxdist_debug_pci:
+  description: |
+    In DistroKit, we have platforms with and without PCI.
+    For x86_64, we don't want to have lspci, although PCI is available in the
+    kernel.
+  variants:
+    - condition: kconfig.PTXPlatformConfig()['ARCH_X86']
+      value: False
+    - value: True
+
 
 # vim: filetype=yaml shiftwidth=2 expandtab

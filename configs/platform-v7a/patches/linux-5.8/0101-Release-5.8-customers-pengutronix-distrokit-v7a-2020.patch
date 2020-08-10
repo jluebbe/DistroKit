@@ -1,0 +1,21 @@
+From: Holger Assmann <h.assmann@pengutronix.de>
+Date: Mon, 10 Aug 2020 11:49:47 +0200
+Subject: [PATCH] Release 5.8/customers/pengutronix/distrokit-v7a/20200810-1
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 24a4c1b97bb0..a818f6ab7d0e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 5
+ PATCHLEVEL = 8
+ SUBLEVEL = 0
+-EXTRAVERSION =
++EXTRAVERSION =-20200810-1
+ NAME = Kleptomaniac Octopus
+ 
+ # *DOCUMENTATION*

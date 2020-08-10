@@ -1,0 +1,11 @@
+# umpf-base: v5.8
+# umpf-name: 5.8/customers/pengutronix/distrokit-v7a
+# umpf-version: 5.8/customers/pengutronix/distrokit-v7a/20200810-1
+# umpf-topic: v5.8/topic/lxa-mc1
+# umpf-hashinfo: ad23fe24adf0adf9b835e62be2867583793b0f7f
+# umpf-topic-range: bcf876870b95592b52519ed4aafcf9d95999bc9c..38b726a88e33a215f3d486b01fd02750458343ad
+0001-ARM-dts-stm32-lxa-mc1-Fix-kernel-warning-about-PHY-d.patch
+# umpf-release: 5.8/customers/pengutronix/distrokit-v7a/20200810-1
+# umpf-topic-range: 38b726a88e33a215f3d486b01fd02750458343ad..2b6a337cbda196361cb8d98f82c3976a956889a1
+0101-Release-5.8-customers-pengutronix-distrokit-v7a-2020.patch
+# umpf-end

@@ -1,0 +1,54 @@
+#!/bin/sh
+
+. /lib/init/initmethod-bbinit-functions.sh
+. /lib/init/rc-once.sh
+
+start() {
+	if ! mount_root_rw; then
+		systemctl --no-block rescue
+		exit 1
+	fi
+	if run_rc_once; then
+		rm -f /system-update
+	fi
+	systemctl daemon-reexec
+	sleep 1
+	if [ -d /var/lib/systemd/timesync ]; then
+		touch /var/lib/systemd/timesync/clock
+		chown systemd-timesync:nogroup /var/lib/systemd/timesync/clock
+	fi
+	exec "$0" umount
+}
+
+umount() {
+	if ! mount_root_restore; then
+		# remounting rw/ro during the second boot will flush anything
+		# left in the filesystem journal
+		ln -sf /etc/rc.once.d /system-update
+		systemctl --no-block reboot
+	else
+		if [ -e /system-update ]; then
+			systemctl --no-block rescue
+		else
+			systemctl --no-block default
+		fi
+	fi
+}
+
+case "$1" in
+
+	start|"")
+		start
+		;;
+	umount)
+		umount
+		;;
+	*)
+		echo "Usage: $0 {start|umount}" >&2
+		exit 1
+		;;
+esac
+
+exit 0
+
+

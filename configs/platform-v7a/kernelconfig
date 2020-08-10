@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm 5.8.0-20200810-1 Kernel Configuration
+# Linux/arm 5.8 Kernel Configuration
 #
 CONFIG_CC_VERSION_TEXT="arm-v7a-linux-gnueabihf-gcc (OSELAS.Toolchain-2019.09.1 9-20191130) 9.2.1 20191130"
 CONFIG_CC_IS_GCC=y

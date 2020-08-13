@@ -1,0 +1,49 @@
+## SECTION=hosttools_platform
+# This should be in a firmware section, once we added that.
+
+menuconfig FIRMWARE_IMX
+	tristate
+	prompt "firmware-imx                  "
+	help
+	  Install CODA VPU firmware files from the firmware-imx package.
+
+if FIRMWARE_IMX
+
+config FIRMWARE_IMX_VPU_IMX27
+	tristate
+	prompt "CodaDx6 firmware for i.MX27"
+	help
+	  Install the CODA7541 VPU firmware for i.MX27.
+
+config FIRMWARE_IMX_VPU_IMX51
+	tristate
+	prompt "CodaHx4 firmware for i.MX51"
+	help
+	  Install the CodaHx4 VPU firmware for i.MX51.
+
+config FIRMWARE_IMX_VPU_IMX53
+	tristate
+	prompt "CODA7541 firmware for i.MX53"
+	help
+	  Install the CODA7541 VPU firmware for i.MX53.
+
+config FIRMWARE_IMX_VPU_IMX6DL
+	tristate
+	prompt "CODA960 firmware for i.MX6DL/S"
+	help
+	  Install the CODA960 VPU firmware for i.MX6DL and i.MX6S.
+
+config FIRMWARE_IMX_VPU_IMX6Q
+	tristate
+	prompt "CODA960 firmware for i.MX6Q/D"
+	help
+	  Install the CODA960 VPU firmware for i.MX6Q and i.MX6D.
+
+config FIRMWARE_IMX_BOOTIMAGE_IMX8
+	bool
+	prompt "Install i.MX8 DDR PHY and HDMI/eDP controller firmware"
+	help
+	  Install the Synopsis DDR PHY controller and Cadence HDMI TX
+	  firmware used to build a boot image.
+
+endif

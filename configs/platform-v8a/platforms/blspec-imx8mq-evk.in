@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_IMX8MQ_EVK
+	tristate
+	prompt "/loader/entries/imx8mq-evk.conf bootloader spec entry"

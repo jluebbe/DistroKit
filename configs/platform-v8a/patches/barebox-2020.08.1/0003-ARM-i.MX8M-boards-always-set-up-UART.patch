@@ -1,0 +1,185 @@
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Date: Fri, 21 Aug 2020 06:18:43 +0200
+Subject: [PATCH] ARM: i.MX8M boards: always set up UART
+
+Quoting Lucas on b96cc34f91 ("ARM: nxp-imx8mm-evk: always set up UART"):
+
+| When the TF-A is configured to have some output on the UART it does not
+| set up the UART on its own, but just expects a pre-existing configuration.
+| If Barebox did not set up the UART in the !DEBUG_LL case, TF-A will just
+| hang without any user accessible debug output, which is a very non-obvious
+| failure, so better be safe and always set up the UART in case TF-A wants
+| to use it.
+
+This patch adopts this for all i.MX8M boards and makes the early UART
+setup consistent across all of them. We also add pbl_set_putc() to
+enable regular PBL console messages. For the i.MX8MM-EVK the unnecessary
+call to imx8m_uart_setup_ll() is dropped; we already configured the
+UART in imx8m_uart_setup(), no need to do that again.
+
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+ arch/arm/boards/nxp-imx8mm-evk/lowlevel.c    | 10 +++++-----
+ arch/arm/boards/nxp-imx8mp-evk/lowlevel.c    |  9 ++++++---
+ arch/arm/boards/nxp-imx8mq-evk/lowlevel.c    |  8 +++++---
+ arch/arm/boards/phytec-som-imx8mq/lowlevel.c |  9 ++++++---
+ arch/arm/boards/zii-imx8mq-dev/lowlevel.c    | 10 ++++++----
+ 5 files changed, 28 insertions(+), 18 deletions(-)
+
+diff --git a/arch/arm/boards/nxp-imx8mm-evk/lowlevel.c b/arch/arm/boards/nxp-imx8mm-evk/lowlevel.c
+index 96b78d2c6695..2297dc01e77f 100644
+--- a/arch/arm/boards/nxp-imx8mm-evk/lowlevel.c
++++ b/arch/arm/boards/nxp-imx8mm-evk/lowlevel.c
+@@ -28,16 +28,16 @@ extern char __dtb_imx8mm_evk_start[];
+ 
+ static void setup_uart(void)
+ {
++	void __iomem *uart = IOMEM(MX8M_UART2_BASE_ADDR);
++
+ 	imx8m_early_setup_uart_clock();
+ 
+ 	imx8mm_setup_pad(IMX8MM_PAD_UART2_TXD_UART2_TX | UART_PAD_CTRL);
++	imx8m_uart_setup(uart);
+ 
+-	imx8m_uart_setup((void *)MX8M_UART2_BASE_ADDR);
++	pbl_set_putc(imx_uart_putc, uart);
+ 
+-	if (IS_ENABLED(CONFIG_DEBUG_LL)) {
+-		imx8m_uart_setup_ll();
+-		putc_ll('>');
+-	}
++	putc_ll('>');
+ }
+ 
+ static void pmic_reg_write(void *i2c, int reg, uint8_t val)
+diff --git a/arch/arm/boards/nxp-imx8mp-evk/lowlevel.c b/arch/arm/boards/nxp-imx8mp-evk/lowlevel.c
+index 5df1ed078001..e4f994a1d1b8 100644
+--- a/arch/arm/boards/nxp-imx8mp-evk/lowlevel.c
++++ b/arch/arm/boards/nxp-imx8mp-evk/lowlevel.c
+@@ -34,11 +34,15 @@ extern char __dtb_imx8mp_evk_start[];
+ 
+ static void setup_uart(void)
+ {
++	void __iomem *uart = IOMEM(MX8M_UART2_BASE_ADDR);
++
+ 	imx8m_early_setup_uart_clock();
+ 
+ 	imx8mp_setup_pad(MX8MP_PAD_UART2_TXD__UART2_DCE_TX | UART_PAD_CTRL);
+ 	imx8mp_setup_pad(MX8MP_PAD_UART2_RXD__UART2_DCE_RX | UART_PAD_CTRL);
+-	imx8m_uart_setup_ll();
++	imx8m_uart_setup(uart);
++
++	pbl_set_putc(imx_uart_putc, uart);
+ 
+ 	putc_ll('>');
+ }
+@@ -163,8 +167,7 @@ static void start_atf(void)
+  */
+ static __noreturn noinline void nxp_imx8mp_evk_start(void)
+ {
+-	if (IS_ENABLED(CONFIG_DEBUG_LL))
+-		setup_uart();
++	setup_uart();
+ 
+ 	start_atf();
+ 
+diff --git a/arch/arm/boards/nxp-imx8mq-evk/lowlevel.c b/arch/arm/boards/nxp-imx8mq-evk/lowlevel.c
+index 39358afad196..564621abef57 100644
+--- a/arch/arm/boards/nxp-imx8mq-evk/lowlevel.c
++++ b/arch/arm/boards/nxp-imx8mq-evk/lowlevel.c
+@@ -26,11 +26,14 @@ extern char __dtb_imx8mq_evk_start[];
+ 
+ static void setup_uart(void)
+ {
++	void __iomem *uart = IOMEM(MX8M_UART1_BASE_ADDR);
++
+ 	imx8m_early_setup_uart_clock();
+ 
+ 	imx8mq_setup_pad(IMX8MQ_PAD_UART1_TXD__UART1_TX | UART_PAD_CTRL);
++	imx8m_uart_setup(uart);
+ 
+-	imx8m_uart_setup_ll();
++	pbl_set_putc(imx_uart_putc, uart);
+ 
+ 	putc_ll('>');
+ }
+@@ -53,8 +56,7 @@ static void setup_uart(void)
+  */
+ static __noreturn noinline void nxp_imx8mq_evk_start(void)
+ {
+-	if (IS_ENABLED(CONFIG_DEBUG_LL))
+-		setup_uart();
++	setup_uart();
+ 
+ 	/*
+ 	 * If we are in EL3 we are running for the first time and need to
+diff --git a/arch/arm/boards/phytec-som-imx8mq/lowlevel.c b/arch/arm/boards/phytec-som-imx8mq/lowlevel.c
+index f5b9b6c00882..05226866f828 100644
+--- a/arch/arm/boards/phytec-som-imx8mq/lowlevel.c
++++ b/arch/arm/boards/phytec-som-imx8mq/lowlevel.c
+@@ -29,11 +29,15 @@ extern char __dtb_imx8mq_phytec_phycore_som_start[];
+ 
+ static void setup_uart(void)
+ {
++	void __iomem *uart = IOMEM(MX8M_UART1_BASE_ADDR);
++
+ 	imx8m_early_setup_uart_clock();
+ 
+ 	imx8mq_setup_pad(IMX8MQ_PAD_UART1_TXD__UART1_TX | UART_PAD_CTRL);
+ 
+-	imx8m_uart_setup_ll();
++	imx8m_uart_setup(uart);
++
++	pbl_set_putc(imx_uart_putc, uart);
+ 
+ 	putc_ll('>');
+ }
+@@ -56,8 +60,7 @@ static void phytec_imx8mq_som_sram_setup(void)
+ 
+ static __noreturn noinline void phytec_phycore_imx8mq_start(void)
+ {
+-	if (IS_ENABLED(CONFIG_DEBUG_LL))
+-		setup_uart();
++	setup_uart();
+ 
+ 	if (get_pc() < MX8MQ_DDR_CSD1_BASE_ADDR) {
+ 		/*
+diff --git a/arch/arm/boards/zii-imx8mq-dev/lowlevel.c b/arch/arm/boards/zii-imx8mq-dev/lowlevel.c
+index 640083380906..311e61fb1da4 100644
+--- a/arch/arm/boards/zii-imx8mq-dev/lowlevel.c
++++ b/arch/arm/boards/zii-imx8mq-dev/lowlevel.c
+@@ -28,11 +28,14 @@
+ 
+ static void setup_uart(void)
+ {
++	void __iomem *uart = IOMEM(MX8M_UART1_BASE_ADDR);
++
+ 	imx8m_early_setup_uart_clock();
+ 
+ 	imx8mq_setup_pad(IMX8MQ_PAD_UART1_TXD__UART1_TX | UART_PAD_CTRL);
++	imx8m_uart_setup(uart);
+ 
+-	imx8m_uart_setup_ll();
++	pbl_set_putc(imx_uart_putc, uart);
+ 
+ 	putc_ll('>');
+ }
+@@ -118,6 +121,8 @@ static __noreturn noinline void zii_imx8mq_dev_start(void)
+ 	unsigned int system_type;
+ 	void *fdt;
+ 
++	setup_uart();
++
+ 	if (get_pc() < MX8MQ_DDR_CSD1_BASE_ADDR) {
+ 		/*
+ 		 * We assume that we were just loaded by MaskROM into
+@@ -194,9 +199,6 @@ ENTRY_FUNCTION(start_zii_imx8mq_dev, r0, r1, r2)
+ 	imx8mq_cpu_lowlevel_init();
+ 	relocate_to_current_adr();
+ 	setup_c();
+-	
+-	if (IS_ENABLED(CONFIG_DEBUG_LL))
+-		setup_uart();
+ 
+ 	zii_imx8mq_dev_start();
+ }

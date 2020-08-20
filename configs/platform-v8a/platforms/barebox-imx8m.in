@@ -1,0 +1,9 @@
+## SECTION=bootloader
+
+config BAREBOX_IMX8M
+	select FIRMWARE_IMX
+	select IMX_ATF
+	tristate
+	prompt "Barebox (imx8m)"
+	help
+	  FIXME

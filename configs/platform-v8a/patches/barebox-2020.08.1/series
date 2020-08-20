@@ -1,0 +1,14 @@
+# umpf-base: v2020.08.1
+# umpf-name: v2020.08.1-imx8m
+# umpf-version: v2020.08.1-imx8m/20200821-1
+# umpf-topic: v2020.08.0/topic/imx8m
+# umpf-hashinfo: f200913643b0a12af01d045261003de8bc6fc91c
+# umpf-topic-range: 4dcefc03c4db34233cfa49cf48141a75d574070e..19bddd83dd34d8c5b691db298847f351f5bc652d
+0001-ARM-nxp-imx8mm-evk-always-set-up-UART.patch
+0002-ARM-imx8m-Make-uart-setup-function-name-more-generic.patch
+0003-ARM-i.MX8M-boards-always-set-up-UART.patch
+0004-clk-imx8mm-fix-CPU-clock.patch
+# umpf-release: v2020.08.1-imx8m/20200821-1
+# umpf-topic-range: 19bddd83dd34d8c5b691db298847f351f5bc652d..08a8f1cc7a2d6ae1f100d721eeb697ca53889789
+0101-Release-v2020.08.1-imx8m-20200821-1.patch
+# umpf-end

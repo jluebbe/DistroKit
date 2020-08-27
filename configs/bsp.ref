@@ -9,6 +9,8 @@ ptxdist_debug_pci:
   variants:
     - condition: kconfig.PTXPlatformConfig()['ARCH_X86']
       value: False
+    - condition: kconfig.PTXPlatformConfig()['ARCH_ARM64']
+      value: False
     - value: True
 
 

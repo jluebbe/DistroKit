@@ -4,6 +4,7 @@ menuconfig IPROUTE2
 	tristate
 	prompt "iproute2                      "
 	select DB if IPROUTE2_ARPD
+	select LIBCAP
 	select LIBC_DL
 	select LIBC_M
 	select LIBC_RESOLV

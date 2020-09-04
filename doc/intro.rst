@@ -12,10 +12,27 @@ minimalistic) Embedded Linux system with modern components:
 
 It can be used as a base for further BSP development.
 
-Installing the BSP
-------------------
+DistroKit supports multiple hardware platforms, see chapter
+:ref:`hardware-platforms` for more information about them.
 
-DistroKit is built with ptxdist. In order to install ptxdist,
+
+Quick Start
+-----------
+
+The next sections below describe briefly how to build the BSP from scratch,
+but for more in-depth documentation, refer to the `PTXdist manual
+<https://www.ptxdist.org/doc/>`_ (or the later chapters if you're reading this
+documentation in the HTML or the PDF version).
+
+If you already have a working environment, you can skip to the section about the
+individual :ref:`hardware-platforms` for more information on how to build
+images, how to flash an image to a board, or how to get a serial console.
+
+Installing PTXdist
+~~~~~~~~~~~~~~~~~~
+
+DistroKit is built with PTXdist version |ptxdistVendorVersion|.  In order to
+install PTXdist,
 `download the tarball <http://www.pengutronix.de/software/ptxdist/download/ptxdist-|ptxdistVendorVersion|.tar.bz2>`_
 from the PTXdist Download Area.
 
@@ -32,19 +49,19 @@ Go to the extracted directory and run
         $ ./configure && make && sudo make install
 
 Installing the Toolchain
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-In order to build a BSP, you need a toolchain. The easiest way to get a
-toolchain is to install the debian packages for OSELAS.Toolchain:
+In order to build a BSP for a different architecture than your host system,
+you need a toolchain.
+DistroKit is configured for the OSELAS.Toolchain |oselasTCNVendorVersion|.
+Depending on the platform you want to build, different toolchains are necessary –
+see the sections about the :ref:`hardware-platforms`.
 
-        `<http://www.pengutronix.de/oselas/toolchain/>`_
+Pre-built Debian packages of the toolchains are available from Pengutronix,
+but you can also build the toolchain from source.
+See the `OSELAS.Toolchain homepage <https://www.pengutronix.de/de/software/toolchain.html>`_
+for more information.
 
-If you want to build the toolchain yourself, you can download the
-toolchain sources from
-
-        `<http://www.pengutronix.de/oselas/toolchain/download/>`_
-
-and build them manually.
 
 Contributing
 ------------

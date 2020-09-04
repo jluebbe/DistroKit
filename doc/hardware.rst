@@ -136,3 +136,33 @@ the Broadcom BCM2835 SoC (ARMv6):
    :maxdepth: 1
 
    hardware_rpi_raspi1
+
+
+mips Platform
+-------------
+
++-------------------------+------------------------------------------+
+| platformconfig:         | ``configs/platform-mips/platformconfig`` |
++-------------------------+------------------------------------------+
+| Toolchain architecture: | ``mips-softfloat-linux-gnu``             |
++-------------------------+------------------------------------------+
+
+.. toctree::
+   :maxdepth: 1
+
+   hardware_x86_64_qemu
+
+
+x86_64 Platform
+---------------
+
++-------------------------+--------------------------------------------+
+| platformconfig:         | ``configs/platform-x86_64/platformconfig`` |
++-------------------------+--------------------------------------------+
+| Toolchain architecture: | ``x86_64-unknown-linux-gnu``               |
++-------------------------+--------------------------------------------+
+
+.. toctree::
+   :maxdepth: 1
+
+   hardware_mips_qemu

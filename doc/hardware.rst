@@ -7,40 +7,36 @@ DistroKit supports a range of hardware, supported by the ptxdist
 platforms listed below. A platform can be built with one ``ptxdist
 images`` and shares the same cross compiler and binary format.
 
+To build a platform, choose the respective platformconfig, e.g.::
+
+   $ ptxdist platform configs/platform-v7a/platformconfig
+   info: selected platformconfig:
+        'configs/platform-v7a/platformconfig'
+
+If the respective toolchain for the platform is installed from the Debian packages
+or tarballs, PTXdist is able to find and select the right toolchain automatically.
+Otherwise, select your toolchain by giving its path manually, e.g. with::
+
+   $ ptxdist toolchain /opt/OSELAS.Toolchain-2020.08.0/x86_64-unknown-linux-gnu/gcc-10.2.1-clang-10.0.1-glibc-2.32-binutils-2.35-kernel-5.8-sanitized/bin
+   found and using toolchain:
+   '/opt/OSELAS.Toolchain-2020.08.0/x86_64-unknown-linux-gnu/gcc-10.2.1-clang-10.0.1-glibc-2.32-binutils-2.35-kernel-5.8-sanitized/bin/'
+
+Then you can build all images with::
+
+   $ ptxdist images
+
 
 v7a Platform
 ------------
 
-The v7a platform is made for machines based on the ARMv7a architecture.
-Select the platform with
++-------------------------+-----------------------------------------+
+| platformconfig:         | ``configs/platform-v7a/platformconfig`` |
++-------------------------+-----------------------------------------+
+| Toolchain architecture: | ``arm-v7a-linux-gnueabihf``             |
++-------------------------+-----------------------------------------+
 
-::
-
-	$ ptxdist platform configs/platform-v7a/platformconfig
-	info: selected platformconfig:
-	      'configs/platform-v7a/platformconfig'
-
-To use the platform, the arm-v7a-linux-gnueabihf toolchain needs to be
-installed; if installed from the debian packages or tarballs, ptxdist
-is able to find and select the right toolchain with
-
-::
-
-	$ ptxdist toolchain
-	found and using toolchain:
-	'/opt/OSELAS.Toolchain-2016.06.1/arm-v7a-linux-gnueabihf/gcc-5.4.0-glibc-2.23-binutils-2.26-kernel-4.6-sanitized/bin'
-
-Now everything is prepared to build the platform with
-
-::
-
-	$ ptxdist images
-
-Hardware for the v7a Platform
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-DistroKit supports various boards based on the ARMv7-A architecture.
-For the following boards there is separate documentation:
+The v7a platform is made for machines based on the ARMv7-A architecture.
+It supports the following hardware:
 
 .. toctree::
    :maxdepth: 1
@@ -94,23 +90,36 @@ listed above, here is a short overview of the generic way:
 
 Refer to the :ref:`ptx_dev_manual` for a more thorough documentation.
 
+
 v8a Platform
 ------------
 
++-------------------------+-----------------------------------------+
+| platformconfig:         | ``configs/platform-v8a/platformconfig`` |
++-------------------------+-----------------------------------------+
+| Toolchain architecture: | ``aarch64-v8a-linux-gnu``               |
++-------------------------+-----------------------------------------+
+
+The v8a platform targets the ARMv8-A architecture.
+
 The stuff from the v7a section above applies here accordingly.
 
-Hardware for the v8a Platform
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Currently DistroKit only supports a single board; the Marvell espressobin.
+Currently DistroKit only supports a single board; the Marvell espressobin:
 
 .. toctree::
    :maxdepth: 1
 
    hardware_v8a_espressobin
 
+
 rpi Platform
 ------------
+
++-------------------------+-----------------------------------------+
+| platformconfig:         | ``configs/platform-rpi/platformconfig`` |
++-------------------------+-----------------------------------------+
+| Toolchain architecture: | ``arm-1136jfs-linux-gnueabihf``         |
++-------------------------+-----------------------------------------+
 
 .. note::
 
@@ -121,32 +130,7 @@ rpi Platform
   we will be happy to merge your patches anyways.
 
 The rpi platform has support for the Raspberry Pi 1, which is based on
-the Broadcom BCM2835 SoC (ARMv6). Select the platform with
-
-::
-
-	$ ptxdist platform configs/platform-rpi/platformconfig
-	info: selected platformconfig:
-	      'configs/platform-rpi/platformconfig'
-
-You'll need the arm-1136jfs-linux-gnueabihf toolchain installed on your
-system. If installed through the Pengutronix Debian or tarball
-packages, ptxdist will pick it up automatically in this step.
-
-::
-
-	$ ptxdist toolchain
-	found and using toolchain:
-	'/opt/OSELAS.Toolchain-2014.12.2/arm-1136jfs-linux-gnueabihf/gcc-4.9.2-glibc-2.20-binutils-2.24-kernel-3.16-sanitized/bin/'
-
-Now everything is prepared to build the platform with
-
-::
-
-	$ ptxdist images
-
-Hardware for the rpi Platform
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+the Broadcom BCM2835 SoC (ARMv6):
 
 .. toctree::
    :maxdepth: 1

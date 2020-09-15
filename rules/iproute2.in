@@ -1,5 +1,8 @@
 ## SECTION=networking
 
+# NOTE: this can be removed after migrating to PTXdist 2020.10.0, which includes
+# https://git.pengutronix.de/cgit/ptxdist/commit/?id=ee2867017402a411c279
+
 menuconfig IPROUTE2
 	tristate
 	prompt "iproute2                      "

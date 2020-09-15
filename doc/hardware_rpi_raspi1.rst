@@ -1,5 +1,5 @@
-Raspberry Pi 1
-==============
+Raspberry Pi 1 and Zero W
+=========================
 
 Boot Media
 ----------

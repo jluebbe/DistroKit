@@ -129,8 +129,8 @@ rpi Platform
   However, if you are targeting a RPi 1,
   we will be happy to merge your patches anyways.
 
-The rpi platform has support for the Raspberry Pi 1, which is based on
-the Broadcom BCM2835 SoC (ARMv6):
+The rpi platform has support for the Raspberry Pi 1 and Raspberry Pi Zero W,
+which is based on the Broadcom BCM2835 SoC (ARMv6):
 
 .. toctree::
    :maxdepth: 1

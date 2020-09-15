@@ -7,4 +7,4 @@ config IMAGE_UDOO_NEO
 	select IMAGE_ROOT_EXT
 	prompt "Generate images/udoo-neo.hdimg"
 	help
-	  FIXME
+	  SD card image for the Udoo Neo

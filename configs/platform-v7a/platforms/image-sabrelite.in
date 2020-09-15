@@ -7,4 +7,4 @@ config IMAGE_SABRELITE
 	select BAREBOX_MX6
 	prompt "Generate images/sabrelite.hdimg"
 	help
-	  FIXME
+	  SD card image for the Boundary Devices SABRE Lite board

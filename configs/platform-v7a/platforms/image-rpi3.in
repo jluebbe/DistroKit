@@ -9,4 +9,4 @@ config IMAGE_RPI3
 	select BAREBOX_RPI2
 	prompt "Generate images/rpi3.hdimg"
 	help
-	  FIXME
+	  SD card image for the Raspberry Pi 3

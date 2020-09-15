@@ -7,4 +7,5 @@ config IMAGE_VEXPRESS
 	select IMAGE_ROOT_EXT
 	prompt "Generate images/vexpress.hdimg"
 	help
-	  FIXME
+	  Image for the Versatile Express board, and the qemu hardware
+	  simulation

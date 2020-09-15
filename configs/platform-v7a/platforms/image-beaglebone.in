@@ -10,4 +10,4 @@ config IMAGE_BEAGLEBONE
 	select BAREBOX_AM335X_MLO
 	prompt "Generate images/beaglebone.hdimg"
 	help
-	  FIXME
+	  SD card image for the Beaglebone Black and White

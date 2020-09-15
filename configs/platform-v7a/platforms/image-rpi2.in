@@ -9,4 +9,4 @@ config IMAGE_RPI2
 	select BAREBOX_RPI2
 	prompt "Generate images/rpi2.hdimg"
 	help
-	  FIXME
+	  SD card image for the Raspberry Pi 2

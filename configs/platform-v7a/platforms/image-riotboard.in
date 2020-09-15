@@ -7,4 +7,4 @@ config IMAGE_RIOTBOARD
 	select BAREBOX_MX6
 	prompt "Generate images/riotboard.hdimg"
 	help
-	  FIXME
+	  SD card image for the RIoTboard

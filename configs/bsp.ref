@@ -13,5 +13,12 @@ ptxdist_debug_pci:
       value: False
     - value: True
 
+kernel_dtb_partitions:
+  description: |
+    A fixed-partitions node is needed for qemu on mips.
+  variants:
+    - condition: kconfig.PTXPlatformConfig()['ARCH_MIPS']
+      value: True
+    - value: False
 
 # vim: filetype=yaml shiftwidth=2 expandtab

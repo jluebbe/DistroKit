@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_SAMA5D27_GIANTBOARD
+	tristate
+	prompt "/loader/entries/sama5d27-giantboard.conf bootloader spec entry"

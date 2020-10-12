@@ -1,0 +1,11 @@
+## SECTION=image
+
+config IMAGE_SAMA5D27_GIANTBOARD
+	tristate
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_EXT
+	select HOST_DOSFSTOOLS
+	select BAREBOX_AT91
+	prompt "Generate images/sama5d27-giantboard.hdimg"
+	help
+	  Includes DistroKit support for the Groboards sama5d27-based Giantboard

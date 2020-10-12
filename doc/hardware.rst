@@ -49,6 +49,7 @@ It supports the following hardware:
    hardware_v7a_raspi2
    hardware_v7a_raspi3
    hardware_v7a_udoo_neo
+   hardware_v7a_sama5d2
 
 If you want to get DistroKit running on your ARMv7-A board which is not
 listed above, here is a short overview of the generic way:

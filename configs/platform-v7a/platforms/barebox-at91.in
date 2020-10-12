@@ -1,0 +1,8 @@
+## SECTION=bootloader
+
+config BAREBOX_AT91
+	tristate
+	prompt "Barebox (at91)"
+	select BAREBOX_COMMON
+	help
+	  Barebox image for AT91 SoCs

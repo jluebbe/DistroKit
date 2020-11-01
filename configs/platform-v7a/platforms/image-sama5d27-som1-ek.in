@@ -1,0 +1,11 @@
+## SECTION=image
+
+config IMAGE_SAMA5D27_SOM1_EK
+	tristate
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_EXT
+	select HOST_DOSFSTOOLS
+	select BAREBOX_AT91
+	prompt "Generate images/sama5d27-som1-ek.hdimg"
+	help
+	  Includes DistroKit support for the Microchip sama5d27 SOM1 evaluation Kit

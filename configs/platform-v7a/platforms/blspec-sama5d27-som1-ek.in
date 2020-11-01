@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_SAMA5D27_SOM1_EK
+	tristate
+	prompt "/loader/entries/sama5d27-som1-ek.conf bootloader spec entry"

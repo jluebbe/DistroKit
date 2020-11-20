@@ -68,7 +68,7 @@ fi
 BASE_CMDLINE="console=ttyS0,115200 loglevel=5 systemd.log_level=warning systemd.show_status=auto"
 
 # Machine to emulate
-QEMU_ARGS=( -M malta -m 256 -serial stdio -monitor null)
+QEMU_ARGS=( -M malta -m 256 -serial stdio -monitor null -device qemu-xhci,id=xhci)
 # disable graphics output
 QEMU_ARGS[${#QEMU_ARGS[@]}]="-nographic"
 # Exit qemu on reboot

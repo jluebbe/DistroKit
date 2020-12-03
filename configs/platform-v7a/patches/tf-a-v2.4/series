@@ -1,0 +1,12 @@
+# umpf-base: v2.4
+# umpf-name: 2.4/customers/pengutronix/distrokit-v7a
+# umpf-version: 2.4/customers/pengutronix/distrokit-v7a/20201203-3
+# umpf-topic: v2.4/customers/pengutronix/mc1
+# umpf-hashinfo: 21a3904995b9fbfe16f6b4d4e9db1c03d102a485
+# umpf-topic-range: e2c509a39c6cc4dda8734e6509cdbe6e3603cdfc..ffb9bfe900a2d98486ed63f8041d63cfa39620db
+0001-fdts-stm32mp1-add-support-for-Linux-Automation-MC-1-.patch
+# umpf-topic: v2.4/topic/stm32mp1-hash1-enable
+# umpf-hashinfo: c23c95a1eca7d557650836929252eb3c5cb3ca86
+# umpf-topic-range: ffb9bfe900a2d98486ed63f8041d63cfa39620db..10935b6d4379f0e8f8634cca1ac1cb69a66436e0
+0101-fdts-stm32mp1-enable-hash1-unconditionally.patch
+# umpf-end

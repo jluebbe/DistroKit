@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# PTXdist 2021.01.0
+# PTXdist 2021.02.0
 #
 PTXCONF__platformconfig_MAGIC__=y
 
@@ -19,7 +19,7 @@ PTXCONF_PLATFORM="mips"
 PTXCONF_PLATFORM_VERSION="-${PTXDIST_BSP_AUTOVERSION}"
 PTXCONF_RUNTIME=y
 PTXCONF_BUILDTIME=y
-PTXCONF_PLATFORMCONFIG_VERSION="2021.01.0"
+PTXCONF_PLATFORMCONFIG_VERSION="2021.02.0"
 
 #
 # architecture                  
@@ -56,6 +56,7 @@ PTXCONF_ARCH_STRING="mips"
 PTXCONF_SYSROOT_TARGET="${PTXDIST_PLATFORMDIR}/sysroot-target"
 PTXCONF_SYSROOT_HOST="${PTXDIST_PLATFORMDIR}/sysroot-host"
 PTXCONF_SYSROOT_CROSS="${PTXDIST_PLATFORMDIR}/sysroot-cross"
+# end of paths & directories           
 
 #
 # toolchain                     
@@ -69,6 +70,7 @@ PTXCONF_GNU_TARGET="mips-softfloat-linux-gnu"
 PTXCONF_COMPILER_PREFIX="${PTXCONF_GNU_TARGET}-"
 PTXCONF_COMPILER_PREFIX_KERNEL="${PTXCONF_COMPILER_PREFIX}"
 PTXCONF_COMPILER_PREFIX_BOOTLOADER="${PTXCONF_COMPILER_PREFIX}"
+# end of toolchain                     
 
 #
 # hardening options             
@@ -83,6 +85,7 @@ PTXCONF_TARGET_HARDEN_RELRO=y
 PTXCONF_TARGET_HARDEN_BINDNOW=y
 PTXCONF_TARGET_HARDEN_PIE=y
 PTXCONF_TARGET_HARDEN_GLIBCXX_ASSERTIONS=y
+# end of hardening options             
 
 #
 # extra toolchain options       
@@ -102,6 +105,9 @@ PTXCONF_TARGET_EXTRA_CPPFLAGS=""
 PTXCONF_TARGET_EXTRA_CFLAGS=""
 PTXCONF_TARGET_EXTRA_CXXFLAGS=""
 PTXCONF_TARGET_EXTRA_LDFLAGS=""
+# end of extra toolchain options       
+# end of architecture                  
+
 PTXCONF_KERNEL=y
 PTXCONF_KERNEL_VERSION="5.8.9"
 PTXCONF_KERNEL_MD5="4d8b8af44c9d342624c036428da09ab6"
@@ -120,12 +126,14 @@ PTXCONF_HOST_DTC_MD5="cd36ac756290597f3cf1c5b6cfe12e77"
 #
 PTXCONF_CONSOLE_NAME="ttyATH0"
 PTXCONF_CONSOLE_SPEED="115200"
+# end of console options               
 
 #
 # extra kernel                  
 #
 PTXCONF_KERNEL_AR9331=y
 PTXCONF_KERNEL_MALTA=y
+# end of extra kernel                  
 
 #
 # bootloaders                   
@@ -144,6 +152,7 @@ PTXCONF_BAREBOX_ARCH_STRING="mips"
 # PTXCONF_GRUB is not set
 # PTXCONF_HOST_MXS_UTILS is not set
 # PTXCONF_U_BOOT is not set
+# end of bootloaders                   
 
 #
 # bootloader spec entries       
@@ -151,6 +160,7 @@ PTXCONF_BAREBOX_ARCH_STRING="mips"
 PTXCONF_BLSPEC_AR9331=y
 # PTXCONF_BLSPEC_ENTRY is not set
 PTXCONF_BLSPEC_MALTA=y
+# end of bootloader spec entries       
 
 #
 # image creation options        
@@ -183,7 +193,11 @@ PTXCONF_IMAGE_ROOT_TGZ_LABEL=""
 # PTXCONF_IMAGE_INSTALL_FROM_IPKG_REPOSITORY is not set
 # PTXCONF_IMAGE_IPKG_INDEX is not set
 PTXCONF_IMAGE_XPKG_EXTRA_ARGS=""
+# end of ipkg options                  
+
 # PTXCONF_KERNEL_FIT is not set
+# end of image creation options        
+
 # PTXCONF_CODE_SIGNING is not set
 PTXCONF_HOST_E2FSPROGS=y
 PTXCONF_HOST_FLEX=y

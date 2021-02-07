@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# PTXdist 2021.01.0
+# PTXdist 2021.02.0
 #
 PTXCONF__platformconfig_MAGIC__=y
 
@@ -19,7 +19,7 @@ PTXCONF_PLATFORM="v8a"
 PTXCONF_PLATFORM_VERSION="-${PTXDIST_BSP_AUTOVERSION}"
 PTXCONF_RUNTIME=y
 PTXCONF_BUILDTIME=y
-PTXCONF_PLATFORMCONFIG_VERSION="2021.01.0"
+PTXCONF_PLATFORMCONFIG_VERSION="2021.02.0"
 
 #
 # architecture                  
@@ -57,6 +57,7 @@ PTXCONF_ARCH_STRING="arm64"
 PTXCONF_SYSROOT_TARGET="${PTXDIST_PLATFORMDIR}/sysroot-target"
 PTXCONF_SYSROOT_HOST="${PTXDIST_PLATFORMDIR}/sysroot-host"
 PTXCONF_SYSROOT_CROSS="${PTXDIST_PLATFORMDIR}/sysroot-cross"
+# end of paths & directories           
 
 #
 # toolchain                     
@@ -70,6 +71,7 @@ PTXCONF_GNU_TARGET="aarch64-v8a-linux-gnu"
 PTXCONF_COMPILER_PREFIX="${PTXCONF_GNU_TARGET}-"
 PTXCONF_COMPILER_PREFIX_KERNEL="${PTXCONF_COMPILER_PREFIX}"
 PTXCONF_COMPILER_PREFIX_BOOTLOADER="${PTXCONF_COMPILER_PREFIX}"
+# end of toolchain                     
 
 #
 # hardening options             
@@ -84,6 +86,7 @@ PTXCONF_TARGET_HARDEN_RELRO=y
 PTXCONF_TARGET_HARDEN_BINDNOW=y
 PTXCONF_TARGET_HARDEN_PIE=y
 # PTXCONF_TARGET_HARDEN_GLIBCXX_ASSERTIONS is not set
+# end of hardening options             
 
 #
 # extra toolchain options       
@@ -103,6 +106,9 @@ PTXCONF_TARGET_EXTRA_CPPFLAGS=""
 PTXCONF_TARGET_EXTRA_CFLAGS=""
 PTXCONF_TARGET_EXTRA_CXXFLAGS=""
 PTXCONF_TARGET_EXTRA_LDFLAGS=""
+# end of extra toolchain options       
+# end of architecture                  
+
 PTXCONF_KERNEL=y
 PTXCONF_KERNEL_XPKG=y
 PTXCONF_KERNEL_INSTALL=y
@@ -134,6 +140,7 @@ PTXCONF_KERNEL_CONFIG_BASE_VERSION=y
 #
 PTXCONF_KERNEL_SERIES="series"
 PTXCONF_KERNEL_CONFIG="kernelconfig"
+# end of patching & configuration      
 
 #
 # Development features
@@ -153,6 +160,7 @@ PTXCONF_HOST_DTC_MD5="cd36ac756290597f3cf1c5b6cfe12e77"
 #
 PTXCONF_CONSOLE_NAME="ttyMV0"
 PTXCONF_CONSOLE_SPEED="115200"
+# end of console options               
 
 #
 # extra kernel                  
@@ -171,6 +179,7 @@ PTXCONF_BAREBOX_ARCH_STRING="arm"
 PTXCONF_IMX_ATF=y
 # PTXCONF_TF_A is not set
 # PTXCONF_U_BOOT is not set
+# end of bootloaders                   
 
 #
 # bootloader spec entries       
@@ -179,6 +188,7 @@ PTXCONF_IMX_ATF=y
 PTXCONF_BLSPEC_IMX8MM_EVK=y
 PTXCONF_BLSPEC_IMX8MP_EVK=y
 PTXCONF_BLSPEC_IMX8MQ_EVK=y
+# end of bootloader spec entries       
 
 #
 # image creation options        
@@ -202,6 +212,8 @@ PTXCONF_IMAGE_KERNEL=y
 #
 PTXCONF_IMAGE_KERNEL_INSTALL_EARLY=y
 # PTXCONF_IMAGE_KERNEL_LZOP is not set
+# end of Generate images/linuximage    
+
 # PTXCONF_IMAGE_RAUC is not set
 # PTXCONF_IMAGE_ROOT_CPIO_GZ is not set
 # PTXCONF_IMAGE_ROOT_CPIO is not set
@@ -224,7 +236,11 @@ PTXCONF_IMAGE_ROOT_TGZ_LABEL=""
 # PTXCONF_IMAGE_INSTALL_FROM_IPKG_REPOSITORY is not set
 # PTXCONF_IMAGE_IPKG_INDEX is not set
 PTXCONF_IMAGE_XPKG_EXTRA_ARGS=""
+# end of ipkg options                  
+
 # PTXCONF_KERNEL_FIT is not set
+# end of image creation options        
+
 # PTXCONF_CODE_SIGNING is not set
 PTXCONF_HOST_E2FSPROGS=y
 PTXCONF_HOST_FLEX=y

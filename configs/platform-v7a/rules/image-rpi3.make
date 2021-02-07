@@ -40,9 +40,6 @@ IMAGE_RPI3_ENV := \
 
 $(IMAGE_RPI3_IMAGE):
 	@$(call targetinfo)
-	@GPU_MEM=$(PTXCONF_IMAGE_RPI3_GPU_MEM) \
-		ptxd_replace_magic "$(IMAGE_RPI3_DATA_DIR)/config.txt" > \
-		"$(PTXDIST_TEMPDIR)/config.txt"
 	@$(call image/genimage, IMAGE_RPI3)
 	@$(call finish)
 

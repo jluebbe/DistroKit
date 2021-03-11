@@ -25,7 +25,7 @@ ptxd_make_nfsd_exec() {
     echo
 
     #insecure for qemu with -net user
-    client_specifications="${client_specifications},insecure"
+    client_specifications="${client_specifications%)},insecure)"
     echo "/ ${client_specifications}" > "${PTXDIST_TEMPDIR}/exports" &&
     UNFS_BASE="${base}" unfsd -e "${PTXDIST_TEMPDIR}/exports" -n ${port} -m ${port} -p -d "${@}"
 }

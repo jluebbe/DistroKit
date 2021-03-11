@@ -1,0 +1,12 @@
+## SECTION=image
+
+config IMAGE_RPICM3
+	tristate
+	select HOST_GENIMAGE
+	select HOST_DOSFSTOOLS
+	select HOST_MTOOLS
+	select IMAGE_ROOT_EXT
+	select BAREBOX_RPI2
+	prompt "Generate images/rpiCM3.hdimg"
+	help
+	  SD card image for the Raspberry Pi Compute Module 3

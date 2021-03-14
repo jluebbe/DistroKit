@@ -1,0 +1,30 @@
+From: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>
+Date: Thu, 11 Mar 2021 13:10:47 +0100
+Subject: [PATCH] bcm283X: Select OF clock providers
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This makes available the fixed clock needed on rpi3 for USB.
+
+USB stopped working when the dwc driver started to require an otg clock.
+
+Fixes: f73ca701bb85 ("usb: dwc2: add clk dependency for probe via oftree")
+Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+Link: https://lore.pengutronix.de/20210312133030.521569-1-u.kleine-koenig@pengutronix.de
+---
+ arch/arm/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+index ab0bf030131c..f9be9d42ecff 100644
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -44,6 +44,7 @@ config ARCH_BCM283X
+ 	select GPIOLIB
+ 	select CLKDEV_LOOKUP
+ 	select COMMON_CLK
++	select COMMON_CLK_OF_PROVIDER
+ 	select CLOCKSOURCE_BCM283X
+ 	select ARM_AMBA
+ 	select HAS_DEBUG_LL

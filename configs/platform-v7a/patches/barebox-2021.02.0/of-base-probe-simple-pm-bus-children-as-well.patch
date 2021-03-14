@@ -1,0 +1,40 @@
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Date: Fri, 12 Mar 2021 08:27:46 +0100
+Subject: [PATCH] of: base: probe simple-pm-bus children as well
+
+Upstream is migrating device trees like those of the am33xx to use
+simple-pm-bus, where applicable. These are buses that reference a clock
+or a power domain that needs to be enabled in order to use devices on it.
+
+As we didn't yet support this binding, this broke the Beaglebone
+and all other am33xx board since v2021.02.0.
+
+Fix this by adding simple-pm-bus to the of_default_bus_match_table.
+Note that this is only an adequate solution for when the power domain
+and clocks referenced are already enabled prior to barebox startup.
+
+For all other cases, driver support must be available for the clock
+and power domains in questions and this driver must be extended to
+make use of them. For the am33xx, the relevant buses are powered
+and clocked on boot up, so we leave general support to another day..
+
+Fixes: 6ea3de1b8ce7 ("dts: update to v5.11-rc1")
+Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Link: https://lore.pengutronix.de/20210312082218.17058-1-a.fatoum@pengutronix.de
+---
+ drivers/of/base.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/of/base.c b/drivers/of/base.c
+index 8759099d7480..6fe02649ee53 100644
+--- a/drivers/of/base.c
++++ b/drivers/of/base.c
+@@ -2272,6 +2272,8 @@ const char *of_get_model(void)
+ const struct of_device_id of_default_bus_match_table[] = {
+ 	{
+ 		.compatible = "simple-bus",
++	}, {
++		.compatible = "simple-pm-bus",
+ 	}, {
+ 		.compatible = "simple-mfd",
+ 	}, {

@@ -33,6 +33,7 @@ FIRMWARE_IMX_SOURCE	:= $(SRCDIR)/$(FIRMWARE_IMX).$(FIRMWARE_IMX_SUFFIX)
 
 $(STATEDIR)/firmware-imx.extract:
 	@$(call targetinfo)
+	@mkdir -p "$(PKGDIR)"
 	@dd if=$(FIRMWARE_IMX_SOURCE) bs=$(FIRMWARE_IMX_SKIP) skip=1 | tar xj -C $(PKGDIR)
 	@$(call touch)
 

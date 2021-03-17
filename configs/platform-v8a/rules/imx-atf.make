@@ -20,7 +20,7 @@ IMX_ATF_VERSION	:= imx_5.4.24_2.1.0
 IMX_ATF_MD5	:= f60e3f42e90d552227d6fc1278761637
 IMX_ATF		:= imx-atf-$(IMX_ATF_VERSION)
 IMX_ATF_SUFFIX	:= tar.xz
-IMX_ATF_URL	:= https://source.codeaurora.org/external/imx/imx-atf.git;tag=$(IMX_ATF_VERSION)
+IMX_ATF_URL	:= https://source.codeaurora.org/external/imx/imx-atf.git;tag=rel_$(IMX_ATF_VERSION)
 IMX_ATF_SOURCE	:= $(SRCDIR)/$(IMX_ATF).$(IMX_ATF_SUFFIX)
 IMX_ATF_DIR	:= $(BUILDDIR)/$(IMX_ATF)
 IMX_ATF_LICENSE	:= BSD-3-clause

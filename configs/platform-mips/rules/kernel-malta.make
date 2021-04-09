@@ -98,7 +98,7 @@ $(STATEDIR)/kernel-malta.targetinstall:
 	@$(call install_copy, kernel-malta, 0, 0, 0644, \
 		$(IMAGEDIR)/vmlinuz-malta, /boot/vmlinuz-malta, n)
 
-	@$(call install_glob, kernel-malta, 0, 0, -, /lib/modules, *.ko,, k)
+	@$(call install_glob, kernel-malta, 0, 0, -, /lib/modules, *.ko,, n)
 	@$(call install_glob, kernel-malta, 0, 0, -, /lib/modules,, *.ko */build */source, n)
 
 	@$(call install_finish, kernel-malta)

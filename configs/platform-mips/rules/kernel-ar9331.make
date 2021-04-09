@@ -98,7 +98,7 @@ $(STATEDIR)/kernel-ar9331.targetinstall:
 	@$(call install_copy, kernel-ar9331, 0, 0, 0644, \
 		$(IMAGEDIR)/vmlinuz-ar9331, /boot/vmlinuz-ar9331, n)
 
-	@$(call install_glob, kernel-ar9331, 0, 0, -, /lib/modules, *.ko,, k)
+	@$(call install_glob, kernel-ar9331, 0, 0, -, /lib/modules, *.ko,, n)
 	@$(call install_glob, kernel-ar9331, 0, 0, -, /lib/modules,, *.ko */build */source, n)
 
 	@$(call install_finish, kernel-ar9331)

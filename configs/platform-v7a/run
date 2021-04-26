@@ -39,7 +39,7 @@ fi
 # the port to which an sshd would connect (in the emulated sysem)
 SSH_INTERNAL_PORT=22
 # the port which QEMU opens at the host side to give access to the ${SSH_INTERNAL_PORT}
-SSH_EXTERNAL_PORT=4445
+SSH_EXTERNAL_PORT=${QEMU_SSH_PORT:-${PPID%64000+1025}}
 
 # check if vde is available for networking
 if [ -z "${VDE_SOCKET}" ]; then
@@ -59,6 +59,7 @@ fi
 # fall back to user network if necessary
 if [ -z "${QEMU_NET}" ]; then
 	QEMU_NET=(-netdev user,id=net1,hostfwd=tcp:127.0.0.1:${SSH_EXTERNAL_PORT}-:${SSH_INTERNAL_PORT} )
+	echo "Forwarding SSH port 127.0.0.1:${SSH_EXTERNAL_PORT} -> qemu:${SSH_INTERNAL_PORT}"
 fi
 
 BASE_CMDLINE="console=ttyAMA0,115200 loglevel=5 systemd.log_level=warning systemd.show_status=auto"

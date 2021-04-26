@@ -78,7 +78,7 @@ $(STATEDIR)/barebox-common.install:
 barebox-common_menuconfig barebox-common_nconfig: $(STATEDIR)/barebox-common.extract
 	@$(call world/kconfig, BAREBOX_COMMON, $(subst barebox-common_,,$@))
 
-barebox-common_oldconfig_: $(STATEDIR)/barebox-common.extract
+barebox-common_do_oldconfig: $(STATEDIR)/barebox-common.extract
 	@$(call world/kconfig, BAREBOX_COMMON, oldconfig)
 
 # vim: syntax=make

@@ -21,7 +21,7 @@ Boot Media
 Use the image ``platform-v7a/images/rpicm3.hdimg`` and copy it onto your MicroSD-Card.
 
 If you have a hardware with eMMC the uSD slot is not functional, in this case
-you have to use `usbboot <https://github.com/raspberrypi/usbboot`_ to switch
+you have to use `usbboot <https://github.com/raspberrypi/usbboot>`_ to switch
 the hardware into USB mass storage mode. See their documentation and
 `"Flashing the Compute Module eMMC" at raspberrypi.org
 <https://www.raspberrypi.org/documentation/hardware/computemodule/cm-emmc-flashing.md>`

@@ -151,7 +151,7 @@ mips Platform
 .. toctree::
    :maxdepth: 1
 
-   hardware_x86_64_qemu
+   hardware_mips_qemu
 
 
 x86_64 Platform
@@ -166,4 +166,4 @@ x86_64 Platform
 .. toctree::
    :maxdepth: 1
 
-   hardware_mips_qemu
+   hardware_x86_64_qemu

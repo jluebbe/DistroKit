@@ -1,0 +1,92 @@
+#!/bin/bash
+#
+# This is sourced by the run scripts.
+
+platformconfig=selected_platformconfig
+# fallback to platformconfig in the same dir as this script
+if [ ! -e "$platformconfig" ]; then
+	platformconfig=$(dirname $0)/platformconfig
+fi
+
+#
+# we need information about the platform
+#
+if [ ! -e "$platformconfig" ]; then
+	echo "error: selected_platformconfig does not exist"
+	echo "       please use 'ptxdist platform ...' or 'ptxdist --platformconfig=...'"
+	exit 1
+fi
+
+source $platformconfig
+
+if [ -n "${PTXCONF_PLATFORM}" ]; then
+	PTXDIST_PLATFORMDIR="./platform-${PTXCONF_PLATFORM}"
+else
+	PTXDIST_PLATFORMDIR="."
+fi
+
+if [ ! -e "${PTXDIST_PLATFORMDIR}/images/linuximage" ]; then
+	echo "error: run 'ptxdist go' first"
+	exit 1
+fi
+
+if [ ! -e "${PTXDIST_PLATFORMDIR}/images/hd.img" ]; then
+	echo "error: run 'ptxdist images' first"
+	exit 1
+fi
+
+#if [ ! -e "${PTXDIST_PLATFORMDIR}/images/nor0.img" ]; then
+#	echo "error: run 'ptxdist images' first"
+#	exit 1
+#fi
+
+# the emulator to run
+QEMU_EXEC="${PTXDIST_PLATFORMDIR}/sysroot-host/bin/qemu-system-arm"
+
+if [ ! -e "${QEMU_EXEC}" ]; then
+	echo "error: enable and install 'host-qemu' first"
+	exit 1
+fi
+
+# disable this, if you want to have some graphics output
+QEMU_NOGRAPHIC=-nographic
+
+# Machine to emulate: The default kernel is prepared to run on "versatile pb"
+QEMU_MACHINE=vexpress-a9
+
+#
+# 'user mode' network related settings
+#
+PLATFORM_IP="10.0.2.7"
+
+#
+# *_INTERNAL_PORT: the port a service would connect (in the emulated system)
+# *_EXTERNAL_PORT: port QEMU opens at the host side to give access to the ${*_INTERNAL_PORT}
+#
+TELNET_INTERNAL_PORT=23
+TELNET_EXTERNAL_PORT=20023
+
+HTTP_INTERNAL_PORT=80
+HTTP_EXTERNAL_PORT=20080
+
+if [ -z "${VDE_SOCKET}" ]; then
+	for dir in $(ls -d /var/run/vde2/*.ctl 2>/dev/null); do
+		if [ -r "${dir}" ]; then
+			VDE_SOCKET="${dir}"
+		fi
+	done
+fi
+if [ -n "${VDE_SOCKET}" ]; then
+	if ${QEMU_EXEC} --help | grep -q -- '-net vde'; then
+		QEMU_NET="-net vde,vlan=1,sock=${VDE_SOCKET}"
+	fi
+fi
+if [ -z "${QEMU_NET}" ]; then
+	QEMU_NET="-net user,vlan=1"
+	PLATFORM_IP=""
+fi
+
+QEMU_REDIR=" \
+	-redir tcp:${TELNET_EXTERNAL_PORT}:${PLATFORM_IP}:${TELNET_INTERNAL_PORT} \
+	-redir tcp:${HTTP_EXTERNAL_PORT}:${PLATFORM_IP}:${HTTP_INTERNAL_PORT} \
+"

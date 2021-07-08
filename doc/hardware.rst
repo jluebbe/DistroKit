@@ -154,6 +154,21 @@ mips Platform
    hardware_mips_qemu
 
 
+mips Platform
+-------------
+
++-------------------------+------------------------------------------+
+| platformconfig:         | ``configs/platform-mipsel/platformconfig`` |
++-------------------------+------------------------------------------+
+| Toolchain architecture: | ``mipsel-softfloat-linux-gnu``             |
++-------------------------+------------------------------------------+
+
+.. toctree::
+   :maxdepth: 1
+
+   hardware_mipsel_qemu
+
+
 x86_64 Platform
 ---------------
 

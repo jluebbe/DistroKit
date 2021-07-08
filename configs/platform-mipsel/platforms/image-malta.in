@@ -1,0 +1,10 @@
+## SECTION=image
+
+config IMAGE_MALTA
+	tristate
+	select HOST_GENIMAGE
+	select BAREBOX_MALTA
+	select IMAGE_ROOT_EXT
+	prompt "Generate images/malta.hdimg"
+	help
+	  FIXME

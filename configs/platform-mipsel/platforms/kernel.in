@@ -1,0 +1,26 @@
+## SECTION=base_kernel
+
+menuconfig KERNEL
+	bool
+	default y
+	prompt "Linux kernel                  "
+
+if KERNEL
+
+config KERNEL_VERSION
+	prompt "kernel version"
+	string
+	default "4.15"
+
+config KERNEL_MD5
+	prompt "kernel source md5sum"
+	string
+
+config KERNEL_INSTALL
+	bool
+
+config KERNEL_LZOP
+	prompt "build lzop hosttool"
+	bool
+
+endif	# KERNEL

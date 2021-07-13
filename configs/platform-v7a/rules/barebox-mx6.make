@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_BAREBOX_MX6) += barebox-mx6
 #
 # Paths and names
 #
-BAREBOX_MX6_VERSION	:= $(call remove_quotes,$(PTXCONF_BAREBOX_COMMON_VERSION))
-BAREBOX_MX6_MD5		:= $(call remove_quotes,$(PTXCONF_BAREBOX_COMMON_MD5))
+BAREBOX_MX6_VERSION	:= $(call ptx/config-version, PTXCONF_BAREBOX_COMMON)
+BAREBOX_MX6_MD5		:= $(call ptx/config-md5, PTXCONF_BAREBOX_COMMON)
 BAREBOX_MX6		:= barebox-mx6-$(BAREBOX_MX6_VERSION)
 BAREBOX_MX6_SUFFIX	:= tar.bz2
 BAREBOX_MX6_URL		:= $(call barebox-url, BAREBOX_MX6)

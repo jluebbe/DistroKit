@@ -15,8 +15,8 @@ PACKAGES-$(PTXCONF_BAREBOX_MALTA) += barebox-malta
 #
 # Paths and names
 #
-BAREBOX_MALTA_VERSION	:= $(call remove_quotes,$(PTXCONF_BAREBOX_COMMON_VERSION))
-BAREBOX_MALTA_MD5		:= $(call remove_quotes,$(PTXCONF_BAREBOX_COMMON_MD5))
+BAREBOX_MALTA_VERSION		:= $(call ptx/config-version, PTXCONF_BAREBOX_COMMON)
+BAREBOX_MALTA_MD5		:= $(call ptx/config-md5, PTXCONF_BAREBOX_COMMON)
 BAREBOX_MALTA		:= barebox-malta-$(BAREBOX_MALTA_VERSION)
 BAREBOX_MALTA_SUFFIX		:= tar.bz2
 BAREBOX_MALTA_URL		:= $(call barebox-url, BAREBOX_MALTA)

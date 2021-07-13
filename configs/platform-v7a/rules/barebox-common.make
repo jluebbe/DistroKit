@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_BAREBOX_COMMON) += barebox-common
 #
 # Paths and names
 #
-BAREBOX_COMMON_VERSION		:= $(call remove_quotes,$(PTXCONF_BAREBOX_COMMON_VERSION))
-BAREBOX_COMMON_MD5		:= $(call remove_quotes,$(PTXCONF_BAREBOX_COMMON_MD5))
+BAREBOX_COMMON_VERSION		:= $(call ptx/config-version, PTXCONF_BAREBOX_COMMON)
+BAREBOX_COMMON_MD5		:= $(call ptx/config-md5, PTXCONF_BAREBOX_COMMON)
 BAREBOX_COMMON			:= barebox-common-$(BAREBOX_COMMON_VERSION)
 BAREBOX_COMMON_SUFFIX		:= tar.bz2
 BAREBOX_COMMON_URL		:= $(call barebox-url, BAREBOX_COMMON)

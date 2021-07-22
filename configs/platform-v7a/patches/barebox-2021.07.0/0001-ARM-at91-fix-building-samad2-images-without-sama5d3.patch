@@ -1,0 +1,31 @@
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Date: Thu, 22 Jul 2021 13:52:58 +0200
+Subject: [PATCH] ARM: at91: fix building samad2 images without sama5d3
+
+Addition of first stage support for SAMA5D3 added a dependency
+between sama5d2 and sama5d3 first stages: They both needed to be
+enabled to generate images for either. Break up this dependency
+to fix build failures for configs that e.g. only build one SoC.
+
+Fixes: e30fb46597d3 ("ARM: at91: xload-mmc: add sama5d3_atmci_start_image() helper")
+Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+---
+ arch/arm/mach-at91/Kconfig | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/arch/arm/mach-at91/Kconfig b/arch/arm/mach-at91/Kconfig
+index 28a82c1a9351..290178706a40 100644
+--- a/arch/arm/mach-at91/Kconfig
++++ b/arch/arm/mach-at91/Kconfig
+@@ -44,10 +44,7 @@ config HAVE_AT91_DDRAMC
+ 	bool
+ 
+ config AT91_MCI_PBL
+-	bool
+-	depends on MCI_ATMEL_PBL
+-	depends on MCI_ATMEL_SDHCI_PBL
+-	default y
++	def_bool MCI_ATMEL_PBL || MCI_ATMEL_SDHCI_PBL
+ 
+ # Select if board uses the common at91sam926x_board_init
+ config AT91SAM926X_BOARD_INIT

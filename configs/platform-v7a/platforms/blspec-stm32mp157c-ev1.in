@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_STM32MP157C_EV1
+	tristate
+	prompt "/loader/entries/stm32mp157c-ev1.conf bootloader spec entry"

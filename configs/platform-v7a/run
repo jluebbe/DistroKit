@@ -36,7 +36,7 @@ if [ ! -e "${QEMU_EXEC}" ]; then
 	exit 1
 fi
 
-# the port to which an sshd would connect (in the emulated sysem)
+# the port to which an sshd would connect (in the emulated system)
 SSH_INTERNAL_PORT=22
 # the port which QEMU opens at the host side to give access to the ${SSH_INTERNAL_PORT}
 SSH_EXTERNAL_PORT=${QEMU_SSH_PORT:-${PPID%64000+1025}}

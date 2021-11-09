@@ -1,0 +1,11 @@
+## SECTION=image
+
+config IMAGE_KSZ9477_EVB
+	tristate
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_EXT
+	select HOST_DOSFSTOOLS
+	select BAREBOX_AT91
+	prompt "Generate images/image-ksz9477-evb.hdimg"
+	help
+	  Includes DistroKit support for the Microchip KSZ9477-EVB

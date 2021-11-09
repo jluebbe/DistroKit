@@ -1,0 +1,183 @@
+#!/bin/bash
+
+platformconfig=selected_platformconfig
+# fallback to platformconfig in the same dir as this script
+if [ ! -e "$platformconfig" ]; then
+	platformconfig=$(dirname $0)/platformconfig
+fi
+
+#
+# we need information about the platform
+#
+if [ ! -e "$platformconfig" ]; then
+	echo "error: selected_platformconfig does not exist"
+	echo "       please use 'ptxdist platform ...' or 'ptxdist --platformconfig=...'"
+	exit 1
+fi
+
+source $platformconfig
+
+if [ -n "${PTXCONF_PLATFORM}" ]; then
+	PTXDIST_PLATFORMDIR="./platform-${PTXCONF_PLATFORM}"
+else
+	PTXDIST_PLATFORMDIR="."
+fi
+
+if [ ! -e "${PTXDIST_PLATFORMDIR}/images/linuximage" ]; then
+	echo "error: run 'ptxdist go' first"
+	exit 1
+fi
+
+# the emulator to run
+QEMU_EXEC="${PTXDIST_PLATFORMDIR}/sysroot-host/bin/qemu-system-arm"
+
+if [ ! -e "${QEMU_EXEC}" ]; then
+	echo "error: enable and install 'host-qemu' first"
+	exit 1
+fi
+
+# the port to which an sshd would connect (in the emulated sysem)
+SSH_INTERNAL_PORT=22
+# the port which QEMU opens at the host side to give access to the ${SSH_INTERNAL_PORT}
+SSH_EXTERNAL_PORT=${QEMU_SSH_PORT:-${PPID%64000+1025}}
+
+# check if vde is available for networking
+if [ -z "${VDE_SOCKET}" ]; then
+	for dir in $(ls -d /var/run/vde2/*.ctl 2>/dev/null); do
+		if [ -r "${dir}" ]; then
+			VDE_SOCKET="${dir}"
+		fi
+	done
+fi
+if [ -n "${VDE_SOCKET}" ]; then
+	# make sure qemu supports vde networking
+	if ${QEMU_EXEC} --help | grep -q -- '-net.*vde'; then
+		QEMU_NET=( -netdev vde,id=net1,sock=${VDE_SOCKET} )
+	fi
+fi
+
+# fall back to user network if necessary
+if [ -z "${QEMU_NET}" ]; then
+	QEMU_NET=(-netdev user,id=net1,hostfwd=tcp:127.0.0.1:${SSH_EXTERNAL_PORT}-:${SSH_INTERNAL_PORT} )
+	echo "Forwarding SSH port 127.0.0.1:${SSH_EXTERNAL_PORT} -> qemu:${SSH_INTERNAL_PORT}"
+fi
+
+BASE_CMDLINE="console=ttyAMA0,115200 loglevel=5 systemd.log_level=warning systemd.show_status=auto"
+
+if [ -d "${PTXDIST_PLATFORMDIR}/root/.virtfs_metadata" ]; then
+	security_model="mapped-file"
+else
+	security_model="none"
+fi
+
+# Machine to emulate
+QEMU_ARGS=( -machine vexpress-a9 -cpu cortex-a9 -smp 4 -m 1024M )
+# disable graphics output
+QEMU_ARGS[${#QEMU_ARGS[@]}]="-nographic"
+# Exit qemu on reboot
+QEMU_ARGS[${#QEMU_ARGS[@]}]="-no-reboot"
+# Configure networking
+QEMU_ARGS=( "${QEMU_ARGS[@]}" -net nic,netdev=net1 "${QEMU_NET[@]}" )
+# Set base time to test NTP and time handling
+QEMU_ARGS=( "${QEMU_ARGS[@]}" -rtc base=2000-01-01 )
+# Configure watchdog
+# no watchdog available on vexpress
+#QEMU_ARGS=( "${QEMU_ARGS[@]}" -watchdog i6300esb -watchdog-action poweroff )
+QEMU_ARGS=( "${QEMU_ARGS[@]}" -object rng-random,filename=/dev/random,id=rng0 -device virtio-rng-device,rng=rng0 )
+# SCSI bus
+QEMU_ARGS=( "${QEMU_ARGS[@]}" -device virtio-scsi-device,id=scsi )
+# Add virtual SCSI device if available
+if [ -e "${PTXDIST_PLATFORMDIR}/images/usbstick.img" ]; then
+	echo "SCSI unplug/plug in the QEMU console (C-a c):"
+	echo
+	echo "device_del plug"
+	echo
+	echo "drive_add 0 if=none,format=raw,id=scsiplug,file=${PTXDIST_PLATFORMDIR}/images/usbstick.img"
+	echo "device_add scsi-hd,drive=scsiplug,removable=true,id=plug"
+	echo
+	QEMU_EXTRA_ARGS=( \
+		-drive if=none,format=raw,id=scsiplug,file=${PTXDIST_PLATFORMDIR}/images/usbstick.img \
+		-device scsi-hd,drive=scsiplug,removable=true,id=plug )
+fi
+QEMU_LINUX_ARGS=( -kernel ${PTXDIST_PLATFORMDIR}/images/linuximage -dtb ${PTXDIST_PLATFORMDIR}/images/vexpress-v2p-ca9.dtb )
+# the barebox device tree has a state node for bootchooser
+QEMU_BAREBOX_ARGS=( -dtb ${PTXDIST_PLATFORMDIR}/images/vexpress-v2p-ca9.dtb-bb )
+
+check_hd() {
+	if [ ! -e "${PTXDIST_PLATFORMDIR}/images/vexpress.hdimg" ]; then
+		echo "error: vexpress.hdimg is missing. Run 'ptxdist images' first"
+		exit 1
+	fi
+}
+
+check_flash() {
+	if [ ! -e "${PTXDIST_PLATFORMDIR}/images/vexpress.norimg" ]; then
+		echo "error: vexpress.norimg is missing. Run 'ptxdist images' first"
+		exit 1
+	fi
+}
+
+#
+# This needs:
+# CONFIG_NET_9P_VIRTIO=y
+# CONFIG_9P_FS=y
+#
+run_qemu_9p() {
+	exec ${QEMU_EXEC} \
+		"${QEMU_ARGS[@]}" \
+		-fsdev local,id=rootfs,path=${PTXDIST_PLATFORMDIR}/root,security_model="${security_model}" \
+		-device virtio-9p-device,fsdev=rootfs,mount_tag=/dev/root \
+		"${QEMU_EXTRA_ARGS[@]}" \
+		"${QEMU_LINUX_ARGS[@]}" \
+		-append "root=/dev/root rootfstype=9p rootflags=trans=virtio ${BASE_CMDLINE}"
+}
+
+run_qemu_nfs() {
+	exec ${QEMU_EXEC} \
+		"${QEMU_ARGS[@]}" \
+		"${QEMU_EXTRA_ARGS[@]}" \
+		"${QEMU_LINUX_ARGS[@]}" \
+		-append "root=/dev/nfs nfsroot=/root,v3,tcp,port=2049,mountport=2049 ip=dhcp ${BASE_CMDLINE}"
+}
+
+run_qemu_scsi() {
+	check_hd
+	exec ${QEMU_EXEC} \
+		"${QEMU_ARGS[@]}" \
+		-drive if=none,format=raw,file=${PTXDIST_PLATFORMDIR}/images/hd.img,id=disk0 \
+		-device scsi-hd,drive=disk0 \
+		"${QEMU_EXTRA_ARGS[@]}" \
+		"${QEMU_LINUX_ARGS[@]}" \
+		-append "root=/dev/sda1 rootfstype=ext4 rootwait ${BASE_CMDLINE}"
+}
+
+run_qemu_mmc() {
+	check_hd
+	exec ${QEMU_EXEC} \
+		"${QEMU_ARGS[@]}" \
+		-drive if=sd,format=raw,file=${PTXDIST_PLATFORMDIR}/images/vexpress.hdimg,id=mmc0 \
+		"${QEMU_EXTRA_ARGS[@]}" \
+		"${QEMU_LINUX_ARGS[@]}" \
+		-append "root=/dev/mmcblk0p1 rootfstype=ext4 rootwait ${BASE_CMDLINE}"
+}
+
+run_qemu_barebox() {
+	check_hd
+	check_flash
+	exec ${QEMU_EXEC} \
+		"${QEMU_ARGS[@]}" \
+		-smp 1 \
+		-fsdev local,id=rootfs,path=${PTXDIST_PLATFORMDIR}/root,security_model="${security_model}" \
+		-device virtio-9p-device,fsdev=rootfs,mount_tag=/dev/root \
+		-fsdev local,id=images,path=${PTXDIST_PLATFORMDIR}/images,security_model="${security_model}" \
+		-device virtio-9p-device,fsdev=images,mount_tag=/dev/images \
+		-drive if=sd,format=raw,file=${PTXDIST_PLATFORMDIR}/images/vexpress.hdimg,id=mmc0 \
+		-drive if=pflash,format=raw,file=${PTXDIST_PLATFORMDIR}/images/vexpress.norimg,id=nor0 \
+		"${QEMU_EXTRA_ARGS[@]}" \
+		"${QEMU_BAREBOX_ARGS[@]}"
+}
+
+target="${1:-9p}"
+
+#set -x
+run_qemu_${target}

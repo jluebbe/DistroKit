@@ -1,0 +1,8 @@
+## SECTION=bootloader
+
+config BAREBOX_VEXPRESS
+	tristate
+	prompt "Barebox (vexpress)"
+	select BAREBOX_COMMON
+	help
+	  Vexpress support for barebox.

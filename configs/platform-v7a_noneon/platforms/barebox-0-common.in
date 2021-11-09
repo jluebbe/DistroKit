@@ -1,0 +1,33 @@
+## SECTION=bootloader
+
+config BAREBOX_COMMON_ARCH_STRING
+	string
+	default "arm"
+
+menuconfig BAREBOX_COMMON
+	prompt "common barebox options        "
+	bool
+	select HOST_LZOP if BAREBOX_COMMON_NEEDS_HOST_LZOP
+	help
+	  A metapackage serving a reference config for all other barebox
+	  variants in the v7a platform. It doesn't install anything.
+
+if BAREBOX_COMMON
+
+config BAREBOX_COMMON_VERSION
+	prompt "barebox version"
+	string
+	default "2016.08.0"
+
+config BAREBOX_COMMON_MD5
+	prompt "barebox source md5sum"
+	string
+
+config BAREBOX_COMMON_NEEDS_HOST_LZOP
+	prompt "barebox needs lzop"
+	bool
+	help
+	  The barebox binaries can be compressed. Select this if lzop
+	  is used in order to compile lzop for your development host.
+
+endif

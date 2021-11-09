@@ -1,0 +1,10 @@
+## SECTION=image
+
+config IMAGE_VEXPRESS_NOR
+	tristate
+	select HOST_GENIMAGE
+	select BAREBOX_VEXPRESS
+	select KERNEL
+	prompt "Generate images/vexpress.norimg"
+	help
+	  Generate image for the nor flash on Versatile Express.

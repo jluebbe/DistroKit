@@ -1,0 +1,5 @@
+## SECTION=blspec
+
+config BLSPEC_VEXPRESS
+	tristate
+	prompt "/loader/entries/vexpress.conf bootloader spec entry"

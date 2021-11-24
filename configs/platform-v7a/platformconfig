@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# PTXdist 2021.06.0
+# PTXdist 2021.11.0
 #
 PTXCONF__platformconfig_MAGIC__=y
 
@@ -19,7 +19,7 @@ PTXCONF_PLATFORM="v7a"
 PTXCONF_PLATFORM_VERSION="-${PTXDIST_BSP_AUTOVERSION}"
 PTXCONF_RUNTIME=y
 PTXCONF_BUILDTIME=y
-PTXCONF_PLATFORMCONFIG_VERSION="2021.06.0"
+PTXCONF_PLATFORMCONFIG_VERSION="2021.11.0"
 
 #
 # architecture                  
@@ -117,6 +117,7 @@ PTXCONF_KERNEL_XPKG=y
 PTXCONF_KERNEL_INSTALL=y
 PTXCONF_KERNEL_MODULES=y
 PTXCONF_KERNEL_MODULES_INSTALL=y
+# PTXCONF_KERNEL_MODULES_SIGN is not set
 PTXCONF_KERNEL_VERSION="5.14"
 PTXCONF_KERNEL_MD5="a082ef5748b813abca0649dab8be5f52"
 # PTXCONF_KERNEL_IMAGE_BZ is not set
@@ -129,6 +130,10 @@ PTXCONF_KERNEL_IMAGE_Z=y
 # PTXCONF_KERNEL_IMAGE_RAW is not set
 # PTXCONF_KERNEL_IMAGE_SIMPLE is not set
 PTXCONF_KERNEL_IMAGE="zImage"
+PTXCONF_KERNEL_DTB=y
+PTXCONF_KERNEL_DTS_PATH="${PTXDIST_PLATFORMCONFIG_SUBDIR}/dts:${KERNEL_DIR}/arch/${GENERIC_KERNEL_ARCH}/boot/dts"
+PTXCONF_KERNEL_DTS="am335x-bone.dts am335x-boneblack.dts vexpress-v2p-ca9.dts bcm2836-rpi-2-b.dts imx6q-sabrelite.dts imx6sx-udoo-neo-full.dts imx6dl-riotboard.dts imx6q-nitrogen6x.dts imx6qp-nitrogen6_max.dts bcm2837-rpi-3-b.dts bcm2837-rpi-cm3-io3.dts stm32mp157c-dk2.dts stm32mp157c-ev1.dts stm32mp157c-lxa-mc1.dts at91-sama5d27_som1_ek.dts at91-sama5d27_giantboard.dts"
+# PTXCONF_KERNEL_CODE_SIGNING is not set
 # PTXCONF_KERNEL_ZSTD is not set
 # PTXCONF_KERNEL_XZ is not set
 PTXCONF_KERNEL_LZOP=y
@@ -149,11 +154,6 @@ PTXCONF_KERNEL_CONFIG="kernelconfig"
 # Development features
 #
 PTXCONF_KERNEL_EXTRA_MAKEVARS=""
-PTXCONF_DTC=y
-PTXCONF_DTC_INSTALL_OFTREE=y
-PTXCONF_DTC_OFTREE_DTS_PATH="${PTXDIST_PLATFORMCONFIG_SUBDIR}/dts:${KERNEL_DIR}/arch/${GENERIC_KERNEL_ARCH}/boot/dts"
-PTXCONF_DTC_OFTREE_DTS="am335x-bone.dts am335x-boneblack.dts vexpress-v2p-ca9.dts bcm2836-rpi-2-b.dts imx6q-sabrelite.dts imx6sx-udoo-neo-full.dts imx6dl-riotboard.dts imx6q-nitrogen6x.dts imx6qp-nitrogen6_max.dts bcm2837-rpi-3-b.dts bcm2837-rpi-cm3-io3.dts stm32mp157c-dk2.dts stm32mp157c-ev1.dts stm32mp157c-lxa-mc1.dts at91-sama5d27_som1_ek.dts at91-sama5d27_giantboard.dts"
-PTXCONF_DTC_EXTRA_ARGS=""
 PTXCONF_HOST_DTC=y
 PTXCONF_HOST_DTC_VERSION="1.6.0"
 PTXCONF_HOST_DTC_MD5="cd36ac756290597f3cf1c5b6cfe12e77"

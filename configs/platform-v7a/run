@@ -39,7 +39,7 @@ fi
 # the port to which an sshd would connect (in the emulated system)
 SSH_INTERNAL_PORT=22
 # the port which QEMU opens at the host side to give access to the ${SSH_INTERNAL_PORT}
-SSH_EXTERNAL_PORT=${QEMU_SSH_PORT:-${PPID%64000+1025}}
+SSH_EXTERNAL_PORT=${QEMU_SSH_PORT:-$((PPID%64000+1025))}
 
 # check if vde is available for networking
 if [ -z "${VDE_SOCKET}" ]; then

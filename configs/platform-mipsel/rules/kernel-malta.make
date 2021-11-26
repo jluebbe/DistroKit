@@ -14,8 +14,8 @@ PACKAGES-$(PTXCONF_KERNEL_MALTA) += kernel-malta
 #
 # Paths and names
 #
-KERNEL_MALTA_VERSION	:= $(KERNEL_VERSION)
-KERNEL_MALTA_MD5	:= $(call remove_quotes,$(PTXCONF_KERNEL_MD5))
+KERNEL_MALTA_VERSION	:= $(call ptx/config-version, PTXCONF_KERNEL)
+KERNEL_MALTA_MD5	:= $(call ptx/config-md5, PTXCONF_KERNEL)
 KERNEL_MALTA		:= linux-malta-$(KERNEL_MALTA_VERSION)
 KERNEL_MALTA_SUFFIX	:= tar.xz
 KERNEL_MALTA_URL	:= $(call kernel-url, KERNEL_MALTA)

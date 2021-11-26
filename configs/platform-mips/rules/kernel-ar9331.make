@@ -25,9 +25,15 @@ KERNEL_AR9331_DIR	:= $(BUILDDIR)/$(KERNEL_AR9331)
 KERNEL_AR9331_BUILD_DIR	:= $(KERNEL_AR9331_DIR)-build
 KERNEL_AR9331_CONFIG	:= $(call ptx/in-platformconfigdir, kernelconfig-ar9331)
 KERNEL_AR9331_REF_CONFIG	:= $(call ptx/in-platformconfigdir, kernelconfig)
+KERNEL_AR9331_DTS_PATH	:= ${PTXDIST_PLATFORMCONFIG_SUBDIR}/dts:${KERNEL_AR9331_DIR}/arch/${GENERIC_KERNEL_ARCH}/boot/dts/qca
+KERNEL_AR9331_DTS	:= ar9331_dpt_module.dts
+KERNEL_AR9331_DTB_FILES	:= $(addsuffix .dtb,$(basename $(KERNEL_AR9331_DTS)))
 KERNEL_AR9331_LICENSE	:= GPL-2.0-only
 KERNEL_AR9331_LICENSE_FILES	:=
 KERNEL_AR9331_BUILD_OOT	:= KEEP
+
+# track changes to devices-trees in the BSP
+$(call world/dts-cfghash-file, KERNEL_AR9331)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,6 +96,12 @@ KERNEL_AR9331_INSTALL_OPT	:= \
 	$(call kernel-opts, KERNEL_AR9331) \
 	modules_install
 
+$(STATEDIR)/kernel-ar9331.install:
+	@$(call targetinfo)
+	@$(call world/install, KERNEL_AR9331)
+	@$(call world/dtb, KERNEL_AR9331)
+	@$(call touch)
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -101,6 +113,11 @@ $(STATEDIR)/kernel-ar9331.targetinstall:
 		install -v -m 644 $(image) \
 			$(IMAGEDIR)/$(notdir $(image))-ar9331$(ptx/nl))
 
+	@$(foreach dtb ,$(KERNEL_AR9331_DTB_FILES), \
+		echo -e "Installing $(dtb) ...\n"$(ptx/nl) \
+		install -D -m0644 $(KERNEL_AR9331_PKGDIR)/boot/$(dtb) \
+			$(IMAGEDIR)/$(dtb)$(ptx/nl))
+
 	@$(call install_init,  kernel-ar9331)
 	@$(call install_fixup, kernel-ar9331, PRIORITY,optional)
 	@$(call install_fixup, kernel-ar9331, SECTION,base)
@@ -110,12 +127,26 @@ $(STATEDIR)/kernel-ar9331.targetinstall:
 	@$(call install_copy, kernel-ar9331, 0, 0, 0644, \
 		$(IMAGEDIR)/vmlinuz-ar9331, /boot/vmlinuz-ar9331, n)
 
+	@$(foreach dtb, $(KERNEL_AR9331_DTB_FILES), \
+		$(call install_copy, kernel-ar9331, 0, 0, 0644, -, \
+			/boot/$(dtb), n)$(ptx/nl))
+
 	@$(call install_glob, kernel-ar9331, 0, 0, -, /lib/modules, *.ko,, n)
 	@$(call install_glob, kernel-ar9331, 0, 0, -, /lib/modules,, *.ko */build */source, n)
 
 	@$(call install_finish, kernel-ar9331)
 
 	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/kernel-ar9331.clean:
+	@$(call targetinfo)
+	@$(call clean_pkg, KERNEL_AR9331)
+	@$(foreach dtb,$(KERNEL_AR9331_DTB_FILES), \
+		rm -vf $(IMAGEDIR)/$(dtb)$(ptx/nl))
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig

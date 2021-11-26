@@ -25,9 +25,15 @@ KERNEL_MALTA_DIR	:= $(BUILDDIR)/$(KERNEL_MALTA)
 KERNEL_MALTA_BUILD_DIR	:= $(KERNEL_MALTA_DIR)-build
 KERNEL_MALTA_CONFIG	:= $(call ptx/in-platformconfigdir, kernelconfig-malta)
 KERNEL_MALTA_REF_CONFIG	:= $(call ptx/in-platformconfigdir, kernelconfig)
+KERNEL_MALTA_DTS_PATH	:= ${PTXDIST_PLATFORMCONFIG_SUBDIR}/dts:${KERNEL_MALTA_DIR}/arch/${GENERIC_KERNEL_ARCH}/boot/dts/mti
+KERNEL_MALTA_DTS	:= malta.dts
+KERNEL_MALTA_DTB_FILES	:= $(addsuffix .dtb,$(basename $(KERNEL_MALTA_DTS)))
 KERNEL_MALTA_LICENSE	:= GPL-2.0-only
 KERNEL_MALTA_LICENSE_FILES	:=
 KERNEL_MALTA_BUILD_OOT	:= KEEP
+
+# track changes to devices-trees in the BSP
+$(call world/dts-cfghash-file, KERNEL_MALTA)
 
 # ----------------------------------------------------------------------------
 # Prepare
@@ -90,6 +96,12 @@ KERNEL_MALTA_INSTALL_OPT	:= \
 	$(call kernel-opts, KERNEL_MALTA) \
 	modules_install
 
+$(STATEDIR)/kernel-malta.install:
+	@$(call targetinfo)
+	@$(call world/install, KERNEL_MALTA)
+	@$(call world/dtb, KERNEL_MALTA)
+	@$(call touch)
+
 # ----------------------------------------------------------------------------
 # Target-Install
 # ----------------------------------------------------------------------------
@@ -101,6 +113,11 @@ $(STATEDIR)/kernel-malta.targetinstall:
 		install -v -m 644 $(image) \
 			$(IMAGEDIR)/$(notdir $(image))-malta$(ptx/nl))
 
+	@$(foreach dtb ,$(KERNEL_MALTA_DTB_FILES), \
+		echo -e "Installing $(dtb) ...\n"$(ptx/nl) \
+		install -D -m0644 $(KERNEL_MALTA_PKGDIR)/boot/$(dtb) \
+			$(IMAGEDIR)/$(dtb)$(ptx/nl))
+
 	@$(call install_init,  kernel-malta)
 	@$(call install_fixup, kernel-malta, PRIORITY,optional)
 	@$(call install_fixup, kernel-malta, SECTION,base)
@@ -110,12 +127,26 @@ $(STATEDIR)/kernel-malta.targetinstall:
 	@$(call install_copy, kernel-malta, 0, 0, 0644, \
 		$(IMAGEDIR)/vmlinuz-malta, /boot/vmlinuz-malta, n)
 
+	@$(foreach dtb, $(KERNEL_MALTA_DTB_FILES), \
+		$(call install_copy, kernel-malta, 0, 0, 0644, -, \
+			/boot/$(dtb), n)$(ptx/nl))
+
 	@$(call install_glob, kernel-malta, 0, 0, -, /lib/modules, *.ko,, n)
 	@$(call install_glob, kernel-malta, 0, 0, -, /lib/modules,, *.ko */build */source, n)
 
 	@$(call install_finish, kernel-malta)
 
 	@$(call touch)
+
+# ----------------------------------------------------------------------------
+# Clean
+# ----------------------------------------------------------------------------
+
+$(STATEDIR)/kernel-malta.clean:
+	@$(call targetinfo)
+	@$(call clean_pkg, KERNEL_MALTA)
+	@$(foreach dtb,$(KERNEL_MALTA_DTB_FILES), \
+		rm -vf $(IMAGEDIR)/$(dtb)$(ptx/nl))
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig

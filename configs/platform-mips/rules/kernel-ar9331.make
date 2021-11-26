@@ -26,6 +26,7 @@ KERNEL_AR9331_BUILD_DIR	:= $(KERNEL_AR9331_DIR)-build
 KERNEL_AR9331_CONFIG	:= $(call ptx/in-platformconfigdir, kernelconfig-ar9331)
 KERNEL_AR9331_REF_CONFIG	:= $(call ptx/in-platformconfigdir, kernelconfig)
 KERNEL_AR9331_LICENSE	:= GPL-2.0-only
+KERNEL_AR9331_LICENSE_FILES	:=
 KERNEL_AR9331_BUILD_OOT	:= KEEP
 
 # ----------------------------------------------------------------------------
@@ -36,15 +37,28 @@ KERNEL_AR9331_BUILD_OOT	:= KEEP
 KERNEL_AR9331_WRAPPER_BLACKLIST := \
 	$(PTXDIST_LOWLEVEL_WRAPPER_BLACKLIST)
 
-KERNEL_AR9331_PATH	:= PATH=$(CROSS_PATH)
-KERNEL_AR9331_CONF_OPT	:= \
+KERNEL_AR9331_PATH		:= PATH=$(CROSS_PATH)
+KERNEL_AR9331_SHARED_OPT	:= \
 	-C $(KERNEL_AR9331_DIR) \
 	O=$(KERNEL_AR9331_BUILD_DIR) \
 	$(call kernel-opts, KERNEL_AR9331)
 
 # no gcc plugins; avoid config changes depending on the host compiler
-KERNEL_AR9331_CONF_OPT += \
-	HOSTCXX=false
+KERNEL_AR9331_SHARED_OPT	+= \
+	HOSTCXX="$(HOSTCXX) -DGENERATOR_FILE" \
+	HOSTCC="$(HOSTCC) -DGENERATOR_FILE"
+KERNEL_AR9331_CONF_ENV	:= \
+	PTXDIST_NO_GCC_PLUGINS=1
+KERNEL_AR9331_MAKE_ENV	:= \
+	PTXDIST_NO_GCC_PLUGINS=1
+
+KERNEL_AR9331_CONF_TOOL	:= kconfig
+KERNEL_AR9331_CONF_OPT	:= \
+	$(KERNEL_AR9331_SHARED_OPT)
+
+# force using KERNEL_AR9331_VERSION in the kernelconfig
+#KERNEL_AR9331_CONF_OPT	+= \
+#	KERNELVERSION=$(KERNEL_AR9331_VERSION)
 
 KERNEL_AR9331_IMAGES := vmlinuz
 KERNEL_AR9331_IMAGES := $(addprefix $(KERNEL_AR9331_BUILD_DIR)/,$(KERNEL_AR9331_IMAGES))
@@ -64,24 +78,17 @@ endif
 # Compile
 # ----------------------------------------------------------------------------
 
-KERNEL_AR9331_MAKE_OPT := \
-	$(KERNEL_AR9331_CONF_OPT) \
+KERNEL_AR9331_MAKE_OPT	:= \
+	$(KERNEL_AR9331_SHARED_OPT) \
 	vmlinuz modules
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-KERNEL_AR9331_INSTALL_OPT := \
+KERNEL_AR9331_INSTALL_OPT	:= \
 	$(call kernel-opts, KERNEL_AR9331) \
 	modules_install
-
-$(STATEDIR)/kernel-ar9331.install:
-	@$(call targetinfo)
-	@$(call world/install, KERNEL_AR9331)
-	@$(foreach image, $(KERNEL_AR9331_IMAGES), \
-		install -m 644 $(image) $(IMAGEDIR)/$(notdir $(image))-ar9331$(ptx/nl))
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -89,6 +96,10 @@ $(STATEDIR)/kernel-ar9331.install:
 
 $(STATEDIR)/kernel-ar9331.targetinstall:
 	@$(call targetinfo)
+
+	@$(foreach image, $(KERNEL_AR9331_IMAGES), \
+		install -v -m 644 $(image) \
+			$(IMAGEDIR)/$(notdir $(image))-ar9331$(ptx/nl))
 
 	@$(call install_init,  kernel-ar9331)
 	@$(call install_fixup, kernel-ar9331, PRIORITY,optional)
@@ -110,7 +121,7 @@ $(STATEDIR)/kernel-ar9331.targetinstall:
 # oldconfig / menuconfig
 # ----------------------------------------------------------------------------
 
-kernel-ar9331_oldconfig kernel-ar9331_menuconfig kernel-ar9331_nconfig: $(STATEDIR)/kernel-ar9331.extract
+$(call ptx/kconfig-targets, kernel-ar9331): $(STATEDIR)/kernel-ar9331.extract
 	@$(call world/kconfig, KERNEL_AR9331, $(subst kernel-ar9331_,,$@))
 
 # vim: syntax=make

@@ -76,7 +76,7 @@ $(STATEDIR)/kernel.install:
 # oldconfig / menuconfig
 # ----------------------------------------------------------------------------
 
-kernel_oldconfig kernel_menuconfig kernel_nconfig: $(STATEDIR)/kernel.extract
+$(call ptx/kconfig-targets, kernel): $(STATEDIR)/kernel.extract
 	@$(call world/kconfig, KERNEL, $(subst kernel_,,$@))
 
 # vim: syntax=make

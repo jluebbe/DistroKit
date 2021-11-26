@@ -26,6 +26,7 @@ KERNEL_MALTA_BUILD_DIR	:= $(KERNEL_MALTA_DIR)-build
 KERNEL_MALTA_CONFIG	:= $(call ptx/in-platformconfigdir, kernelconfig-malta)
 KERNEL_MALTA_REF_CONFIG	:= $(call ptx/in-platformconfigdir, kernelconfig)
 KERNEL_MALTA_LICENSE	:= GPL-2.0-only
+KERNEL_MALTA_LICENSE_FILES	:=
 KERNEL_MALTA_BUILD_OOT	:= KEEP
 
 # ----------------------------------------------------------------------------
@@ -37,14 +38,27 @@ KERNEL_MALTA_WRAPPER_BLACKLIST := \
 	$(PTXDIST_LOWLEVEL_WRAPPER_BLACKLIST)
 
 KERNEL_MALTA_PATH		:= PATH=$(CROSS_PATH)
-KERNEL_MALTA_CONF_OPT	:= \
+KERNEL_MALTA_SHARED_OPT	:= \
 	-C $(KERNEL_MALTA_DIR) \
 	O=$(KERNEL_MALTA_BUILD_DIR) \
 	$(call kernel-opts, KERNEL_MALTA)
 
 # no gcc plugins; avoid config changes depending on the host compiler
-KERNEL_MALTA_CONF_OPT += \
-	HOSTCXX=false
+KERNEL_MALTA_SHARED_OPT	+= \
+	HOSTCXX="$(HOSTCXX) -DGENERATOR_FILE" \
+	HOSTCC="$(HOSTCC) -DGENERATOR_FILE"
+KERNEL_MALTA_CONF_ENV	:= \
+	PTXDIST_NO_GCC_PLUGINS=1
+KERNEL_MALTA_MAKE_ENV	:= \
+	PTXDIST_NO_GCC_PLUGINS=1
+
+KERNEL_MALTA_CONF_TOOL	:= kconfig
+KERNEL_MALTA_CONF_OPT	:= \
+	$(KERNEL_MALTA_SHARED_OPT)
+
+# force using KERNEL_MALTA_VERSION in the kernelconfig
+#KERNEL_MALTA_CONF_OPT	+= \
+#	KERNELVERSION=$(KERNEL_MALTA_VERSION)
 
 KERNEL_MALTA_IMAGES := vmlinuz
 KERNEL_MALTA_IMAGES := $(addprefix $(KERNEL_MALTA_BUILD_DIR)/,$(KERNEL_MALTA_IMAGES))
@@ -64,24 +78,17 @@ endif
 # Compile
 # ----------------------------------------------------------------------------
 
-KERNEL_MALTA_MAKE_OPT := \
-	$(KERNEL_MALTA_CONF_OPT) \
+KERNEL_MALTA_MAKE_OPT	:= \
+	$(KERNEL_MALTA_SHARED_OPT) \
 	vmlinuz modules
 
 # ----------------------------------------------------------------------------
 # Install
 # ----------------------------------------------------------------------------
 
-KERNEL_MALTA_INSTALL_OPT := \
+KERNEL_MALTA_INSTALL_OPT	:= \
 	$(call kernel-opts, KERNEL_MALTA) \
 	modules_install
-
-$(STATEDIR)/kernel-malta.install:
-	@$(call targetinfo)
-	@$(call world/install, KERNEL_MALTA)
-	@$(foreach image, $(KERNEL_MALTA_IMAGES), \
-		install -m 644 $(image) $(IMAGEDIR)/$(notdir $(image))-malta$(ptx/nl))
-	@$(call touch)
 
 # ----------------------------------------------------------------------------
 # Target-Install
@@ -89,6 +96,10 @@ $(STATEDIR)/kernel-malta.install:
 
 $(STATEDIR)/kernel-malta.targetinstall:
 	@$(call targetinfo)
+
+	@$(foreach image, $(KERNEL_MALTA_IMAGES), \
+		install -v -m 644 $(image) \
+			$(IMAGEDIR)/$(notdir $(image))-malta$(ptx/nl))
 
 	@$(call install_init,  kernel-malta)
 	@$(call install_fixup, kernel-malta, PRIORITY,optional)
@@ -110,7 +121,7 @@ $(STATEDIR)/kernel-malta.targetinstall:
 # oldconfig / menuconfig
 # ----------------------------------------------------------------------------
 
-kernel-malta_oldconfig kernel-malta_menuconfig kernel-malta_nconfig: $(STATEDIR)/kernel-malta.extract
+$(call ptx/kconfig-targets, kernel-malta): $(STATEDIR)/kernel-malta.extract
 	@$(call world/kconfig, KERNEL_MALTA, $(subst kernel-malta_,,$@))
 
 # vim: syntax=make

@@ -58,7 +58,7 @@ fi
 
 # fall back to user network if necessary
 if [ -z "${QEMU_NET}" ]; then
-	QEMU_NET=(-netdev user,id=net1,hostfwd=tcp:127.0.0.1:${SSH_EXTERNAL_PORT}-:${SSH_INTERNAL_PORT} )
+	QEMU_NET=(-netdev user,id=net1,hostfwd=tcp:127.0.0.1:${SSH_EXTERNAL_PORT}-:${SSH_INTERNAL_PORT},hostfwd=tcp:127.0.0.1:12345-:12345)
 	echo "Forwarding SSH port 127.0.0.1:${SSH_EXTERNAL_PORT} -> qemu:${SSH_INTERNAL_PORT}"
 fi
 

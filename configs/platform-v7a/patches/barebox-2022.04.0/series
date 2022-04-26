@@ -1,0 +1,3 @@
+0001-ARM-asm-fix-miscompilation-of-32-bit-ENTRY_FUNCTION_.patch
+0002-clk-add-BCM2835-auxiliary-peripheral-clock-driver.patch
+0003-clocksource-assign-non-zero-priorities-to-all-clocks.patch

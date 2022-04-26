@@ -7,6 +7,6 @@ config IMAGE_RPI2
 	select HOST_MTOOLS
 	select IMAGE_ROOT_EXT
 	select BAREBOX_RPI2
-	prompt "Generate images/rpi2.hdimg"
+	prompt "Generate images/rpi.hdimg"
 	help
-	  SD card image for the Raspberry Pi 2
+	  SD card image for the Raspberry Pi 2, 3 and CM3

@@ -1,0 +1,37 @@
+From 675a65a3b42ef74ae37638f780912139a7c31cc6 Mon Sep 17 00:00:00 2001
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Date: Sat, 23 Apr 2022 12:54:55 +0200
+Subject: [PATCH 5/5] ARM: rpi: don't warn about lack of videocore fdt
+
+When barebox is booted as generic second stage DT image, it will throw
+an annoying but harmless error that the videocore FDT saved in PBL has
+invalid magic. This is expected because the generic code doesn't store
+the device tree, instead it passes it to barebox proper to probe from.
+Storing the DT in /vd.dtb would thus just be duplication.
+
+Remove the error message in this case.
+
+Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+---
+ arch/arm/boards/raspberry-pi/rpi-common.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/arch/arm/boards/raspberry-pi/rpi-common.c b/arch/arm/boards/raspberry-pi/rpi-common.c
+index 9aa150de5680..82da4d646482 100644
+--- a/arch/arm/boards/raspberry-pi/rpi-common.c
++++ b/arch/arm/boards/raspberry-pi/rpi-common.c
+@@ -328,10 +328,8 @@ static void rpi_vc_fdt(void)
+ 		return;
+ 	}
+ 
+-	if (magic != FDT_MAGIC) {
+-		pr_err("videocore fdt saved in pbl has invalid magic\n");
++	if (magic != FDT_MAGIC)
+ 		return;
+-	}
+ 
+ 	size = be32_to_cpu(oftree->totalsize);
+ 	if (write_file("/vc.dtb", saved_vc_fdt, size)) {
+-- 
+2.30.2
+

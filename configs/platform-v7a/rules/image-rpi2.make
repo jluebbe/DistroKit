@@ -16,7 +16,7 @@ IMAGE_PACKAGES-$(PTXCONF_IMAGE_RPI2) += image-rpi2
 #
 IMAGE_RPI2		:= image-rpi2
 IMAGE_RPI2_DIR	:= $(BUILDDIR)/$(IMAGE_RPI2)
-IMAGE_RPI2_IMAGE	:= $(IMAGEDIR)/rpi2.hdimg
+IMAGE_RPI2_IMAGE	:= $(IMAGEDIR)/rpi.hdimg
 IMAGE_RPI2_FILES	:= $(IMAGEDIR)/root.tgz
 IMAGE_RPI2_CONFIG	:= rpi2.config
 IMAGE_RPI2_DATA_DIR	:= $(call ptx/in-platformconfigdir, rpi-firmware)

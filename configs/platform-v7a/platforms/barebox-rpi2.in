@@ -2,7 +2,7 @@
 
 menuconfig BAREBOX_RPI2
 	tristate
-	prompt "Barebox (rpi2)"
+	prompt "Barebox (rpi2/3/CM3)"
 	select BAREBOX_COMMON
 	help
-	  Raspberry Pi 2 support for barebox.
+	  Raspberry Pi 2, 3, CM3 support for barebox.

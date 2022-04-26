@@ -1,3 +1,5 @@
+# use kernel upstream devicetree names and pass it to barebox
+upstream_kernel=1
 # Enable the UART (miniuart for RPI3, PL011 for RPI2)
 enable_uart=1
 # Set barebox as third state bootloader

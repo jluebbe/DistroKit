@@ -46,8 +46,7 @@ BAREBOX_RPI2_CONF_OPT := \
 
 BAREBOX_RPI2_MAKE_OPT := $(BAREBOX_RPI2_CONF_OPT)
 
-BAREBOX_RPI2_IMAGES := images/barebox-raspberry-pi-2.img images/barebox-raspberry-pi-3.img images/barebox-raspberry-pi-cm3.img
-BAREBOX_RPI2_IMAGES := $(addprefix $(BAREBOX_RPI2_BUILD_DIR)/,$(BAREBOX_RPI2_IMAGES))
+BAREBOX_RPI2_DTB_DIR := $(BAREBOX_RPI2_BUILD_DIR)/arch/arm/dts
 
 ifdef PTXCONF_BAREBOX_RPI2
 $(BAREBOX_RPI2_CONFIG):
@@ -82,9 +81,11 @@ $(STATEDIR)/barebox-rpi2.install:
 
 $(STATEDIR)/barebox-rpi2.targetinstall:
 	@$(call targetinfo)
-	@$(foreach image, $(BAREBOX_RPI2_IMAGES), \
+	@$(foreach dtb, $(wildcard $(BAREBOX_RPI2_DTB_DIR)/*.dtb), \
 		install -m 644 \
-			$(image) $(IMAGEDIR)/$(notdir $(image))$(ptx/nl))
+			$(dtb) $(IMAGEDIR)/barebox-$(notdir $(dtb))$(ptx/nl))
+	@install -m 644 $(BAREBOX_RPI2_BUILD_DIR)/images/barebox-dt-2nd.img \
+			$(IMAGEDIR)/barebox-dt-2nd-rpi.img
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -94,8 +95,9 @@ $(STATEDIR)/barebox-rpi2.targetinstall:
 $(STATEDIR)/barebox-rpi2.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, BAREBOX_RPI2)
-	@$(foreach image, $(BAREBOX_RPI2_IMAGES), \
-		rm -fv $(IMAGEDIR)/$(notdir $(image))$(ptx/nl))
+	@$(foreach dtb, $(wildcard $(BAREBOX_RPI2_DTB_DIR)/*.dtb), \
+		rm -fv $(IMAGEDIR)/barebox-$(notdir $(dtb))$(ptx/nl))
+	@rm -fv $(IMAGEDIR)/barebox-dt-2nd-rpi.img
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig

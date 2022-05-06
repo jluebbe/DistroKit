@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# PTXdist 2022.04.0
+# PTXdist 2022.05.0
 #
 PTXCONF_DATAPARTITION=y
 
@@ -67,7 +67,7 @@ PTXCONF_BSP=y
 PTXCONF_RUNTIME=y
 PTXCONF_BUILDTIME=y
 PTXCONF_VIRTUAL=y
-PTXCONF_CONFIGFILE_VERSION="2022.04.0"
+PTXCONF_CONFIGFILE_VERSION="2022.05.0"
 PTXCONF__ptxconfig_MAGIC__=y
 
 #
@@ -1741,15 +1741,12 @@ PTXCONF_IPROUTE2=y
 # PTXCONF_IPROUTE2_DEVLINK is not set
 # PTXCONF_IPROUTE2_GENL is not set
 PTXCONF_IPROUTE2_IP=y
-# PTXCONF_IPROUTE2_IFCFG is not set
 # PTXCONF_IPROUTE2_IFSTAT is not set
 # PTXCONF_IPROUTE2_LNSTAT is not set
 # PTXCONF_IPROUTE2_NSTAT is not set
-# PTXCONF_IPROUTE2_ROUTEF is not set
 # PTXCONF_IPROUTE2_ROUTEL is not set
 # PTXCONF_IPROUTE2_RTACCT is not set
 # PTXCONF_IPROUTE2_RTMON is not set
-# PTXCONF_IPROUTE2_RTPR is not set
 # PTXCONF_IPROUTE2_RTSTAT is not set
 # PTXCONF_IPROUTE2_SS is not set
 
@@ -2337,14 +2334,12 @@ PTXCONF_DBUS_SYSTEMD_UNIT=y
 # PTXCONF_LIBWEBP is not set
 # PTXCONF_LIBX11_LOCALE is not set
 # PTXCONF_LIBXKBCOMMON is not set
-# PTXCONF_MEDIA_SESSION is not set
 # PTXCONF_MESA_DEMOS is not set
 # PTXCONF_MESALIB is not set
 # PTXCONF_MTDEV is not set
 # PTXCONF_OPENCV is not set
 # PTXCONF_OPUS is not set
 # PTXCONF_ORC is not set
-# PTXCONF_PIPEWIRE is not set
 # PTXCONF_PIXMAN is not set
 # PTXCONF_PSLIB is not set
 # PTXCONF_QPDF is not set
@@ -2363,7 +2358,6 @@ PTXCONF_DBUS_SYSTEMD_UNIT=y
 # PTXCONF_VULKAN_TOOLS is not set
 # PTXCONF_VULKAN_VALIDATIONLAYERS is not set
 # PTXCONF_WAFFLE is not set
-# PTXCONF_WIREPLUMBER is not set
 # PTXCONF_WPEBACKEND_FDO is not set
 # PTXCONF_WPEWEBKIT is not set
 # PTXCONF_XKEYBOARD_CONFIG is not set
@@ -2417,6 +2411,14 @@ PTXCONF_GLIB=y
 # PTXCONF_PANGO is not set
 # PTXCONF_POPPLER_DATA is not set
 # end of gtk+ & friends                
+
+#
+# pipewire                      
+#
+# PTXCONF_MEDIA_SESSION is not set
+# PTXCONF_PIPEWIRE is not set
+# PTXCONF_WIREPLUMBER is not set
+# end of pipewire                      
 
 #
 # qt                            

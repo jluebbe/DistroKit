@@ -6,6 +6,7 @@ config IMAGE_KSZ9477_EVB
 	select IMAGE_ROOT_EXT
 	select HOST_DOSFSTOOLS
 	select BAREBOX_AT91
+	select HOST_MTOOLS
 	prompt "Generate images/image-ksz9477-evb.hdimg"
 	help
 	  Includes DistroKit support for the Microchip KSZ9477-EVB

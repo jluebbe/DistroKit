@@ -1,5 +1,0 @@
-0001-ARM-asm-fix-miscompilation-of-32-bit-ENTRY_FUNCTION_.patch
-0002-clk-add-BCM2835-auxiliary-peripheral-clock-driver.patch
-0003-clocksource-assign-non-zero-priorities-to-all-clocks.patch
-0004-ARM-cpu-board-dt-2nd-call-arm_cpu_lowlevel_init.patch
-0005-ARM-rpi-don-t-warn-about-lack-of-videocore-fdt.patch

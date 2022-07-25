@@ -1,0 +1,122 @@
+From git@z Thu Jan  1 00:00:00 1970
+Subject: [PATCH v2] mci: add new MCI_BROKEN_CD option for testing
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Date: Mon, 25 Jul 2022 13:58:56 +0200
+Message-Id: <20220725115856.1288819-1-a.fatoum@pengutronix.de>
+To: barebox@lists.infradead.org
+Cc: Ahmad Fatoum <a.fatoum@pengutronix.de>
+List-Id: <barebox.lists.infradead.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+
+In remote labs co-located with other hardware, we've observed card
+detect levers of different boards to sporadically fail to detect
+the card, e.g. because the cable on the usbsdmux was yanked around
+by accident. When this happens, barebox usually boots up normally as
+the card detect is ignored and then Linux waits indefinitely for
+the card-detect to turn active. Add a new config option that can be
+enabled to avoid these issues altogether.
+
+Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+---
+v1 -> v2:
+  - use early exit instead of if-else
+  - don't fail mci_card_probe if of_register_fixup fails
+---
+ drivers/mci/Kconfig    | 15 +++++++++++++++
+ drivers/mci/mci-core.c | 36 ++++++++++++++++++++++++++++++++----
+ 2 files changed, 47 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/mci/Kconfig b/drivers/mci/Kconfig
+index 21d53c0c3f0b..651e59259790 100644
+--- a/drivers/mci/Kconfig
++++ b/drivers/mci/Kconfig
+@@ -56,6 +56,21 @@ config MCI_MMC_GPP_PARTITIONS
+ 	  Note: by default, 'MMC' devices have no 'general purpose partitions',
+ 	  it requires a special one-time configuration step to enable them.
+ 
++config MCI_BROKEN_CD
++	bool "ignore card-detect pin on boot and in OS"
++	help
++	  Say 'y' here to have barebox unconditionally ignore the
++	  card-detect pin for its own operation and manipulate the
++	  kernel DT, so all detected MCI cards are polled instead
++	  of expecting the card detect lever to behave correctly.
++	  If you need more fine grained control use of_property
++	  in an init script:
++
++	    of_property -fd mmc0 cd-gpios
++	    of_property -fs mmc0 broken-cd
++
++	  If unsure, say 'n' here.
++
+ comment "--- MCI host drivers ---"
+ 
+ config MCI_DW
+diff --git a/drivers/mci/mci-core.c b/drivers/mci/mci-core.c
+index 82e2f82f5377..4db2253c3a80 100644
+--- a/drivers/mci/mci-core.c
++++ b/drivers/mci/mci-core.c
+@@ -1727,6 +1727,27 @@ static int mci_register_partition(struct mci_part *part)
+ 	return 0;
+ }
+ 
++static int of_broken_cd_fixup(struct device_node *root, void *ctx)
++{
++	struct device_d *hw_dev = ctx;
++	struct device_node *np;
++	char *name;
++
++	name = of_get_reproducible_name(hw_dev->device_node);
++	np = of_find_node_by_reproducible_name(root, name);
++	free(name);
++	if (!np) {
++		dev_warn(hw_dev, "Cannot find nodepath %s, cannot fixup\n",
++			 hw_dev->device_node->full_name);
++		return -EINVAL;
++	}
++
++	of_property_write_bool(np, "cd-gpios", false);
++	of_property_write_bool(np, "broken-cd", true);
++
++	return 0;
++}
++
+ /**
+  * Probe an MCI card at the given host interface
+  * @param mci MCI device instance
+@@ -1737,10 +1758,13 @@ static int mci_card_probe(struct mci *mci)
+ 	struct mci_host *host = mci->host;
+ 	int i, rc, disknum, ret;
+ 
+-	if (host->card_present && !host->card_present(host) &&
+-	    !host->non_removable) {
+-		dev_err(&mci->dev, "no card inserted\n");
+-		return -ENODEV;
++	if (host->card_present && !host->card_present(host) && !host->non_removable) {
++		if (!IS_ENABLED(CONFIG_MCI_BROKEN_CD)) {
++			dev_err(&mci->dev, "no card inserted\n");
++			return -ENODEV;
++		}
++
++		dev_info(&mci->dev, "no card inserted (ignoring)\n");
+ 	}
+ 
+ 	ret = regulator_enable(host->supply);
+@@ -1818,6 +1842,10 @@ static int mci_card_probe(struct mci *mci)
+ 		}
+ 	}
+ 
++	if (IS_ENABLED(CONFIG_MCI_BROKEN_CD) && !host->no_sd &&
++	    dev_of_node(host->hw_dev))
++		of_register_fixup(of_broken_cd_fixup, host->hw_dev);
++
+ 	dev_dbg(&mci->dev, "SD Card successfully added\n");
+ 
+ on_error:
+
+-- 
+2.30.2
+
+

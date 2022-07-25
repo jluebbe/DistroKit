@@ -49,7 +49,14 @@ BAREBOX_STM32MP_IMAGES := \
 	images/barebox-stm32mp15x-ev1.img \
 	images/barebox-stm32mp157c-lxa-mc1.img
 
+BAREBOX_STM32MP_FIP_DTBS := \
+	stm32mp157c-dk2.dtb \
+	stm32mp157c-ev1.dtb \
+	stm32mp157c-lxa-mc1.dtb
+
 BAREBOX_STM32MP_IMAGES := $(addprefix $(BAREBOX_STM32MP_BUILD_DIR)/,$(BAREBOX_STM32MP_IMAGES))
+BAREBOX_STM32MP_FIP_DTBS := \
+	$(addprefix $(BAREBOX_STM32MP_BUILD_DIR)/arch/arm/dts/,$(BAREBOX_STM32MP_FIP_DTBS))
 
 ifdef PTXCONF_BAREBOX_STM32MP
 $(BAREBOX_STM32MP_CONFIG):
@@ -87,6 +94,9 @@ $(STATEDIR)/barebox-stm32mp.targetinstall:
 	@$(foreach image, $(BAREBOX_STM32MP_IMAGES), \
 		install -m 644 \
 			$(image) $(IMAGEDIR)/$(notdir $(image));)
+	@$(foreach dtb, $(BAREBOX_STM32MP_FIP_DTBS), \
+			install -m 644 \
+			$(dtb) $(IMAGEDIR)/barebox-$(notdir $(dtb));)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -98,6 +108,8 @@ $(STATEDIR)/barebox-stm32mp.clean:
 	@$(call clean_pkg, BAREBOX_STM32MP)
 	@$(foreach image, $(BAREBOX_STM32MP_IMAGES), \
 		rm -fv $(IMAGEDIR)/$(notdir $(image))$(ptx/nl))
+	@$(foreach dtb, $(BAREBOX_STM32MP_FIP_DTBS), \
+		rm -fv $(IMAGEDIR)/barebox-$(notdir $(dtb))$(ptx/nl))
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig

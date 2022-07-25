@@ -11,9 +11,7 @@
 #
 IMAGE_PACKAGES-$(PTXCONF_IMAGE_LXA_MC1) += image-lxa-mc1
 
-IMAGE_LXA_MC1_ENV := \
-	STM32MP_BOARD_FSBL=stm32mp157c-lxa-mc1 \
-	STM32MP_BOARD_SSBL=stm32mp157c-lxa-mc1
+IMAGE_LXA_MC1_ENV := STM32MP_BOARD=stm32mp157c-lxa-mc1
 
 #
 # Paths and names

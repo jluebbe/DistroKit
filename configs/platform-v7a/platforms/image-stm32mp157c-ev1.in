@@ -3,6 +3,7 @@
 config IMAGE_STM32MP157C_EV1
 	tristate
 	select HOST_GENIMAGE
+	select HOST_TF_A
 	select IMAGE_ROOT_EXT
 	select BAREBOX_STM32MP
 	select TF_A

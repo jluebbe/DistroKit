@@ -9,12 +9,12 @@
 #
 # We provide this package
 #
-IMAGE_PACKAGES-$(PTXCONF_IMAGE_VEXPRESS_NOR) += image-flash
+IMAGE_PACKAGES-$(PTXCONF_IMAGE_VEXPRESS_NOR) += image-vexpress-nor
 
 #
 # Paths and names
 #
-IMAGE_VEXPRESS_NOR		:= image-flash
+IMAGE_VEXPRESS_NOR		:= image-vexpress-nor
 IMAGE_VEXPRESS_NOR_DIR		:= $(BUILDDIR)/$(IMAGE_VEXPRESS_NOR)
 IMAGE_VEXPRESS_NOR_IMAGE	:= $(IMAGEDIR)/vexpress.norimg
 IMAGE_VEXPRESS_NOR_CONFIG	:= vexpress-nor.config

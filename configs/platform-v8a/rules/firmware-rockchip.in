@@ -1,0 +1,41 @@
+## SECTION=non_free_firmware
+
+menuconfig FIRMWARE_ROCKCHIP
+	bool
+	prompt "Rockchip firmware binaries    "
+	help
+	  Rockchip prebuilt SDRAM initialization and TF-A binaries.
+
+if FIRMWARE_ROCKCHIP
+
+config FIRMWARE_ROCKCHIP_RK3566_SDRAM
+	bool
+	prompt "RK3566 SDRAM init"
+	help
+	  Rockchip RK3566 SDRAM initialization binary.
+	  Compatible with e.g., the Pine64 Quartz64 Model A board.
+
+config FIRMWARE_ROCKCHIP_RK3568_SDRAM
+	bool
+	prompt "RK3568 SDRAM init"
+	help
+	  Rockchip RK3568 SDRAM initialization binary.
+	  Compatible with e.g., the Rockchip RK3568 EVB1 board.
+
+config FIRMWARE_ROCKCHIP_RK356x_BL31
+	bool
+	prompt "RK356x BL31 binary"
+	help
+	  Rockchip RK3566/RK3568 BL31 binary.
+	  Compatible with e.g., the Pine64 Quartz64 Model A board
+	  and the Rockchip RK3568 EVB1 board.
+
+config FIRMWARE_ROCKCHIP_RK356x_BL32
+	bool
+	prompt "RK356x BL32 binary"
+	help
+	  Rockchip RK3566/RK3568 BL32 binary.
+	  Compatible with e.g., the Pine64 Quartz64 Model A board
+	  and the Rockchip RK3568 EVB1 board.
+
+endif

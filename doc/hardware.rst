@@ -123,12 +123,13 @@ The v8a platform targets the ARMv8-A architecture.
 
 The stuff from the v7a section above applies here accordingly.
 
-Currently DistroKit only supports a single board; the Marvell espressobin:
+Currently, DistroKit supports the following hardware:
 
 .. toctree::
    :maxdepth: 1
 
    hardware_v8a_espressobin
+   hardware_v8a_rock3a
 
 
 rpi Platform

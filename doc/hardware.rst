@@ -46,8 +46,7 @@ It supports the following hardware:
    hardware_v7a_beaglebone_black
    hardware_v7a_nitrogen6x
    hardware_v7a_riot
-   hardware_v7a_raspi2
-   hardware_v7a_raspi3
+   hardware_v7a_raspi23
    hardware_v7a_udoo_neo
    hardware_v7a_sama5d2
 

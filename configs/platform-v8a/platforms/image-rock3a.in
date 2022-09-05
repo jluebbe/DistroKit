@@ -1,0 +1,10 @@
+## SECTION=image
+
+config IMAGE_ROCK3A
+	tristate
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_EXT
+	select BAREBOX_ROCKCHIP
+	prompt "Generate images/rock3a.img"
+	help
+	  Generate an image for the Radxa ROCK3 Model A.

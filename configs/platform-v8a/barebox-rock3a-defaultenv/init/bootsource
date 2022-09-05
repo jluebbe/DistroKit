@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ -n "${nv.boot.default}" ]; then
+	exit
+fi
+
+if [ "$bootsource" = mmc ]; then
+	detect mmc$bootsource_instance
+	global.boot.default="mmc$bootsource_instance net"
+elif [ "$bootsource" = "spi-nor" ]; then
+	usbgadget -A '/dev/mmc0(sd)'
+	global.autoboot=abort
+fi

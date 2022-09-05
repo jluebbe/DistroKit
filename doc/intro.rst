@@ -116,6 +116,22 @@ using your real name (sorry, no pseudonyms or anonymous contributions)
 to the end of your commit message,
 or if you use Git, make your commit with ``git commit --signoff``.
 
+Maintenance scripts
+~~~~~~~~~~~~~~~~~~~
+
+Before sending your patch, you should run ``ptxdist lint`` and check its output.
+Your patch should not add any new lint errors.
+
+For migrating PTXdist to a new version, there is the wrapper script
+``scripts/p-all`` that runs PTXdist with the supplied arguments on all existing
+platforms in DistroKit, for example::
+
+   $ ./scripts/p-all migrate
+
+The *mips* and *v7a* platforms use config diffs for kernel and/or barebox packages.
+When touching their config files, you can use ``scripts/update-diffs-mips.sh`` and
+``scripts/update-diffs-v7a.sh`` respectively to update the config diffs.
+
 License
 -------
 

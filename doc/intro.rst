@@ -81,7 +81,7 @@ using `git format-patch <https://git-scm.com/docs/git-format-patch>`_ on the
 DistroKit git repository
 (also see its man page for info on using mailers other than *git send-email*).
 
-Mails sent to the DistoKit mailing list are archived on ``lore.distrokit.org``.
+Mails sent to the DistroKit mailing list are archived on ``lore.distrokit.org``.
 Patch series can be fetched with `b4 <https://pypi.org/project/b4/>`_ ::
 
    git config b4.midmask https://lore.distrokit.org/%s

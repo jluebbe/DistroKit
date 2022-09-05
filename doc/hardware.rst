@@ -91,6 +91,25 @@ listed above, here is a short overview of the generic way:
 Refer to the :ref:`ptx_dev_manual` for a more thorough documentation.
 
 
+v7a_noneon Platform
+-------------------
+
++-------------------------+------------------------------------------------+
+| platformconfig:         | ``configs/platform-v7a_noneon/platformconfig`` |
++-------------------------+------------------------------------------------+
+| Toolchain architecture: | ``arm-v7a-linux-gnueabihf``                    |
++-------------------------+------------------------------------------------+
+
+The v7a_noneon platform targets machines based on the ARMv7-A architecture
+which don't have support for the NEON SIMD extension.
+It supports the following hardware:
+
+.. toctree::
+   :maxdepth: 1
+
+   hardware_v7a_noneon_sama5d3
+
+
 v8a Platform
 ------------
 

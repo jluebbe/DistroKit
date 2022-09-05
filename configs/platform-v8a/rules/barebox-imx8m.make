@@ -76,7 +76,7 @@ $(STATEDIR)/barebox-imx8m.prepare: $(BAREBOX_IMX8M_CONFIG)
 	done
 
 	@rm -f "$(BAREBOX_IMX8M_BUILD_DIR)/.ptxdist-defaultenv"
-	@ln -s "$(call ptx/in-platformconfigdir, barebox-imx8m-defaultenv)" \
+	@ln -s "$(call ptx/in-platformconfigdir, barebox-common-defaultenv)" \
 		"$(BAREBOX_IMX8M_BUILD_DIR)/.ptxdist-defaultenv"
 
 	@$(call touch)

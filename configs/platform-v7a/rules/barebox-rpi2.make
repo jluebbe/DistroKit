@@ -84,8 +84,8 @@ $(STATEDIR)/barebox-rpi2.targetinstall:
 	@$(foreach dtb, $(wildcard $(BAREBOX_RPI2_DTB_DIR)/*.dtb), \
 		install -m 644 \
 			$(dtb) $(IMAGEDIR)/barebox-$(notdir $(dtb))$(ptx/nl))
-	@install -m 644 $(BAREBOX_RPI2_BUILD_DIR)/images/barebox-dt-2nd.img \
-			$(IMAGEDIR)/barebox-dt-2nd-rpi.img
+	@install -m 644 $(BAREBOX_RPI2_BUILD_DIR)/images/barebox-raspberry-pi.img \
+			$(IMAGEDIR)/barebox-raspberry-pi.img
 	@$(call touch)
 
 # ----------------------------------------------------------------------------

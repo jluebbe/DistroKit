@@ -1,1 +1,3 @@
-0001-mci-add-new-MCI_BROKEN_CD-option-for-testing.patch
+0001-mci-core-act-upon-broken-cd-device-tree-property.patch
+0002-mci-core-add-broken_cd-device-parameter.patch
+0003-mci-core-fixup-broken-cd-information-into-kernel-DT.patch

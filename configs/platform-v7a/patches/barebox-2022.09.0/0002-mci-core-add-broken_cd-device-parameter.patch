@@ -1,0 +1,46 @@
+From 8d66a16dfd6b5c7e0d39e90954af32667e480074 Mon Sep 17 00:00:00 2001
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Date: Tue, 6 Sep 2022 20:10:37 +0200
+Subject: [PATCH 2/3] mci: core: add broken_cd device parameter
+
+Sometimes a broken card-detect is not a general issue affecting all
+boards, but only a given board. Allow setting broken_cd for such boards
+via a device parameter.
+
+Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+---
+ drivers/mci/mci-core.c | 11 ++++++++++-
+ 1 file changed, 10 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/mci/mci-core.c b/drivers/mci/mci-core.c
+index 5b1aa8dbed87..5101ac1d8298 100644
+--- a/drivers/mci/mci-core.c
++++ b/drivers/mci/mci-core.c
+@@ -1919,7 +1919,7 @@ int mci_register(struct mci_host *host)
+ {
+ 	struct mci *mci;
+ 	struct device_d *hw_dev;
+-	struct param_d *param_probe;
++	struct param_d *param_probe, *param_broken_cd;
+ 	int ret;
+ 
+ 	mci = xzalloc(sizeof(*mci));
+@@ -1963,6 +1963,15 @@ int mci_register(struct mci_host *host)
+ 		goto err_unregister;
+ 	}
+ 
++	param_broken_cd = dev_add_param_bool(&mci->dev, "broken_cd",
++					     NULL, NULL, &host->broken_cd, mci);
++
++	if (IS_ERR(param_broken_cd) && PTR_ERR(param_broken_cd) != -ENOSYS) {
++		ret = PTR_ERR(param_broken_cd);
++		dev_dbg(&mci->dev, "Failed to add 'broken_cd' parameter to the MCI device\n");
++		goto err_unregister;
++	}
++
+ 	if (IS_ENABLED(CONFIG_MCI_INFO))
+ 		mci->dev.info = mci_info;
+ 
+-- 
+2.30.2
+

@@ -19,7 +19,7 @@ IMAGE_RPI2_DIR	:= $(BUILDDIR)/$(IMAGE_RPI2)
 IMAGE_RPI2_IMAGE	:= $(IMAGEDIR)/rpi.hdimg
 IMAGE_RPI2_FILES	:= $(IMAGEDIR)/root.tgz
 IMAGE_RPI2_CONFIG	:= rpi2.config
-IMAGE_RPI2_DATA_DIR	:= $(call ptx/in-platformconfigdir, rpi-firmware)
+IMAGE_RPI2_DATA_DIR	:= $(PTXDIST_WORKSPACE)/rpi-firmware
 IMAGE_RPI2_DATA		:= \
 	$(wildcard $(IMAGE_RPI2_DATA_DIR)/*.bin) \
 	$(wildcard $(IMAGE_RPI2_DATA_DIR)/*.elf) \

@@ -1,14 +1,7 @@
-From git@z Thu Jan  1 00:00:00 1970
-Subject: [PATCH v2] mci: add new MCI_BROKEN_CD option for testing
+From f9fa5cf2ba5842a355aa827ac8847ed62eee65d0 Mon Sep 17 00:00:00 2001
 From: Ahmad Fatoum <a.fatoum@pengutronix.de>
 Date: Mon, 25 Jul 2022 13:58:56 +0200
-Message-Id: <20220725115856.1288819-1-a.fatoum@pengutronix.de>
-To: barebox@lists.infradead.org
-Cc: Ahmad Fatoum <a.fatoum@pengutronix.de>
-List-Id: <barebox.lists.infradead.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Subject: [PATCH] mci: add new MCI_BROKEN_CD option for testing
 
 In remote labs co-located with other hardware, we've observed card
 detect levers of different boards to sporadically fail to detect
@@ -19,10 +12,6 @@ the card-detect to turn active. Add a new config option that can be
 enabled to avoid these issues altogether.
 
 Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
----
-v1 -> v2:
-  - use early exit instead of if-else
-  - don't fail mci_card_probe if of_register_fixup fails
 ---
  drivers/mci/Kconfig    | 15 +++++++++++++++
  drivers/mci/mci-core.c | 36 ++++++++++++++++++++++++++++++++----
@@ -55,10 +44,10 @@ index 21d53c0c3f0b..651e59259790 100644
  
  config MCI_DW
 diff --git a/drivers/mci/mci-core.c b/drivers/mci/mci-core.c
-index 82e2f82f5377..4db2253c3a80 100644
+index b8f71e15986e..c6ed6e3d8b79 100644
 --- a/drivers/mci/mci-core.c
 +++ b/drivers/mci/mci-core.c
-@@ -1727,6 +1727,27 @@ static int mci_register_partition(struct mci_part *part)
+@@ -1739,6 +1739,27 @@ static int mci_register_partition(struct mci_part *part)
  	return 0;
  }
  
@@ -86,9 +75,9 @@ index 82e2f82f5377..4db2253c3a80 100644
  /**
   * Probe an MCI card at the given host interface
   * @param mci MCI device instance
-@@ -1737,10 +1758,13 @@ static int mci_card_probe(struct mci *mci)
- 	struct mci_host *host = mci->host;
+@@ -1750,10 +1771,13 @@ static int mci_card_probe(struct mci *mci)
  	int i, rc, disknum, ret;
+ 	bool has_bootpart = false;
  
 -	if (host->card_present && !host->card_present(host) &&
 -	    !host->non_removable) {
@@ -104,8 +93,8 @@ index 82e2f82f5377..4db2253c3a80 100644
  	}
  
  	ret = regulator_enable(host->supply);
-@@ -1818,6 +1842,10 @@ static int mci_card_probe(struct mci *mci)
- 		}
+@@ -1839,6 +1863,10 @@ static int mci_card_probe(struct mci *mci)
+ 					   &mci->boot_ack_enable, mci);
  	}
  
 +	if (IS_ENABLED(CONFIG_MCI_BROKEN_CD) && !host->no_sd &&
@@ -115,8 +104,6 @@ index 82e2f82f5377..4db2253c3a80 100644
  	dev_dbg(&mci->dev, "SD Card successfully added\n");
  
  on_error:
-
 -- 
 2.30.2
-
 

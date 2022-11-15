@@ -132,30 +132,30 @@ Currently, DistroKit supports the following hardware:
    hardware_v8a_rock3a
 
 
-rpi Platform
-------------
+rpi1 Platform
+-------------
 
-+-------------------------+-----------------------------------------+
-| platformconfig:         | ``configs/platform-rpi/platformconfig`` |
-+-------------------------+-----------------------------------------+
-| Toolchain architecture: | ``arm-1136jfs-linux-gnueabihf``         |
-+-------------------------+-----------------------------------------+
++-------------------------+------------------------------------------+
+| platformconfig:         | ``configs/platform-rpi1/platformconfig`` |
++-------------------------+------------------------------------------+
+| Toolchain architecture: | ``arm-1136jfs-linux-gnueabihf``          |
++-------------------------+------------------------------------------+
 
 .. note::
 
-  The rpi platform is currently not actively maintained,
+  The rpi1 platform is currently not actively maintained,
   as RPi 1 has been superseded by newer models
   which are supported in the v7a platform.
   However, if you are targeting a RPi 1,
   we will be happy to merge your patches anyways.
 
-The rpi platform has support for the Raspberry Pi 1 and Raspberry Pi Zero W,
+The rpi1 platform has support for the Raspberry Pi 1 and Raspberry Pi Zero W,
 which is based on the Broadcom BCM2835 SoC (ARMv6):
 
 .. toctree::
    :maxdepth: 1
 
-   hardware_rpi_raspi1
+   hardware_rpi1_raspi1
 
 
 mips Platform

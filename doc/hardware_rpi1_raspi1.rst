@@ -3,7 +3,7 @@ Raspberry Pi 1 and Zero W
 
 Boot Media
 ----------
-Use the image ``platform-rpi/images/hd.img`` and write it onto your SD Card.
+Use the image ``platform-rpi1/images/hd.img`` and write it onto your SD Card.
 
 Serial Console
 --------------

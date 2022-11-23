@@ -1,0 +1,4 @@
+0001-fix-stm32mp1-fdts-stm32mp1-align-DDR-regulators-with.patch
+0002-build-makefile-add-helper-to-detect-linker-options.patch
+0003-feat-build-add-support-for-new-binutils-versions.patch
+0004-makefile-link-with-z-noexecstack.patch

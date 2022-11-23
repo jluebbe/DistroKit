@@ -1,0 +1,39 @@
+From e4e456405177add4df5e21528caa3d873847056a Mon Sep 17 00:00:00 2001
+From: Marco Felsch <m.felsch@pengutronix.de>
+Date: Thu, 24 Nov 2022 11:02:05 +0100
+Subject: [PATCH 2/4] build(makefile): add helper to detect linker options
+
+This is a small helper to check for possible linker options. If the
+linker supports the requested option it is returned and if not nothing
+will be returned, e.g.:
+
+  TF_LDFLAGS += $(call ld_option, --no-warn-rwx-segments)
+
+can be called unconditional.
+
+Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
+Change-Id: I236800852ece49948ff53a0b91fddba53c8f0f95
+---
+ make_helpers/build_macros.mk | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/make_helpers/build_macros.mk b/make_helpers/build_macros.mk
+index a58caf565163..06caeea19787 100644
+--- a/make_helpers/build_macros.mk
++++ b/make_helpers/build_macros.mk
+@@ -86,6 +86,12 @@ define assert_numerics
+     $(foreach num,$1,$(eval $(call assert_numeric,$(num))))
+ endef
+ 
++# Convenience function to check for a given linker option. An call to
++# $(call ld_option, --no-XYZ) will return --no-XYZ if supported by the linker
++define ld_option
++	$(shell if $(LD) $(1) -v >/dev/null 2>&1; then echo $(1); fi )
++endef
++
+ # CREATE_SEQ is a recursive function to create sequence of numbers from 1 to
+ # $(2) and assign the sequence to $(1)
+ define CREATE_SEQ
+-- 
+2.30.2
+

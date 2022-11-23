@@ -1,8 +1,8 @@
-From 9746daccb7611411a38169f20413ea8445310431 Mon Sep 17 00:00:00 2001
+From 02e0e6ae14a747031c6ba67517c9eee744f4d51d Mon Sep 17 00:00:00 2001
 From: Ahmad Fatoum <a.fatoum@pengutronix.de>
 Date: Thu, 2 Jun 2022 06:28:31 +0200
-Subject: [PATCH] fix(stm32mp1): fdts: stm32mp1: align DDR regulators with new
- driver
+Subject: [PATCH 1/4] fix(stm32mp1): fdts: stm32mp1: align DDR regulators with
+ new driver
 
 With recent changes, TF-A now panics on LXA MC1, Avernger96 and Odyssey:
 

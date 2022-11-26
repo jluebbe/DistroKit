@@ -1,0 +1,38 @@
+From f77451f77ff01dda1a5239a65901ed0b666116b3 Mon Sep 17 00:00:00 2001
+From: Robert Schwebel <r.schwebel@pengutronix.de>
+Date: Sat, 26 Nov 2022 08:24:50 +0100
+Subject: [PATCH 4/4] makefile: link with -z noexecstack
+
+Starting with binutils 2.39+, there is a new warning:
+
+  ld: warning: vmlinux: missing .note.GNU-stack section implies executable stack
+  ld: NOTE: This behaviour is deprecated and will be removed in a future version of the linker
+  ld: warning: vmlinux has a LOAD segment with RWX permissions
+
+Fix it in a similar way to what the Linux kernel does, see:
+https://lore.kernel.org/all/20220810222442.2296651-1-ndesaulniers@google.com/
+
+Following the reasoning there, we set "-z noexecstack" for all linkers
+(although LLVM's LLD defaults to it).
+
+Signed-off-by: Robert Schwebel <r.schwebel@pengutronix.de>
+---
+ Makefile | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index 54072a4543ce..86be2e68da3e 100644
+--- a/Makefile
++++ b/Makefile
+@@ -298,6 +298,8 @@ endif
+ 
+ GCC_V_OUTPUT		:=	$(shell $(CC) -v 2>&1)
+ 
++TF_LDFLAGS		+=	-z noexecstack
++
+ ifneq ($(findstring armlink,$(notdir $(LD))),)
+ TF_LDFLAGS		+=	--diag_error=warning --lto_level=O1
+ TF_LDFLAGS		+=	--remove --info=unused,unusedsymbols
+-- 
+2.30.2
+

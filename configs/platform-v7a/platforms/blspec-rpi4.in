@@ -1,5 +1,0 @@
-## SECTION=blspec
-
-config BLSPEC_RPI4
-	tristate
-	prompt "/loader/entries/rpi4*.conf bootloader spec entries"

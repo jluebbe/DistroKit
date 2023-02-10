@@ -67,7 +67,7 @@ $(STATEDIR)/barebox-imx8m.prepare: $(BAREBOX_IMX8M_CONFIG)
 
 	@for i in lpddr4_pmu_train_1d_dmem.bin lpddr4_pmu_train_1d_imem.bin \
 			lpddr4_pmu_train_2d_dmem.bin lpddr4_pmu_train_2d_imem.bin ; do \
-		cp $(PTXCONF_SYSROOT_TARGET)/firmware/ddr/synopsys/$$i $(BAREBOX_IMX8M_DIR)/firmware/; \
+		cp $(PTXCONF_SYSROOT_TARGET)/usr/lib/firmware/ddr/synopsys/$$i $(BAREBOX_IMX8M_DIR)/firmware/; \
 	done
 
 	@for i in m p q; do \

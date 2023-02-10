@@ -1,0 +1,19 @@
+## SECTION=blspec
+
+menuconfig BLSPEC_ENTRY
+	tristate
+	select KERNEL
+	select KERNEL_INSTALL if !KERNEL_FIT
+	prompt "default bootloader spec entry "
+
+if BLSPEC_ENTRY
+
+config BLSPEC_ENTRY_DEVICETREE
+	bool
+	default KERNEL_DTB && !KERNEL_FIT
+
+config BLSPEC_ENTRY_CMDLINE
+	string
+	prompt "kernel command-line"
+
+endif

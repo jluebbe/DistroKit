@@ -1,5 +1,0 @@
-## SECTION=blspec
-
-config BLSPEC_IMX8MP_EVK
-	tristate
-	prompt "/loader/entries/imx8mp-evk.conf bootloader spec entry"

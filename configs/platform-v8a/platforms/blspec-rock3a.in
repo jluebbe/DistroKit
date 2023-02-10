@@ -1,5 +1,0 @@
-## SECTION=blspec
-
-config BLSPEC_ROCK3A
-	tristate
-	prompt "/loader/entries/rock3a.conf bootloader spec entry"

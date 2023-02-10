@@ -2,6 +2,7 @@
 
 config BAREBOX_IMX8M
 	select FIRMWARE_IMX
+	select FIRMWARE_IMX_BOOTIMAGE_IMX8
 	select TF_A
 	tristate
 	prompt "Barebox (imx8m)"

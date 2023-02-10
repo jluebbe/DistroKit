@@ -31,6 +31,19 @@ BAREBOX_IMX8M_BUILD_OOT	:= KEEP
 # Prepare
 # ----------------------------------------------------------------------------
 
+BAREBOX_IMX8M_INJECT_PATH	:= ${PTXDIST_SYSROOT_TARGET}/usr/lib
+
+# TF-A firmware blobs
+BAREBOX_IMX8M_INJECT_FILES	+= firmware/imx8mm-bl31.bin
+BAREBOX_IMX8M_INJECT_FILES	+= firmware/imx8mp-bl31.bin
+BAREBOX_IMX8M_INJECT_FILES	+= firmware/imx8mq-bl31.bin
+
+# DRAM firmware blobs
+BAREBOX_IMX8M_INJECT_FILES	+= firmware/ddr/synopsys/lpddr4_pmu_train_1d_dmem.bin:firmware/lpddr4_pmu_train_1d_dmem.bin
+BAREBOX_IMX8M_INJECT_FILES	+= firmware/ddr/synopsys/lpddr4_pmu_train_1d_imem.bin:firmware/lpddr4_pmu_train_1d_imem.bin
+BAREBOX_IMX8M_INJECT_FILES	+= firmware/ddr/synopsys/lpddr4_pmu_train_2d_dmem.bin:firmware/lpddr4_pmu_train_2d_dmem.bin
+BAREBOX_IMX8M_INJECT_FILES	+= firmware/ddr/synopsys/lpddr4_pmu_train_2d_imem.bin:firmware/lpddr4_pmu_train_2d_imem.bin
+
 # use host pkg-config for host tools
 BAREBOX_IMX8M_PATH := PATH=$(HOST_PATH)
 
@@ -64,16 +77,7 @@ endif
 $(STATEDIR)/barebox-imx8m.prepare: $(BAREBOX_IMX8M_CONFIG)
 	@$(call targetinfo)
 	@$(call world/prepare, BAREBOX_IMX8M)
-
-	@for i in lpddr4_pmu_train_1d_dmem.bin lpddr4_pmu_train_1d_imem.bin \
-			lpddr4_pmu_train_2d_dmem.bin lpddr4_pmu_train_2d_imem.bin ; do \
-		cp $(PTXCONF_SYSROOT_TARGET)/usr/lib/firmware/ddr/synopsys/$$i $(BAREBOX_IMX8M_DIR)/firmware/; \
-	done
-
-	@for i in m p q; do \
-		cp $(PTXCONF_SYSROOT_TARGET)/usr/lib/firmware/imx8m$$i-bl31.bin \
-			$(BAREBOX_IMX8M_DIR)/firmware/; \
-	done
+	@$(call world/inject, BAREBOX_IMX8M)
 
 	@rm -f "$(BAREBOX_IMX8M_BUILD_DIR)/.ptxdist-defaultenv"
 	@ln -s "$(call ptx/in-platformconfigdir, barebox-common-defaultenv)" \

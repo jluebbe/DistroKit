@@ -182,7 +182,6 @@ PTXCONF_BAREBOX_ARCH_STRING="arm"
 PTXCONF_BOOTLOADER=y
 # PTXCONF_GRUB is not set
 # PTXCONF_HOST_MXS_UTILS is not set
-PTXCONF_IMX_ATF=y
 PTXCONF_TF_A=y
 PTXCONF_TF_A_URL="https://git.trustedfirmware.org/TF-A/trusted-firmware-a.git/snapshot"
 PTXCONF_TF_A_VERSION="v2.8"

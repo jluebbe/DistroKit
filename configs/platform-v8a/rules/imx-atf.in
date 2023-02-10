@@ -1,7 +1,0 @@
-## SECTION=bootloader
-
-config IMX_ATF
-	tristate
-	prompt "imx-atf"
-	help
-	  ARM trusted firmware for i.MX SoCs.

@@ -71,7 +71,7 @@ $(STATEDIR)/barebox-imx8m.prepare: $(BAREBOX_IMX8M_CONFIG)
 	done
 
 	@for i in m p q; do \
-		cp $(PTXCONF_SYSROOT_TARGET)/usr/lib/atf/imx8m$$i-bl31.bin \
+		cp $(PTXCONF_SYSROOT_TARGET)/usr/lib/firmware/imx8m$$i-bl31.bin \
 			$(BAREBOX_IMX8M_DIR)/firmware/; \
 	done
 

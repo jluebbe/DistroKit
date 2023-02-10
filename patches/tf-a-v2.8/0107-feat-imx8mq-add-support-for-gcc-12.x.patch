@@ -1,0 +1,45 @@
+From: Marco Felsch <m.felsch@pengutronix.de>
+Date: Fri, 10 Feb 2023 12:14:26 +0100
+Subject: [PATCH] feat(imx8mq): add support for gcc >= 12.x
+
+Starting with GCC >= 12.x the -Wall option includes -Werror=array-bounds
+checks. Per default GCC threads all memory accesses below 4096 as NULL,
+so access to ROMAPI causes the following warning:
+
+In file included from plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c:20:
+In function 'mmio_read_8',
+    inlined from 'imx8mq_soc_info_init' at plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c:70:16,
+    inlined from 'bl31_platform_setup' at plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c:206:2:
+include/lib/mmio.h:19:16: error: array subscript 0 is outside array bounds of 'volatile uint8_t[0]' {aka 'volatile unsigned char[]'} [-Werror=array-bounds]
+   19 |         return *(volatile uint8_t*)addr;
+      |                ^~~~~~~~~~~~~~~~~~~~~~~~
+In function 'mmio_read_8',
+    inlined from 'imx8mq_soc_info_init' at plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c:74:16,
+    inlined from 'bl31_platform_setup' at plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c:206:2:
+include/lib/mmio.h:19:16: error: array subscript 0 is outside array bounds of 'volatile uint8_t[0]' {aka 'volatile unsigned char[]'} [-Werror=array-bounds]
+   19 |         return *(volatile uint8_t*)addr;
+      |                ^~~~~~~~~~~~~~~~~~~~~~~~
+cc1: all warnings being treated as errors
+
+Fix this by setting the default min-pagesize to 0 instead of 4096, so
+the ROMAPI access will not trigger the warning. Don't set this option
+for all files since it is unkown how it affects code
+generation/optimizations.
+
+Signed-off-by: Marco Felsch <m.felsch@pengutronix.de>
+Change-Id: Ibcca65ca69750e1a1bca3d528c80e5b445d2f90f
+---
+ plat/imx/imx8m/imx8mq/platform.mk | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/plat/imx/imx8m/imx8mq/platform.mk b/plat/imx/imx8m/imx8mq/platform.mk
+index 901a974a591e..985be71725f7 100644
+--- a/plat/imx/imx8m/imx8mq/platform.mk
++++ b/plat/imx/imx8m/imx8mq/platform.mk
+@@ -59,3 +59,6 @@ $(eval $(call add_define,IMX_BOOT_UART_BASE))
+ ifeq (${SPD},trusty)
+ 	BL31_CFLAGS    +=      -DPLAT_XLAT_TABLES_DYNAMIC=1
+ endif
++
++# Required with gcc version >= 12
++$(BUILD_PLAT)/bl31/imx8mq_bl31_setup.o: CFLAGS += --param=min-pagesize=0

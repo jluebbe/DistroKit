@@ -1,0 +1,55 @@
+From: Lucas Stach <l.stach@pengutronix.de>
+Date: Thu, 8 Dec 2022 16:44:00 +0100
+Subject: [PATCH] feat(imx8mq): add BL31 PIE support
+
+Enable PIE support so the BL31 firmware can be loaded from anywhere
+within the OCRAM (SRAM). For the PIE support we only need to replace the
+BL31_BASE define by the BL31_START symbol which is a relocatable and we
+need to enable it by setting ENABLE_PIE := 1.
+
+Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+Change-Id: Ie6a13e4ae0fdc6627a94798d7a86df7d5b310896
+---
+ plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c | 2 +-
+ plat/imx/imx8m/imx8mq/imx8mq_psci.c       | 2 +-
+ plat/imx/imx8m/imx8mq/platform.mk         | 1 +
+ 3 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c b/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c
+index bbdb4d899a39..3c2d223fef21 100644
+--- a/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c
++++ b/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c
+@@ -176,7 +176,7 @@ void bl31_early_platform_setup2(u_register_t arg0, u_register_t arg1,
+ void bl31_plat_arch_setup(void)
+ {
+ 	const mmap_region_t bl_regions[] = {
+-        	MAP_REGION_FLAT(BL31_BASE, BL31_SIZE,
++        	MAP_REGION_FLAT(BL31_START, BL31_SIZE,
+ 				MT_MEMORY | MT_RW | MT_SECURE),
+ 		MAP_REGION_FLAT(BL_CODE_BASE, BL_CODE_END - BL_CODE_BASE,
+ 				MT_MEMORY | MT_RO | MT_SECURE),
+diff --git a/plat/imx/imx8m/imx8mq/imx8mq_psci.c b/plat/imx/imx8m/imx8mq/imx8mq_psci.c
+index 662017d6fe4a..01582afe490c 100644
+--- a/plat/imx/imx8m/imx8mq/imx8mq_psci.c
++++ b/plat/imx/imx8m/imx8mq/imx8mq_psci.c
+@@ -41,7 +41,7 @@ int imx_validate_power_state(unsigned int power_state,
+ 
+ void imx_domain_suspend(const psci_power_state_t *target_state)
+ {
+-	uint64_t base_addr = BL31_BASE;
++	uint64_t base_addr = BL31_START;
+ 	uint64_t mpidr = read_mpidr_el1();
+ 	unsigned int core_id = MPIDR_AFFLVL0_VAL(mpidr);
+ 
+diff --git a/plat/imx/imx8m/imx8mq/platform.mk b/plat/imx/imx8m/imx8mq/platform.mk
+index f62d3aa5be15..901a974a591e 100644
+--- a/plat/imx/imx8m/imx8mq/platform.mk
++++ b/plat/imx/imx8m/imx8mq/platform.mk
+@@ -38,6 +38,7 @@ BL31_SOURCES		+=	plat/imx/common/imx8_helpers.S			\
+ 				${XLAT_TABLES_LIB_SRCS}				\
+ 				${IMX_GIC_SOURCES}
+ 
++ENABLE_PIE		:=	1
+ USE_COHERENT_MEM	:=	1
+ RESET_TO_BL31		:=	1
+ A53_DISABLE_NON_TEMPORAL_HINT := 0

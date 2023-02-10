@@ -1,0 +1,41 @@
+From: Lucas Stach <l.stach@pengutronix.de>
+Date: Thu, 8 Dec 2022 15:54:26 +0100
+Subject: [PATCH] feat(imx8mq): make IMX_BOOT_UART_BASE configurable via build
+ parameter
+
+This aligns the i.MX8MQ build with the other i.MX8M platforms by allowing
+to override the default IMX_BOOT_UART_BASE value via a make parameter.
+
+Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+Change-Id: Iad9b844517209fc7d051c61767f71ac9fa2b55c7
+---
+ plat/imx/imx8m/imx8mq/include/platform_def.h | 1 -
+ plat/imx/imx8m/imx8mq/platform.mk            | 3 +++
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/plat/imx/imx8m/imx8mq/include/platform_def.h b/plat/imx/imx8m/imx8mq/include/platform_def.h
+index 1dd22d952305..4671cd3afa40 100644
+--- a/plat/imx/imx8m/imx8mq/include/platform_def.h
++++ b/plat/imx/imx8m/imx8mq/include/platform_def.h
+@@ -54,7 +54,6 @@
+ 
+ #define HAB_RVT_BASE			U(0x00000880) /* HAB_RVT for i.MX8MQ */
+ 
+-#define IMX_BOOT_UART_BASE		U(0x30860000)
+ #define IMX_BOOT_UART_CLK_IN_HZ		25000000 /* Select 25Mhz oscillator */
+ #define PLAT_CRASH_UART_BASE		IMX_BOOT_UART_BASE
+ #define PLAT_CRASH_UART_CLK_IN_HZ	25000000
+diff --git a/plat/imx/imx8m/imx8mq/platform.mk b/plat/imx/imx8m/imx8mq/platform.mk
+index 7b6df920c924..f62d3aa5be15 100644
+--- a/plat/imx/imx8m/imx8mq/platform.mk
++++ b/plat/imx/imx8m/imx8mq/platform.mk
+@@ -52,6 +52,9 @@ $(eval $(call add_define,BL32_BASE))
+ BL32_SIZE		?=	0x2000000
+ $(eval $(call add_define,BL32_SIZE))
+ 
++IMX_BOOT_UART_BASE	?=	0x30860000
++$(eval $(call add_define,IMX_BOOT_UART_BASE))
++
+ ifeq (${SPD},trusty)
+ 	BL31_CFLAGS    +=      -DPLAT_XLAT_TABLES_DYNAMIC=1
+ endif

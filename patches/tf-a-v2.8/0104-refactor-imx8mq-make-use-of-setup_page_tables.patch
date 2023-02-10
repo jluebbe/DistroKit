@@ -1,0 +1,53 @@
+From: Lucas Stach <l.stach@pengutronix.de>
+Date: Thu, 8 Dec 2022 16:35:11 +0100
+Subject: [PATCH] refactor(imx8mq): make use of setup_page_tables()
+
+Improve code readability and align with other i.MX8M* platforms.
+
+Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+Change-Id: Ifd29b74872e3a567288d208de4827403078164e9
+---
+ plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c | 28 +++++++++++++---------------
+ 1 file changed, 13 insertions(+), 15 deletions(-)
+
+diff --git a/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c b/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c
+index 0972c35e9554..c7eddf430197 100644
+--- a/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c
++++ b/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c
+@@ -175,23 +175,21 @@ void bl31_early_platform_setup2(u_register_t arg0, u_register_t arg1,
+ 
+ void bl31_plat_arch_setup(void)
+ {
+-	mmap_add_region(BL31_BASE, BL31_BASE, (BL31_LIMIT - BL31_BASE),
+-		MT_MEMORY | MT_RW | MT_SECURE);
+-	mmap_add_region(BL_CODE_BASE, BL_CODE_BASE, (BL_CODE_END - BL_CODE_BASE),
+-		MT_MEMORY | MT_RO | MT_SECURE);
+-
+-	/* Map TEE memory */
+-	mmap_add_region(BL32_BASE, BL32_BASE, BL32_SIZE, MT_MEMORY | MT_RW);
+-
+-	mmap_add(imx_mmap);
+-
++	const mmap_region_t bl_regions[] = {
++        	MAP_REGION_FLAT(BL31_BASE, BL31_LIMIT - BL31_BASE,
++				MT_MEMORY | MT_RW | MT_SECURE),
++		MAP_REGION_FLAT(BL_CODE_BASE, BL_CODE_END - BL_CODE_BASE,
++				MT_MEMORY | MT_RO | MT_SECURE),
+ #if USE_COHERENT_MEM
+-	mmap_add_region(BL_COHERENT_RAM_BASE, BL_COHERENT_RAM_BASE,
+-		BL_COHERENT_RAM_END - BL_COHERENT_RAM_BASE,
+-		MT_DEVICE | MT_RW | MT_SECURE);
++		MAP_REGION_FLAT(BL_COHERENT_RAM_BASE,
++				BL_COHERENT_RAM_END - BL_COHERENT_RAM_BASE,
++				MT_DEVICE | MT_RW | MT_SECURE),
+ #endif
+-	/* setup xlat table */
+-	init_xlat_tables();
++		MAP_REGION_FLAT(BL32_BASE, BL32_SIZE, MT_MEMORY | MT_RW),
++		{0},
++	};
++
++	setup_page_tables(bl_regions, imx_mmap);
+ 	/* enable the MMU */
+ 	enable_mmu_el3(0);
+ }

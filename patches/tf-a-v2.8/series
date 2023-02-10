@@ -1,0 +1,22 @@
+# umpf-base: v2.8
+# umpf-name: 2.8/customers/pengutronix/distrokit
+# umpf-version: 2.8/customers/pengutronix/distrokit/20230210-1
+# umpf-topic: v2.8/topic/fix-build-warnings
+# umpf-hashinfo: 4730b4b80206cf2fc27787f43cefd3169a6f8a2f
+# umpf-topic-range: 9881bb93a3bc0a3ea37e9f093e09ab4b360a9e48..da1b5e74dc7c2b3e7a2d9a1adb7e23beeba079e3
+0001-build-makefile-add-helper-to-detect-linker-options.patch
+0002-feat-build-add-support-for-new-binutils-versions.patch
+# umpf-topic: v2.8/topic/imx8mq
+# umpf-hashinfo: 651310b67fd269e8118285e9ed44e8ad6cc52941
+# umpf-topic-range: da1b5e74dc7c2b3e7a2d9a1adb7e23beeba079e3..be7bcbebf5b22958e8b88564ca0865b4591263e7
+0101-feat-imx8mq-make-IMX_BOOT_UART_BASE-configurable-via.patch
+0102-feat-imx8mq-remove-empty-bl31_plat_runtime_setup.patch
+0103-feat-imx8mq-always-set-up-console.patch
+0104-refactor-imx8mq-make-use-of-setup_page_tables.patch
+0105-refactor-imx8mq-introduce-BL31_SIZE.patch
+0106-feat-imx8mq-add-BL31-PIE-support.patch
+0107-feat-imx8mq-add-support-for-gcc-12.x.patch
+# umpf-release: 2.8/customers/pengutronix/distrokit/20230210-1
+# umpf-topic-range: be7bcbebf5b22958e8b88564ca0865b4591263e7..827865ee983d0c7cd4bb99d85d46f972386e5ea9
+0201-Release-2.8-customers-pengutronix-distrokit-20230210.patch
+# umpf-end

@@ -1,0 +1,54 @@
+From: Lucas Stach <l.stach@pengutronix.de>
+Date: Thu, 8 Dec 2022 16:37:44 +0100
+Subject: [PATCH] refactor(imx8mq): introduce BL31_SIZE
+
+No functional change.
+
+Introduce BL31_SIZE define and calculate the limits based on the
+BL31_BASE and the BL31_SIZE define. Also make use of SZ_64K to make it
+easier to read. This is required for later BL31 PIE support since it
+drops the calculation based on the BL31_LIMIT and BL31_BASE.
+
+Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+Change-Id: I517074b866b5bf11841b51777f87c926b304488d
+---
+ plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c    | 2 +-
+ plat/imx/imx8m/imx8mq/include/platform_def.h | 5 ++++-
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c b/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c
+index c7eddf430197..bbdb4d899a39 100644
+--- a/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c
++++ b/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c
+@@ -176,7 +176,7 @@ void bl31_early_platform_setup2(u_register_t arg0, u_register_t arg1,
+ void bl31_plat_arch_setup(void)
+ {
+ 	const mmap_region_t bl_regions[] = {
+-        	MAP_REGION_FLAT(BL31_BASE, BL31_LIMIT - BL31_BASE,
++        	MAP_REGION_FLAT(BL31_BASE, BL31_SIZE,
+ 				MT_MEMORY | MT_RW | MT_SECURE),
+ 		MAP_REGION_FLAT(BL_CODE_BASE, BL_CODE_END - BL_CODE_BASE,
+ 				MT_MEMORY | MT_RO | MT_SECURE),
+diff --git a/plat/imx/imx8m/imx8mq/include/platform_def.h b/plat/imx/imx8m/imx8mq/include/platform_def.h
+index 103f2e4087e2..bb570748f573 100644
+--- a/plat/imx/imx8m/imx8mq/include/platform_def.h
++++ b/plat/imx/imx8m/imx8mq/include/platform_def.h
+@@ -4,6 +4,8 @@
+  * SPDX-License-Identifier: BSD-3-Clause
+  */
+ 
++#include <plat/common/common_def.h>
++
+ #define PLATFORM_LINKER_FORMAT		"elf64-littleaarch64"
+ #define PLATFORM_LINKER_ARCH		aarch64
+ 
+@@ -31,7 +33,8 @@
+ #define PLAT_STOP_OFF_STATE		U(3)
+ 
+ #define BL31_BASE			U(0x910000)
+-#define BL31_LIMIT			U(0x920000)
++#define BL31_SIZE			SZ_64K
++#define BL31_LIMIT			(BL31_BASE + BL31_SIZE)
+ 
+ /* non-secure uboot base */
+ #define PLAT_NS_IMAGE_OFFSET		U(0x40200000)

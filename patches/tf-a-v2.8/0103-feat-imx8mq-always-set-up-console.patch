@@ -1,0 +1,51 @@
+From: Lucas Stach <l.stach@pengutronix.de>
+Date: Thu, 8 Dec 2022 16:00:04 +0100
+Subject: [PATCH] feat(imx8mq): always set up console
+
+This aligns the i.MX8MQ platform behaviour with the other i.MX8M*
+platforms by always setting up the console UART.
+
+Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+Change-Id: I1279d9cb4feb6e789422b9844cab711b8daae74e
+---
+ plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c    | 7 +++----
+ plat/imx/imx8m/imx8mq/include/platform_def.h | 1 -
+ 2 files changed, 3 insertions(+), 5 deletions(-)
+
+diff --git a/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c b/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c
+index 0feb6d7fbad2..0972c35e9554 100644
+--- a/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c
++++ b/plat/imx/imx8m/imx8mq/imx8mq_bl31_setup.c
+@@ -124,6 +124,7 @@ static void bl31_tz380_setup(void)
+ void bl31_early_platform_setup2(u_register_t arg0, u_register_t arg1,
+ 			u_register_t arg2, u_register_t arg3)
+ {
++	static console_t console;
+ 	int i;
+ 	/* enable CSU NS access permission */
+ 	for (i = 0; i < 64; i++) {
+@@ -132,12 +133,10 @@ void bl31_early_platform_setup2(u_register_t arg0, u_register_t arg1,
+ 
+ 	imx_aipstz_init(aipstz);
+ 
+-#if DEBUG_CONSOLE
+-	static console_t console;
+-
+ 	console_imx_uart_register(IMX_BOOT_UART_BASE, IMX_BOOT_UART_CLK_IN_HZ,
+ 		IMX_CONSOLE_BAUDRATE, &console);
+-#endif
++	/* This console is only used for boot stage */
++	console_set_scope(&console, CONSOLE_FLAG_BOOT);
+ 
+ 	imx8m_caam_init();
+ 
+diff --git a/plat/imx/imx8m/imx8mq/include/platform_def.h b/plat/imx/imx8m/imx8mq/include/platform_def.h
+index 4671cd3afa40..103f2e4087e2 100644
+--- a/plat/imx/imx8m/imx8mq/include/platform_def.h
++++ b/plat/imx/imx8m/imx8mq/include/platform_def.h
+@@ -127,5 +127,4 @@
+ 
+ #define COUNTER_FREQUENCY		8333333 /* 25MHz / 3 */
+ 
+-#define DEBUG_CONSOLE			0
+ #define IMX_WDOG_B_RESET

@@ -1,5 +1,0 @@
-## SECTION=blspec
-
-config BLSPEC_NITROGEN6MAX
-	tristate
-	prompt "/loader/entries/nitrogen6max.conf bootloader spec entry"

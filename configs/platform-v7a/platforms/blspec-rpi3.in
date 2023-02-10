@@ -1,5 +1,0 @@
-## SECTION=blspec
-
-config BLSPEC_RPI3
-	tristate
-	prompt "/loader/entries/rpi3.conf bootloader spec entry"

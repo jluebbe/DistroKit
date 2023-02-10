@@ -1,5 +1,0 @@
-## SECTION=blspec
-
-config BLSPEC_BONEWHITE
-	tristate
-	prompt "/loader/entries/bonewhite.conf bootloader spec entry"

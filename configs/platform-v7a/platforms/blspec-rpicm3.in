@@ -1,5 +1,0 @@
-## SECTION=blspec
-
-config BLSPEC_RPICM3
-	tristate
-	prompt "/loader/entries/rpicm3.conf bootloader spec entry"

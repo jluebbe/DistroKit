@@ -46,11 +46,11 @@ ifdef PTXCONF_FIRMWARE_IMX_BOOTIMAGE_IMX8
 	@$(foreach f, lpddr4_pmu_train_1d_dmem.bin lpddr4_pmu_train_1d_imem.bin \
 	              lpddr4_pmu_train_2d_dmem.bin lpddr4_pmu_train_2d_imem.bin, \
 		install -v -D -m644 $(FIRMWARE_IMX_PKGDIR)/firmware/ddr/synopsys/$(f) \
-		$(PTXCONF_SYSROOT_TARGET)/firmware/imx/$(f);)
+		$(PTXCONF_SYSROOT_TARGET)/firmware/ddr/synopsys/$(f);)
 
 	@$(foreach f, signed_dp_imx8m.bin signed_hdmi_imx8m.bin, \
 		install -v -D -m644 $(FIRMWARE_IMX_PKGDIR)/firmware/hdmi/cadence/$(f) \
-		$(PTXCONF_SYSROOT_TARGET)/firmware/imx/$(f);)
+		$(PTXCONF_SYSROOT_TARGET)/firmware/hdmi/cadence/$(f);)
 endif
 
 	@$(call touch)

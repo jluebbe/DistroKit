@@ -67,6 +67,12 @@ fi
 
 BASE_CMDLINE="console=ttyS0,115200 loglevel=5 systemd.log_level=warning systemd.show_status=auto"
 
+if [ -d "${PTXDIST_PLATFORMDIR}/root/.virtfs_metadata" ]; then
+	security_model="mapped-file"
+else
+	security_model="none"
+fi
+
 # Machine to emulate
 QEMU_ARGS=( -L ${PTXDIST_PLATFORMDIR}/sysroot-host/share/qemu/ -machine pc-q35-2.12 -smp 2 -cpu host -accel kvm -m 1G -s )
 # disable graphics output
@@ -97,7 +103,22 @@ run_qemu_hda() {
 		-append "root=/dev/vda console=ttyS0,115200 rw ${BASE_CMDLINE}"
 }
 
-target="${1:-hda}"
+#
+# This needs:
+# CONFIG_NET_9P_VIRTIO=y
+# CONFIG_9P_FS=y
+#
+run_qemu_9p() {
+	exec ${QEMU_EXEC} \
+		"${QEMU_ARGS[@]}" \
+		-fsdev local,id=rootfs,path=${PTXDIST_PLATFORMDIR}/root,security_model="${security_model}" \
+		-device virtio-9p-pci,msize=16777216,fsdev=rootfs,mount_tag=/dev/root \
+		"${QEMU_EXTRA_ARGS[@]}" \
+		"${QEMU_LINUX_ARGS[@]}" \
+		-append "root=/dev/root rw rootfstype=9p rootflags=trans=virtio ${BASE_CMDLINE}"
+}
+
+target="${1:-9p}"
 
 #set -x
 run_qemu_${target}

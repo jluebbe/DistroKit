@@ -4,7 +4,7 @@ Udoo Neo
 Boot Media
 ----------
 
-Use the image ``platform-v7a/images/udoo-neo.hdimg`` and copy it onto your MicroSD-Card. 
+Use the image ``platform-v7a/images/udoo-neo.hdimg`` and write it to your MicroSD-Card. 
 
 
 Serial Console

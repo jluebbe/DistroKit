@@ -10,7 +10,7 @@ Boot Media
 ----------
 
 DistroKit generates ``platform-v7a/images/sama5d27-*.hdimg``.
-Use the respective image for your board and copy it onto your SD card.
+Use the respective image for your board and write it to your SD card.
 The Giant board has only 1 microSD slot, the EK has additionally
 1 normal SD-sized slot. Both can be used.
 

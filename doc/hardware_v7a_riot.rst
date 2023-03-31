@@ -3,7 +3,7 @@ RIoT-Board
 
 Boot Media
 ----------
-Use the image ``platform-v7a/images/riotboard.hdimg`` and copy it onto your SD card.
+Use the image ``platform-v7a/images/riotboard.hdimg`` and write it to your SD card.
 
 Set the DIP switches (SW1) accordingly to boot from a full-size SD card (J6
 on the bottom) or a Micro SD card (J7 on top):

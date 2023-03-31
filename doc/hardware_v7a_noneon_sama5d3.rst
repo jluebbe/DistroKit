@@ -10,7 +10,7 @@ Boot Media
 ----------
 
 DistroKit generates ``platform-v7a_noneon/images/*.hdimg``.
-Use the respective image for your board and copy it onto your SD card.
+Use the respective image for your board and write it to your SD card.
 
 The EVB-KSZ9477 board has only 1 SD slot. To boot from SD, J13 (NAND Enable)
 jumper should be removed.

@@ -3,7 +3,7 @@ Raspberry Pi 2
 
 Boot Media
 ----------
-Use the same ``platform-v7a/images/rpi.hdimg`` image and copy it onto your MicroSD-Card.
+Use the same ``platform-v7a/images/rpi.hdimg`` image and write it to your MicroSD-Card.
 
 Serial Console
 --------------
@@ -18,7 +18,7 @@ Raspberry Pi 3
 
 Boot Media
 ----------
-Use the same ``platform-v7a/images/rpi.hdimg`` image and copy it onto your MicroSD-Card.
+Use the same ``platform-v7a/images/rpi.hdimg`` image and write it to your MicroSD-Card.
 
 Serial Console
 --------------
@@ -33,7 +33,7 @@ Raspberry Pi Compute Module 3+
 
 Boot Media
 ----------
-Use the same ``platform-v7a/images/rpi.hdimg`` image and copy it onto your MicroSD-Card.
+Use the same ``platform-v7a/images/rpi.hdimg`` image and write it to your MicroSD-Card.
 
 If you have a hardware with eMMC the uSD slot is not functional, in this case
 you have to use `usbboot <https://github.com/raspberrypi/usbboot>`_ to switch

@@ -3,7 +3,7 @@ Marvell espressobin
 
 Boot Media
 ----------
-Use the image ``platform-v8a/images/espressobin.hdimg`` and copy it onto your MicroSD-Card, e.g:
+Use the image ``platform-v8a/images/espressobin.hdimg`` and write it to your MicroSD-Card, e.g:
 
 .. code-block:: shell
 

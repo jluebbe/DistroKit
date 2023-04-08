@@ -186,7 +186,8 @@ HOST_QEMU_CONF_OPT	:= \
 	--disable-gio \
 	--disable-slirp-smbd \
 	\
-	--disable-keyring
+	--disable-keyring \
+	--with-git-submodules=ignore
 
 # Use '=' to delay $(shell ...) calls until this is needed
 QEMU_CROSS_QEMU = $(call ptx/get-alternative, config/qemu, qemu-cross)

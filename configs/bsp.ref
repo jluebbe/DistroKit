@@ -21,4 +21,10 @@ kernel_dtb_partitions:
       value: True
     - value: False
 
+rootfs_unused_libraries:
+  description: |
+    - libatomic is needed on mips and rpi1 by libcrypto, but for simplicity ship it on all platforms
+  optional:
+  - !!re '/usr/lib/libatomic\.so.*'
+
 # vim: filetype=yaml shiftwidth=2 expandtab

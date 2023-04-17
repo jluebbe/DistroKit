@@ -1,0 +1,12 @@
+## SECTION=image
+
+config IMAGE_WIFX_L1_SD
+	tristate
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_EXT
+	select HOST_DOSFSTOOLS
+	select BAREBOX_AT91
+	select AT91BOOTSTRAP2
+	prompt "Generate images/wifx-l1.hdimg (SD-Card)"
+	help
+	  Includes DistroKit support for the Wifx L1 LoRaWAN Gateway.

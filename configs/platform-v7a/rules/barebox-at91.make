@@ -47,6 +47,7 @@ BAREBOX_AT91_CONF_OPT := \
 BAREBOX_AT91_MAKE_OPT := $(BAREBOX_AT91_CONF_OPT)
 
 BAREBOX_AT91_IMAGES := \
+        images/barebox-wifx-l1.img \
         images/barebox-sama5d27-som1-ek.img \
         images/barebox-sama5d27-som1-ek-xload-mmc.img \
         images/barebox-groboards-sama5d27-giantboard.img \

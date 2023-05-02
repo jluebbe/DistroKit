@@ -9,6 +9,7 @@ Welcome to DistroKit
    intro
    hardware
    guru
+   testing
 
 * :ref:`search`
 * :ref:`genindex`

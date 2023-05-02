@@ -39,6 +39,7 @@ KERNEL_BUILD_OOT	:= KEEP
 KERNEL_CONF_OPT := \
 	-C $(KERNEL_DIR) \
 	O=$(KERNEL_BUILD_DIR) \
+	PAHOLE=false \
 	$(call kernel-opts, KERNEL)
 
 # no gcc plugins; avoid config changes depending on the host compiler

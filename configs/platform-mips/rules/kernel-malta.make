@@ -47,6 +47,7 @@ KERNEL_MALTA_PATH	:= PATH=$(CROSS_PATH)
 KERNEL_MALTA_SHARED_OPT	:= \
 	-C $(KERNEL_MALTA_DIR) \
 	O=$(KERNEL_MALTA_BUILD_DIR) \
+	PAHOLE=false \
 	$(call kernel-opts, KERNEL_MALTA)
 
 # no gcc plugins; avoid config changes depending on the host compiler

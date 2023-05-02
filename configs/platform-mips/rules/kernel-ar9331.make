@@ -47,6 +47,7 @@ KERNEL_AR9331_PATH		:= PATH=$(CROSS_PATH)
 KERNEL_AR9331_SHARED_OPT	:= \
 	-C $(KERNEL_AR9331_DIR) \
 	O=$(KERNEL_AR9331_BUILD_DIR) \
+	PAHOLE=false \
 	$(call kernel-opts, KERNEL_AR9331)
 
 # no gcc plugins; avoid config changes depending on the host compiler

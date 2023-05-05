@@ -112,7 +112,7 @@ run_qemu_9p() {
 	exec ${QEMU_EXEC} \
 		"${QEMU_ARGS[@]}" \
 		-fsdev local,id=rootfs,path=${PTXDIST_PLATFORMDIR}/root,security_model="${security_model}" \
-		-device virtio-9p-pci,msize=16777216,fsdev=rootfs,mount_tag=/dev/root \
+		-device virtio-9p-pci,fsdev=rootfs,mount_tag=/dev/root \
 		"${QEMU_EXTRA_ARGS[@]}" \
 		"${QEMU_LINUX_ARGS[@]}" \
 		-append "root=/dev/root rw rootfstype=9p rootflags=trans=virtio ${BASE_CMDLINE}"

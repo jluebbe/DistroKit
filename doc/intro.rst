@@ -138,5 +138,8 @@ License
 Copyright (C) 2020 Pengutronix and individual contributors
 
 DistroKit is licensed under the GNU General Public License, version 2.0.
-See the file named LICENSE in the root directory of this project for the full
-license terms, and the version control history for contributor information.
+See the file named `LICENSE`_ in the root directory of this project for the full
+license terms, and the `version control history`_ for contributor information.
+
+.. _LICENSE: https://git.pengutronix.de/cgit/DistroKit/tree/LICENSE
+.. _version control history: https://git.pengutronix.de/cgit/DistroKit/log

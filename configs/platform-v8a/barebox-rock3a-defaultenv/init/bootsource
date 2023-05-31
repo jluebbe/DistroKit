@@ -8,6 +8,6 @@ if [ "$bootsource" = mmc ]; then
 	detect mmc$bootsource_instance
 	global.boot.default="mmc$bootsource_instance net"
 elif [ "$bootsource" = "spi-nor" ]; then
-	usbgadget -A '/dev/mmc0(sd)'
+	usbgadget -A '/dev/mmc1(sd)'
 	global.autoboot=abort
 fi

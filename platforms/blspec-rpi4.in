@@ -1,7 +1,0 @@
-## SECTION=blspec
-
-config BLSPEC_RPI4
-	tristate
-	# make sure it's only visible on platforms, where it makes sense
-	depends on ARCH_ARM && ARCH_ARMV7_NEON || ARCH_ARM64
-	prompt "/loader/entries/rpi4*.conf bootloader spec entries"

@@ -69,7 +69,7 @@ $(BAREBOX_ROCKCHIP_CONFIG):
 endif
 
 BAREBOX_ROCKCHIP_EXTRA_ENV_PATH  := $(foreach path, \
-                $(call remove_quotes,"barebox-rock3a-defaultenv"), \
+                $(call remove_quotes,"barebox-common-defaultenv"), \
                 $(call ptx/in-platformconfigdir,$(path)))
 BAREBOX_ROCKCHIP_EXTRA_ENV_DEPS  := \
         $(BAREBOX_ROCKCHIP_EXTRA_ENV_PATH) \

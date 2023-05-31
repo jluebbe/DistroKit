@@ -7,6 +7,10 @@ menuconfig FIRMWARE_IMX
 	help
 	  Install CODA VPU firmware files from the firmware-imx package.
 
+config BAREBOX_DEPENDENCIES
+	tristate
+	select FIRMWARE_IMX
+
 if FIRMWARE_IMX
 
 config FIRMWARE_IMX_VPU_IMX27

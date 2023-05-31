@@ -17,7 +17,7 @@ Barebox via USB:
 
 .. code-block:: shell
 
-    platform-v8a/sysroot-host/bin/rk-usb-loader platform-v8a/images/barebox-rock3a.img-rockchip
+    platform-v8a/sysroot-host/bin/rk-usb-loader platform-v8a/images/barebox-rock3a.img
 
 Once Barebox is booted, copy the image ``platform-v8a/images/rock3a.img`` via
 tftp or NFS to the eMMC to persist it. Disable MASKROM mode and reboot the

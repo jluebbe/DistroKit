@@ -10,6 +10,7 @@ menuconfig FIRMWARE_IMX
 config BAREBOX_DEPENDENCIES
 	tristate
 	select FIRMWARE_IMX
+	select TF_A
 
 if FIRMWARE_IMX
 

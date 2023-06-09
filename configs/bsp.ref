@@ -21,6 +21,15 @@ kernel_dtb_partitions:
       value: True
     - value: False
 
+kernel_initrd:
+  description: |
+    Initrd support is not needed on most embedded systems.
+    For v8a, we use an initrd for the fastboot usecase.
+  variants:
+    - condition: kconfig.PTXPlatformConfig()['ARCH_ARM64']
+      value: True
+    - value: False
+
 rootfs_unused_libraries:
   description: |
     - libatomic is needed on mips and rpi1 by libcrypto, but for simplicity ship it on all platforms

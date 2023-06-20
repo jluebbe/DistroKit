@@ -59,11 +59,11 @@ ifdef PTXCONF_FIRMWARE_IMX_BOOTIMAGE_IMX8
 	@$(foreach f, lpddr4_pmu_train_1d_dmem.bin lpddr4_pmu_train_1d_imem.bin \
 	              lpddr4_pmu_train_2d_dmem.bin lpddr4_pmu_train_2d_imem.bin, \
 		install -v -D -m644 $(FIRMWARE_IMX_PKGDIR)/firmware/ddr/synopsys/$(f) \
-		$(PTXCONF_SYSROOT_TARGET)/usr/lib/firmware/ddr/synopsys/$(f);)
+		$(PTXCONF_SYSROOT_TARGET)/usr/lib/firmware/ddr/synopsys/$(f)$(ptx/nl))
 
 	@$(foreach f, signed_dp_imx8m.bin signed_hdmi_imx8m.bin, \
 		install -v -D -m644 $(FIRMWARE_IMX_PKGDIR)/firmware/hdmi/cadence/$(f) \
-		$(PTXCONF_SYSROOT_TARGET)/usr/lib/firmware/hdmi/cadence/$(f);)
+		$(PTXCONF_SYSROOT_TARGET)/usr/lib/firmware/hdmi/cadence/$(f)$(ptx/nl))
 endif
 
 	@$(call touch)
@@ -86,10 +86,10 @@ $(STATEDIR)/firmware-imx.targetinstall:
 	@$(call install_fixup, firmware-imx,SECTION,base)
 	@$(call install_fixup, firmware-imx,AUTHOR,"Philipp Zabel <p.zabel@pengutronix.de>")
 	@$(call install_fixup, firmware-imx,DESCRIPTION,missing)
-	@for f in $(FIRMWARE_IMX_INSTALL-y); do \
+	@$(foreach f,$(FIRMWARE_IMX_INSTALL-y), \
 		$(call install_copy, firmware-imx, 0, 0, 0644, \
-		$(FIRMWARE_IMX_PKGDIR)/firmware/vpu/$$f, /usr/lib/firmware/$$f); \
-	done
+			$(FIRMWARE_IMX_PKGDIR)/firmware/vpu/$(f), \
+			/usr/lib/firmware/$(f))$(ptx/nl))
 	@$(call install_finish, firmware-imx)
 
 	@$(call touch)

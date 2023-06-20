@@ -1,5 +1,4 @@
-## SECTION=hosttools_platform
-# This should be in a firmware section, once we added that.
+## SECTION=non_free_firmware
 
 menuconfig FIRMWARE_IMX
 	tristate

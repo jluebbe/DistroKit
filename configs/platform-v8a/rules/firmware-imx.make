@@ -25,6 +25,19 @@ FIRMWARE_IMX_LICENSE_FILES := \
 	file://$(FIRMWARE_IMX_PKGDIR)/COPYING;md5=228c72f2a91452b8a03c4cab30f30ef9
 FIRMWARE_IMX_SOURCE	:= $(SRCDIR)/$(FIRMWARE_IMX).$(FIRMWARE_IMX_SUFFIX)
 
+#
+# Firmware blobs for barebox
+#
+ifdef PTXCONF_FIRMWARE_IMX
+BAREBOX_INJECT_FILES	+= imx8mm-bl31.bin:firmware/imx8mm-bl31.bin
+BAREBOX_INJECT_FILES	+= imx8mp-bl31.bin:firmware/imx8mp-bl31.bin
+BAREBOX_INJECT_FILES	+= imx8mq-bl31.bin:firmware/imx8mq-bl31.bin
+BAREBOX_INJECT_FILES	+= ddr/synopsys/lpddr4_pmu_train_1d_dmem.bin:firmware/lpddr4_pmu_train_1d_dmem.bin
+BAREBOX_INJECT_FILES	+= ddr/synopsys/lpddr4_pmu_train_1d_imem.bin:firmware/lpddr4_pmu_train_1d_imem.bin
+BAREBOX_INJECT_FILES	+= ddr/synopsys/lpddr4_pmu_train_2d_dmem.bin:firmware/lpddr4_pmu_train_2d_dmem.bin
+BAREBOX_INJECT_FILES	+= ddr/synopsys/lpddr4_pmu_train_2d_imem.bin:firmware/lpddr4_pmu_train_2d_imem.bin
+endif
+
 # ----------------------------------------------------------------------------
 # Extract
 # ----------------------------------------------------------------------------

@@ -6,10 +6,6 @@ menuconfig FIRMWARE_ROCKCHIP
 	help
 	  Rockchip prebuilt SDRAM initialization and TF-A binaries.
 
-config BAREBOX_DEPENDENCIES
-	tristate
-	select FIRMWARE_ROCKCHIP
-
 if FIRMWARE_ROCKCHIP
 
 config FIRMWARE_ROCKCHIP_RK3566_SDRAM
@@ -43,3 +39,8 @@ config FIRMWARE_ROCKCHIP_RK356x_BL32
 	  and the Rockchip RK3568 EVB1 board.
 
 endif
+
+config BAREBOX_DEPENDENCIES
+	tristate
+	select FIRMWARE_ROCKCHIP
+

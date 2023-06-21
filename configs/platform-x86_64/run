@@ -113,6 +113,31 @@ run_qemu_9p() {
 		-append "root=/dev/root rw rootfstype=9p rootflags=trans=virtio ${BASE_CMDLINE}"
 }
 
+# 9p net port
+P9_ROOTFS_PORT=99999
+
+run_qemu_9pnet() {
+	ROOTPATH=$(realpath ${PTXDIST_PLATFORMDIR}/root)
+	# the emulator to run
+	DIOD_EXEC="/sbin/diod"
+
+	if [ ! -e "${DIOD_EXEC}" ]; then
+		echo "error: apt-get install 'diod' first"
+		exit 1
+	fi
+
+	${DIOD_EXEC} -f -n -S -l 127.0.0.1:${P9_ROOTFS_PORT} -e ${ROOTPATH} &
+	# this is an ugly workaround so diod will be closed after qemu has stopped
+	DIOD_PID=$(echo $!)
+	(tail --pid $$ -f /dev/null; kill ${DIOD_PID}) &
+
+	exec ${QEMU_EXEC} \
+		"${QEMU_ARGS[@]}" \
+		"${QEMU_EXTRA_ARGS[@]}" \
+		"${QEMU_LINUX_ARGS[@]}" \
+		-append "ip=dhcp root=10.0.2.2 rw rootfstype=9p rootflags=trans=tcp,version=9p2000.L,aname=${ROOTPATH},port=${P9_ROOTFS_PORT} ${BASE_CMDLINE} ${EXTRA_CMDLINE}"
+}
+
 target="${1:-9p}"
 
 #set -x

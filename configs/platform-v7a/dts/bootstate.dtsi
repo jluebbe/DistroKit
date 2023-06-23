@@ -39,6 +39,41 @@
 };
 #endif
 
+/** Raspberry Pi 3 Model B ****************************************************/
+#ifdef bcm2837_rpi_3_dts
+/ {
+	aliases {
+		state = &state;
+	};
+
+	state: state {
+		magic = <0x11fb08ef>;
+		compatible = "barebox,state";
+		backend-type = "raw";
+		backend = <&statepart>;
+		backend-stridesize = <0x80>;
+		backend-storage-type = "direct";
+		#address-cells = <1>;
+		#size-cells = <1>;
+	};
+};
+
+&sdhost {
+	#address-cells = <1>;
+	#size-cells = <1>;
+
+	statepart: partition@100000 {
+		label = "barebox-state";
+		reg = <0x100000 0x100000>;
+	};
+
+	partition@200000 {
+		label = "barebox-environment";
+		reg = <0x200000 0x100000>;
+	};
+};
+#endif
+
 /** Generic bootstate node for all platforms **********************************/
 / {
 	state: state {

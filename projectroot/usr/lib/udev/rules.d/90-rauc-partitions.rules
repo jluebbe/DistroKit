@@ -8,6 +8,12 @@ IMPORT{program}="of_base_compatible"
 
 # Add symlinks named /dev/disk/by-usage/{data,rootfs0,rootfs1} pointing
 # to the correct partitions based on the device tree compatible
+ENV{OF_BASE_COMPATIBLE}!="*arm,vexpress,v2p-ca9*", GOTO="qemu_vexpress_end"
+KERNEL=="mmcblk0p1", SYMLINK+="disk/by-usage/rootfs0"
+KERNEL=="mmcblk0p2", SYMLINK+="disk/by-usage/rootfs1"
+KERNEL=="mmcblk0p3", SYMLINK+="disk/by-usage/data"
+GOTO="rauc_partitions_end"
+LABEL="qemu_vexpress_end"
 
 # fallback for boards not yet supported by RAUC
 KERNEL=="mmcblk0p3", SYMLINK+="disk/by-usage/data"

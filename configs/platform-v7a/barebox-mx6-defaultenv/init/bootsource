@@ -4,10 +4,10 @@ if [ -n "$nv.boot.default" ]; then
 	exit
 fi
 
-
 if [ $bootsource = mmc ]; then
 	detect mmc$bootsource_instance
-	global.boot.default="mmc$bootsource_instance net"
+	global.boot.default="bootchooser net"
 else
-	global.boot.default="net mmc1 mmc2 mmc3"
+	global.boot.default="net bootchooser"
 fi
+

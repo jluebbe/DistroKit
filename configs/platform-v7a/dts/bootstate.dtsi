@@ -74,6 +74,33 @@
 };
 #endif
 
+/** RIoTboard i.MX6S **********************************************************/
+#ifdef imx6s_riotboard_dts
+/ {
+	aliases {
+		state = &state_usdhc4;
+	};
+
+	state_usdhc4: state {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		compatible = "barebox,state";
+		magic = <0x95ab2de7>;
+		backend-type = "raw";
+		backend = <&backend_state_usdhc4>;
+		backend-storage-type = "direct";
+		backend-stridesize = <0x40>;
+	};
+};
+
+&usdhc4 {
+	backend_state_usdhc4: partition@100000 {
+		label = "barebox-state";
+		reg = <0x100000 0x40000>;
+	};
+};
+#endif
+
 /** Generic bootstate node for all platforms **********************************/
 / {
 	state: state {

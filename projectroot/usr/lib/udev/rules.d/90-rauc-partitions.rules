@@ -29,6 +29,13 @@ KERNEL=="mmcblk0p4", SYMLINK+="disk/by-usage/data"
 GOTO="rauc_partitions_end"
 LABEL="rpi3_end"
 
+ENV{OF_BASE_COMPATIBLE}!="*riot,imx6s-riotboard*", GOTO="riotboard_end"
+KERNEL=="mmcblk2p1", SYMLINK+="disk/by-usage/rootfs0"
+KERNEL=="mmcblk2p2", SYMLINK+="disk/by-usage/rootfs1"
+KERNEL=="mmcblk2p3", SYMLINK+="disk/by-usage/data"
+GOTO="rauc_partitions_end"
+LABEL="riotboard_end"
+
 # fallback for boards not yet supported by RAUC
 KERNEL=="mmcblk0p3", SYMLINK+="disk/by-usage/data"
 

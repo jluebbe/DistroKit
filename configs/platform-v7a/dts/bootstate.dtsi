@@ -1,3 +1,44 @@
+/** TI AM335x BeagleBone black ************************************************/
+#ifdef am335x_boneblack_dts
+/ {
+	aliases {
+		state = &state_mmc1;
+	};
+
+	state_mmc1: state {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		compatible = "barebox,state";
+		magic = <0xa9cc3f17>;
+		backend-type = "raw";
+		backend = <&backend_state_mmc1>;
+		backend-storage-type = "direct";
+		backend-stridesize = <0x40>;
+	};
+};
+
+&mmc1 {
+       partitions {
+               compatible = "fixed-partitions";
+               #address-cells = <2>;
+               #size-cells = <2>;
+
+               barebox: partition@0 {
+                       label = "barebox";
+                       reg = <0x0 0x0 0x0 0xc000>;
+               };
+               environment: partition@c0000 {
+                       label = "barebox-environment";
+                       reg = <0x0 0xc0000 0x0 0x20000>;
+               };
+               backend_state_mmc1: partition@e0000 {
+                       label = "state";
+                       reg = <0x0 0xe0000 0x0 0x20000>;
+               };
+       };
+};
+#endif
+
 /** Generic bootstate node for all platforms **********************************/
 / {
 	state: state {

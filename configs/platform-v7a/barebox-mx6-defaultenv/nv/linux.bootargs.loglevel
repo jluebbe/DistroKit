@@ -1,1 +1,1 @@
-loglevel=5 systemd.log_level=warning systemd.show_status=auto
+loglevel=5 systemd.show_status=auto

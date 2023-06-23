@@ -65,7 +65,7 @@ if [ -z "${QEMU_NET}" ]; then
 	QEMU_NET=(-netdev user,id=net1,hostfwd=tcp:127.0.0.1:${TELNET_EXTERNAL_PORT}-:${TELNET_INTERNAL_PORT},hostfwd=tcp:127.0.0.1:${SSH_EXTERNAL_PORT}-:${SSH_INTERNAL_PORT} )
 fi
 
-BASE_CMDLINE="console=ttyS0,115200 loglevel=5 systemd.log_level=warning systemd.show_status=auto"
+BASE_CMDLINE="console=ttyS0,115200 loglevel=5 systemd.show_status=auto"
 
 if [ -d "${PTXDIST_PLATFORMDIR}/root/.virtfs_metadata" ]; then
 	security_model="mapped-file"

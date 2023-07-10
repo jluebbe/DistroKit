@@ -1,0 +1,32 @@
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+Date: Thu, 6 Jul 2023 09:04:40 +0200
+Subject: [PATCH] ARM: at91: enable ddramc for sama5d3 and sama5d4
+
+ddramc has already support for sama5d3 and sama5d4, so enable it
+officially.
+
+Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+---
+ arch/arm/mach-at91/Kconfig | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/arch/arm/mach-at91/Kconfig b/arch/arm/mach-at91/Kconfig
+index b803a1185d20..349586b68339 100644
+--- a/arch/arm/mach-at91/Kconfig
++++ b/arch/arm/mach-at91/Kconfig
+@@ -104,6 +104,7 @@ config SOC_SAMA5D3
+ 	select HAVE_AT91_UTMI
+ 	select PINCTRL_AT91
+ 	select HAS_MACB
++	select HAVE_AT91_DDRAMC
+ 
+ config SOC_SAMA5D4
+ 	bool
+@@ -116,6 +117,7 @@ config SOC_SAMA5D4
+ 	select HAVE_AT91_UTMI
+ 	select PINCTRL_AT91
+ 	select HAS_MACB
++	select HAVE_AT91_DDRAMC
+ 
+ config SOC_SAM9X60
+ 	bool

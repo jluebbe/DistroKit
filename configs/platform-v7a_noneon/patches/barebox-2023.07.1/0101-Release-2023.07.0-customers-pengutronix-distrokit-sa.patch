@@ -1,0 +1,22 @@
+From: Oleksij Rempel <o.rempel@pengutronix.de>
+Date: Thu, 6 Jul 2023 11:03:50 +0200
+Subject: [PATCH] Release
+ 2023.07.0/customers/pengutronix/distrokit-sama5d3/20230706-1
+
+---
+ Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Makefile b/Makefile
+index 92b5c6779a52..323f757908bc 100644
+--- a/Makefile
++++ b/Makefile
+@@ -2,7 +2,7 @@
+ VERSION = 2023
+ PATCHLEVEL = 07
+ SUBLEVEL = 1
+-EXTRAVERSION =
++EXTRAVERSION =-20230706-1
+ NAME = None
+ 
+ # *DOCUMENTATION*

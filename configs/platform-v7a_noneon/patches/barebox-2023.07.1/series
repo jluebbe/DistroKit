@@ -1,0 +1,13 @@
+# umpf-base: v2023.07.1
+# umpf-name: 2023.07.0/customers/pengutronix/distrokit-sama5d3
+# umpf-version: 2023.07.0/customers/pengutronix/distrokit-sama5d3/20230706-1
+# umpf-topic: v2023.07.0/topic/microchip-sama5d3-ether-dev-sys
+# umpf-hashinfo: 8a1d1b8e7204ee57b743ae7f1325d5729104425e
+# umpf-topic-range: 0186c17838e655dbf6a3bcd01fa74821d5e67ae6..b2883ce6100ca0f8259a1726bf53387e6da04a99
+0001-ARM-at91-enable-ddramc-for-sama5d3-and-sama5d4.patch
+0002-ARM-at91-add-support-for-SAMA5D3-Ethernet-Developmen.patch
+0003-ARM-at91-microchip-ksz9477-evb-migrate-to-sama5d3_ba.patch
+# umpf-release: 2023.07.0/customers/pengutronix/distrokit-sama5d3/20230706-1
+# umpf-topic-range: b2883ce6100ca0f8259a1726bf53387e6da04a99..eaaffd9164ab19a152d00c6d5f8f91cd07e5ec48
+0101-Release-2023.07.0-customers-pengutronix-distrokit-sa.patch
+# umpf-end

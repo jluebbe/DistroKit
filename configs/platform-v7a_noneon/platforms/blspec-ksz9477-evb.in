@@ -1,5 +1,0 @@
-## SECTION=blspec
-
-config BLSPEC_KSZ9477_EVB
-	tristate
-	prompt "/loader/entries/sama5d3-ksz9477-evb.conf bootloader spec entry"

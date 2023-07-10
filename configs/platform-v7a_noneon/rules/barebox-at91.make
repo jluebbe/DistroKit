@@ -48,7 +48,9 @@ BAREBOX_AT91_MAKE_OPT := $(BAREBOX_AT91_CONF_OPT)
 
 BAREBOX_AT91_IMAGES := \
         images/barebox-microchip-ksz9477-evb.img \
-        images/barebox-microchip-ksz9477-evb-xload-mmc.img
+        images/barebox-microchip-ksz9477-evb-xload-mmc.img \
+        images/barebox-microchip-sama5d3-eds.img \
+        images/barebox-microchip-sama5d3-eds-xload-mmc.img
 
 BAREBOX_AT91_IMAGES := $(addprefix $(BAREBOX_AT91_BUILD_DIR)/,$(BAREBOX_AT91_IMAGES))
 

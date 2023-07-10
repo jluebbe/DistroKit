@@ -1,0 +1,13 @@
+## SECTION=image
+
+config IMAGE_SAMA5D3_EDS
+	tristate
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_EXT
+	select HOST_DOSFSTOOLS
+	select BAREBOX_AT91
+	select HOST_MTOOLS
+	prompt "Generate images/image-sama5d3-eds.hdimg"
+	help
+	  Includes DistroKit support for the Microchip SAMA5D3 Ethernet
+	  Development System (EDS).

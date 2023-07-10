@@ -15,9 +15,12 @@ ptxdist_debug_pci:
 
 kernel_dtb_partitions:
   description: |
-    A fixed-partitions node is needed for qemu on mips.
+    A fixed-partitions node is needed for qemu on mips and
+    for some upstream devicetrees in v7a_noneon.
   variants:
     - condition: kconfig.PTXPlatformConfig()['ARCH_MIPS']
+      value: True
+    - condition: kconfig.PTXPlatformConfig().options.get('PLATFORM') == "v7a_noneon"
       value: True
     - value: False
 

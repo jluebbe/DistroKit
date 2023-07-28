@@ -18,11 +18,14 @@ IMAGE_IMX8MP_EVK		:= image-imx8mp-evk
 IMAGE_IMX8MP_EVK_DIR	:= $(BUILDDIR)/$(IMAGE_IMX8MP_EVK)
 IMAGE_IMX8MP_EVK_IMAGE	:= $(IMAGEDIR)/imx8mp-evk.img
 IMAGE_IMX8MP_EVK_FILES	:= $(IMAGEDIR)/root.tgz
-IMAGE_IMX8MP_EVK_CONFIG	:= imx8mp-evk.config
+IMAGE_IMX8MP_EVK_CONFIG	:= imx8m.config
 
 # ----------------------------------------------------------------------------
 # Image
 # ----------------------------------------------------------------------------
+
+IMAGE_IMX8MP_EVK_ENV := \
+        BAREBOX_IMAGE=barebox-nxp-imx8mp-evk.img
 
 $(IMAGE_IMX8MP_EVK_IMAGE):
 	@$(call targetinfo)

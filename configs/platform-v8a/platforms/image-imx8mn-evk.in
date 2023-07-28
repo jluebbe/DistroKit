@@ -1,0 +1,10 @@
+## SECTION=image
+
+config IMAGE_IMX8MN_EVK
+	tristate
+	select HOST_GENIMAGE
+	select IMAGE_ROOT_EXT
+	select BAREBOX
+	prompt "Generate images/imx8mn-evk.img"
+	help
+	  Generate a bootable SD card image to deploy a NXP i.MX8MN-EVK board.

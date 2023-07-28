@@ -135,7 +135,7 @@ PTXCONF_KERNEL_IMAGE_RAW=y
 PTXCONF_KERNEL_IMAGE="Image"
 PTXCONF_KERNEL_DTB=y
 PTXCONF_KERNEL_DTS_PATH="${PTXDIST_PLATFORMCONFIG_SUBDIR}/dts:${KERNEL_DIR}/arch/${GENERIC_KERNEL_ARCH}/boot/dts"
-PTXCONF_KERNEL_DTS="armada-3720-community.dts freescale/imx8mm-evk.dts freescale/imx8mp-evk.dts freescale/imx8mq-evk.dts rockchip/rk3568-rock-3a.dts"
+PTXCONF_KERNEL_DTS="armada-3720-community.dts freescale/imx8mm-evk.dts freescale/imx8mn-ddr4-evk.dts freescale/imx8mn-ddr4-evk.dts freescale/imx8mp-evk.dts freescale/imx8mq-evk.dts rockchip/rk3568-rock-3a.dts"
 # PTXCONF_KERNEL_DTBO is not set
 # PTXCONF_KERNEL_CODE_SIGNING is not set
 # PTXCONF_KERNEL_ZSTD is not set

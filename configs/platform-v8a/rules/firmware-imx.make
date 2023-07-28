@@ -37,6 +37,10 @@ BAREBOX_INJECT_FILES	+= ddr/synopsys/lpddr4_pmu_train_1d_dmem.bin:firmware/lpddr
 BAREBOX_INJECT_FILES	+= ddr/synopsys/lpddr4_pmu_train_1d_imem.bin:firmware/lpddr4_pmu_train_1d_imem.bin
 BAREBOX_INJECT_FILES	+= ddr/synopsys/lpddr4_pmu_train_2d_dmem.bin:firmware/lpddr4_pmu_train_2d_dmem.bin
 BAREBOX_INJECT_FILES	+= ddr/synopsys/lpddr4_pmu_train_2d_imem.bin:firmware/lpddr4_pmu_train_2d_imem.bin
+BAREBOX_INJECT_FILES	+= ddr/synopsys/ddr4_dmem_1d.bin:firmware/ddr4_dmem_1d.bin
+BAREBOX_INJECT_FILES	+= ddr/synopsys/ddr4_dmem_2d.bin:firmware/ddr4_dmem_2d.bin
+BAREBOX_INJECT_FILES	+= ddr/synopsys/ddr4_imem_1d.bin:firmware/ddr4_imem_1d.bin
+BAREBOX_INJECT_FILES	+= ddr/synopsys/ddr4_imem_2d.bin:firmware/ddr4_imem_2d.bin
 endif
 
 # ----------------------------------------------------------------------------
@@ -59,6 +63,11 @@ $(STATEDIR)/firmware-imx.install:
 ifdef PTXCONF_FIRMWARE_IMX_BOOTIMAGE_IMX8
 	@$(foreach f, lpddr4_pmu_train_1d_dmem.bin lpddr4_pmu_train_1d_imem.bin \
 	              lpddr4_pmu_train_2d_dmem.bin lpddr4_pmu_train_2d_imem.bin, \
+		install -v -D -m644 $(FIRMWARE_IMX_PKGDIR)/firmware/ddr/synopsys/$(f) \
+		$(PTXCONF_SYSROOT_TARGET)/usr/lib/firmware/ddr/synopsys/$(f)$(ptx/nl))
+
+	@$(foreach f, ddr4_dmem_1d.bin ddr4_dmem_2d.bin \
+	              ddr4_imem_1d.bin ddr4_imem_2d.bin, \
 		install -v -D -m644 $(FIRMWARE_IMX_PKGDIR)/firmware/ddr/synopsys/$(f) \
 		$(PTXCONF_SYSROOT_TARGET)/usr/lib/firmware/ddr/synopsys/$(f)$(ptx/nl))
 

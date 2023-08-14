@@ -1,0 +1,10 @@
+## SECTION=project_specific
+
+config RAUC_UDEV
+	tristate
+	prompt "rauc udev rules"
+	select BUSYBOX		if RUNTIME
+	select BUSYBOX_TR	if RUNTIME
+	select UDEV		if RUNTIME
+	help
+	  udev rules for cross-hardware-compatible partition symlinks

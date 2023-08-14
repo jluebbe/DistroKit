@@ -1,0 +1,4 @@
+#!/bin/sh
+# SPDX-License-Identifier: 0-BSD
+# SPDX-FileCopyrightText: 2021 Roland Hieber, Pengutronix <rhi@pengutronix.de>
+printf 'OF_BASE_COMPATIBLE="%s"\n' "$(tr '\0' ' ' < /sys/firmware/devicetree/base/compatible)"

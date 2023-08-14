@@ -1,0 +1,15 @@
+# SPDX-License-Identifier: 0-BSD
+# SPDX-FileCopyrightText: 2021 Roland Hieber, Pengutronix <rhi@pengutronix.de>
+
+ACTION=="remove", GOTO="rauc_partitions_end"
+SUBSYSTEM!="block", GOTO="rauc_partitions_end"
+
+IMPORT{program}="of_base_compatible"
+
+# Add symlinks named /dev/disk/by-usage/{data,rootfs0,rootfs1} pointing
+# to the correct partitions based on the device tree compatible
+
+# fallback for boards not yet supported by RAUC
+KERNEL=="mmcblk0p3", SYMLINK+="disk/by-usage/data"
+
+LABEL="rauc_partitions_end"

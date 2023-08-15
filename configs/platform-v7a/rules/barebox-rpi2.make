@@ -83,7 +83,7 @@ $(STATEDIR)/barebox-rpi2.targetinstall:
 	@$(call targetinfo)
 	@$(foreach dtb, $(wildcard $(BAREBOX_RPI2_DTB_DIR)/*.dtb), \
 		install -m 644 \
-			$(dtb) $(IMAGEDIR)/barebox-$(notdir $(dtb))$(ptx/nl))
+			$(dtb) $(IMAGEDIR)/$(notdir $(dtb))-bb$(ptx/nl))
 	@install -m 644 $(BAREBOX_RPI2_BUILD_DIR)/images/barebox-raspberry-pi.img \
 			$(IMAGEDIR)/barebox-raspberry-pi.img
 	@$(call touch)
@@ -96,7 +96,7 @@ $(STATEDIR)/barebox-rpi2.clean:
 	@$(call targetinfo)
 	@$(call clean_pkg, BAREBOX_RPI2)
 	@$(foreach dtb, $(wildcard $(BAREBOX_RPI2_DTB_DIR)/*.dtb), \
-		rm -fv $(IMAGEDIR)/barebox-$(notdir $(dtb))$(ptx/nl))
+		rm -fv $(IMAGEDIR)/$(notdir $(dtb))-bb$(ptx/nl))
 	@rm -fv $(IMAGEDIR)/barebox-dt-2nd-rpi.img
 
 # ----------------------------------------------------------------------------

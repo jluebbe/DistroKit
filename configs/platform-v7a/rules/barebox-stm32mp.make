@@ -94,7 +94,7 @@ $(STATEDIR)/barebox-stm32mp.targetinstall:
 			$(image) $(IMAGEDIR)/$(notdir $(image));)
 	@$(foreach dtb, $(BAREBOX_STM32MP_FIP_DTBS), \
 			install -m 644 \
-			$(dtb) $(IMAGEDIR)/barebox-$(notdir $(dtb));)
+			$(dtb) $(IMAGEDIR)/$(notdir $(dtb))-bb;)
 	@$(call touch)
 
 # ----------------------------------------------------------------------------
@@ -107,7 +107,7 @@ $(STATEDIR)/barebox-stm32mp.clean:
 	@$(foreach image, $(BAREBOX_STM32MP_IMAGES), \
 		rm -fv $(IMAGEDIR)/$(notdir $(image))$(ptx/nl))
 	@$(foreach dtb, $(BAREBOX_STM32MP_FIP_DTBS), \
-		rm -fv $(IMAGEDIR)/barebox-$(notdir $(dtb))$(ptx/nl))
+		rm -fv $(IMAGEDIR)/$(notdir $(dtb))-bb$(ptx/nl))
 
 # ----------------------------------------------------------------------------
 # oldconfig / menuconfig

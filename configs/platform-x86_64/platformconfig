@@ -151,7 +151,7 @@ PTXCONF_KERNEL_CONFIG_BASE_VERSION=y
 #
 # patching & configuration      
 #
-PTXCONF_KERNEL_SERIES="series${PTXDIST_PLATFORMSUFFIX}"
+PTXCONF_KERNEL_SERIES="series"
 PTXCONF_KERNEL_CONFIG="kernelconfig"
 # end of patching & configuration      
 

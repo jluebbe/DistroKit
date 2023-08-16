@@ -36,14 +36,10 @@ if [ ! -e "${QEMU_EXEC}" ]; then
 	exit 1
 fi
 
-# the port a 'telned' would connect to (in the emulated sysem)
-TELNET_INTERNAL_PORT=23
-# port QEMU opens at the host side to give access to the ${TELNET_INTERNAL_PORT}
-TELNET_EXTERNAL_PORT=4444
-
-# dito for ssh
+# the port to which an sshd would connect (in the emulated system)
 SSH_INTERNAL_PORT=22
-SSH_EXTERNAL_PORT=4445
+# the port which QEMU opens at the host side to give access to the ${SSH_INTERNAL_PORT}
+SSH_EXTERNAL_PORT=${QEMU_SSH_PORT:-$((PPID%64000+1025))}
 
 # check if vde is available for networking
 if [ -z "${VDE_SOCKET}" ]; then
@@ -62,7 +58,8 @@ fi
 
 # fall back to user network if necessary
 if [ -z "${QEMU_NET}" ]; then
-	QEMU_NET=(-netdev user,id=net1,hostfwd=tcp:127.0.0.1:${TELNET_EXTERNAL_PORT}-:${TELNET_INTERNAL_PORT},hostfwd=tcp:127.0.0.1:${SSH_EXTERNAL_PORT}-:${SSH_INTERNAL_PORT} )
+	QEMU_NET=(-netdev user,id=net1,hostfwd=tcp:127.0.0.1:${SSH_EXTERNAL_PORT}-:${SSH_INTERNAL_PORT},hostfwd=tcp:127.0.0.1:12345-:12345)
+	echo "Forwarding SSH port 127.0.0.1:${SSH_EXTERNAL_PORT} -> qemu:${SSH_INTERNAL_PORT}"
 fi
 
 BASE_CMDLINE="console=ttyS0,115200 loglevel=5 systemd.show_status=auto"

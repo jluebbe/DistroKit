@@ -314,7 +314,7 @@ PTXCONF_GLIBC=y
 #
 # glibc                         
 #
-# PTXCONF_GLIBC_Y2038 is not set
+PTXCONF_GLIBC_Y2038=y
 
 #
 # Install options

@@ -5,19 +5,19 @@ Sometimes a quick test should be done: a new kernel feature or a tool
 should be tested on a real target.
 
 If the target suports USB OTG (or peripheral mode) or network, 'fastboot'
-can be an easy to use solution.
+can be an easy-to-use solution.
 
 'fastboot' support
 ------------------
 
 For a fast development or testing cycle you can use 'fastboot' via
-USB or networt to transfer the required parts to the target system.
+USB or network to transfer the required parts to the target system.
 
 Here we want to run a Linux kernel and a corresponding root filesystem,
-without writing target system local memories againg and again for each
+without writing target system local memories again and again for each
 development or test cycle.
 
-In this text, we transfer the required files to the target system
+In this test, we transfer the required files to the target system
 which only needs to run a 'fastboot' capable bootloader.
 
 Since we want to use an initramfs as the kernel's root filesystem, we
@@ -76,7 +76,7 @@ And we want run the downloaded files, so we need:
 BSP
 ---
 
-Create a initramf of the root filesystem:
+Create an initramf of the root filesystem:
 
 - PTXCONF_IMAGE_ROOT_CPIO = y
 
@@ -100,7 +100,7 @@ Some BPS settings do not make sense regarding used in an initramfs instead
 of a persistent target system local memory. For development or testing some
 settings should be changed, to reduce the file sizes and boot time.
 
-The Linux kernel will be transfered separately, so it makes less sense to
+The Linux kernel will be transferred separately, so it makes less sense to
 have it in the root filesystem as well. This will reduce the size of the
 initramfs.
 
@@ -128,7 +128,7 @@ size hits some threshold. In this case, there are some additional requirements
 to the size of the file itself: its size must be a multiple of 4 kiB.
 
 Note: if this additional requirement isn't met, the error message is
-      missleading and states about an 'invalid value' after the first
+      misleading and states about an 'invalid value' after the first
       transfer.
 
 Most of the time the initramfs file hits the threshold. Thus, it must

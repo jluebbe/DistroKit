@@ -177,7 +177,7 @@ run_qemu_barebox() {
 		"${QEMU_BAREBOX_ARGS[@]}"
 }
 
-target="${1:-9p}"
+target="${1:-barebox}"
 
 #set -x
 run_qemu_${target}

@@ -1,3 +1,5 @@
+.. _fast_development:
+
 Fast development
 ================
 

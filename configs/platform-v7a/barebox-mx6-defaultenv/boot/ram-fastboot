@@ -1,0 +1,7 @@
+#!/bin/sh
+
+global.bootm.image=/tmp/ram-kernel
+global.bootm.initrd=/tmp/ram-initramfs
+global.bootm.oftree=/tmp/ram-oftree
+
+global.linux.bootargs.dyn.root="rdinit=/sbin/init"

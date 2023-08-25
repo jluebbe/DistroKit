@@ -27,9 +27,9 @@ kernel_dtb_partitions:
 kernel_initrd:
   description: |
     Initrd support is not needed on most embedded systems.
-    For v8a, we use an initrd for the fastboot usecase.
+    For v7a and v8a, we use an initrd for the fastboot usecase.
   variants:
-    - condition: kconfig.PTXPlatformConfig()['ARCH_ARM64']
+    - condition: kconfig.PTXPlatformConfig().options['PLATFORM'] in ('v8a', 'v7a')
       value: True
     - value: False
 

@@ -1,0 +1,6 @@
+## SECTION=image
+
+config IMAGE_RAUC
+	tristate
+	select IMAGE_ROOT_EXT
+	select IMAGE_ROOT_EXT_EXT4

@@ -101,6 +101,26 @@
 };
 #endif
 
+/** LXA MC1 *******************************************************************/
+#ifdef stm32mp157c_lxa_mc1_dts
+/ {
+	aliases {
+		state = &state_mmc0;
+	};
+
+	state_mmc0: state {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		compatible = "barebox,state";
+		magic = <0x778ec0f4>;
+		backend = <&sdmmc1>;   // via GPT Type UUID
+		backend-type = "raw";
+		backend-storage-type = "direct";
+		backend-stridesize = <0x40>;
+	};
+};
+#endif
+
 /** Generic bootstate node for all platforms **********************************/
 / {
 	state: state {

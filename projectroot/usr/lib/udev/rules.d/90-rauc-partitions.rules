@@ -15,6 +15,13 @@ KERNEL=="mmcblk0p3", SYMLINK+="disk/by-usage/data"
 GOTO="rauc_partitions_end"
 LABEL="qemu_vexpress_end"
 
+ENV{OF_BASE_COMPATIBLE}!="*lxa,stm32mp157c-mc1*", GOTO="lxa_mc1_end"
+KERNEL=="mmcblk0p6", SYMLINK+="disk/by-usage/rootfs0"
+KERNEL=="mmcblk0p7", SYMLINK+="disk/by-usage/rootfs1"
+KERNEL=="mmcblk0p8", SYMLINK+="disk/by-usage/data"
+GOTO="rauc_partitions_end"
+LABEL="lxa_mc1_end"
+
 ENV{OF_BASE_COMPATIBLE}!="*ti,am335x-bone-black*", GOTO="beaglebone_black_end"
 KERNEL=="mmcblk0p2", SYMLINK+="disk/by-usage/rootfs0"
 KERNEL=="mmcblk0p3", SYMLINK+="disk/by-usage/rootfs1"

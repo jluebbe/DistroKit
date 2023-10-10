@@ -1,17 +1,12 @@
 #!/bin/bash
 
-platformconfig=selected_platformconfig
-# fallback to platformconfig in the same dir as this script
-if [ ! -e "$platformconfig" ]; then
-	platformconfig=$(dirname $0)/platformconfig
-fi
+platformconfig=$(dirname $0)/platformconfig
 
 #
 # we need information about the platform
 #
 if [ ! -e "$platformconfig" ]; then
-	echo "error: selected_platformconfig does not exist"
-	echo "       please use 'ptxdist platform ...' or 'ptxdist --platformconfig=...'"
+	echo "error: ${platformconfig} does not exist"
 	exit 1
 fi
 

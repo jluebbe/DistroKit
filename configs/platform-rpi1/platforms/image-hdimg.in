@@ -1,0 +1,11 @@
+## SECTION=image
+
+config IMAGE_HDIMG
+	bool
+	select HOST_GENIMAGE
+	select IMAGE_BOOT_VFAT
+	select IMAGE_ROOT_EXT
+	prompt "Generate images/hd.img"
+        help
+	  Build a harddisk root image. The image will contain one partition
+	  containing the root.ext2 and a corresponding partition table.

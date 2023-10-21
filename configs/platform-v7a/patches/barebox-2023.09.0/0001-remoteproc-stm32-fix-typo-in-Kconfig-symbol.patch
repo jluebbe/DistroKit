@@ -1,0 +1,26 @@
+From: Ahmad Fatoum <a.fatoum@pengutronix.de>
+Date: Fri, 20 Oct 2023 15:37:43 +0200
+Subject: [PATCH] remoteproc: stm32: fix typo in Kconfig symbol
+
+The Kconfig symbol for enabling support for the ARM Secure Monitor Call
+Calling Convention if CONFIG_ARM_SMCCC and not CONFIG_ARM_SMCC, but the
+latter is checked with IS_ENABLED() in the driver. Fix the typo.
+
+Signed-off-by: Ahmad Fatoum <a.fatoum@pengutronix.de>
+---
+ drivers/remoteproc/stm32_rproc.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/remoteproc/stm32_rproc.c b/drivers/remoteproc/stm32_rproc.c
+index b6a62634842f..b2282f2fac5b 100644
+--- a/drivers/remoteproc/stm32_rproc.c
++++ b/drivers/remoteproc/stm32_rproc.c
+@@ -56,7 +56,7 @@ static int stm32_rproc_set_hold_boot(struct rproc *rproc, bool hold)
+ 
+ 	val = hold ? HOLD_BOOT : RELEASE_BOOT;
+ 
+-	if (IS_ENABLED(CONFIG_ARM_SMCC) && ddata->secured_soc) {
++	if (IS_ENABLED(CONFIG_ARM_SMCCC) && ddata->secured_soc) {
+ 		arm_smccc_smc(STM32_SMC_RCC, STM32_SMC_REG_WRITE,
+ 			      hold_boot->reg, val, 0, 0, 0, 0, &smc_res);
+ 		err = smc_res.a0;

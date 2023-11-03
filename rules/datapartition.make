@@ -13,6 +13,7 @@
 PACKAGES-$(PTXCONF_DATAPARTITION) += datapartition
 
 DATAPARTITION_VERSION	:= 1
+DATAPARTITION_LICENSE	:= ignore
 
 # ----------------------------------------------------------------------------
 # Target-Install

@@ -1,0 +1,6 @@
+[Unit]
+Description=Mount data partition
+
+[Mount]
+What=/dev/disk/by-usage/data
+Where=/mnt/data

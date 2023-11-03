@@ -8,42 +8,20 @@ IMPORT{program}="of_base_compatible"
 
 # Add symlinks named /dev/disk/by-usage/{data,rootfs0,rootfs1} pointing
 # to the correct partitions based on the device tree compatible
-ENV{OF_BASE_COMPATIBLE}!="*arm,vexpress,v2p-ca9*", GOTO="qemu_vexpress_end"
-KERNEL=="mmcblk0p1", SYMLINK+="disk/by-usage/rootfs0"
-KERNEL=="mmcblk0p2", SYMLINK+="disk/by-usage/rootfs1"
-KERNEL=="mmcblk0p3", SYMLINK+="disk/by-usage/data"
-GOTO="rauc_partitions_end"
-LABEL="qemu_vexpress_end"
 
-ENV{OF_BASE_COMPATIBLE}!="*lxa,stm32mp157c-mc1*", GOTO="lxa_mc1_end"
-KERNEL=="mmcblk0p6", SYMLINK+="disk/by-usage/rootfs0"
-KERNEL=="mmcblk0p7", SYMLINK+="disk/by-usage/rootfs1"
-KERNEL=="mmcblk0p8", SYMLINK+="disk/by-usage/data"
-GOTO="rauc_partitions_end"
-LABEL="lxa_mc1_end"
+# first part: find out the boot disk on known platforms
+ENV{OF_BASE_COMPATIBLE}=="*arm,vexpress,v2p-ca9*", ENV{ID_PATH}=="platform-bus@40000000:motherboard-bus@40000000:iofpga@7,00000000-amba-10005000.mmci", TAG+="boot_disk"
+ENV{OF_BASE_COMPATIBLE}=="*lxa,stm32mp157c-mc1*", ENV{ID_PATH}=="platform-soc-amba-58005000.mmc", TAG+="boot_disk"
+ENV{OF_BASE_COMPATIBLE}=="*ti,am335x-bone-black*", ENV{ID_PATH}=="platform-48060000.mmc", TAG+="boot_disk"
+ENV{OF_BASE_COMPATIBLE}=="*raspberrypi,3-model-b*", ENV{ID_PATH}=="platform-3f202000.mmc", TAG+="boot_disk"
+ENV{OF_BASE_COMPATIBLE}=="*riot,imx6s-riotboard*", ENV{ID_PATH}=="platform-2198000.mmc", TAG+="boot_disk"
 
-ENV{OF_BASE_COMPATIBLE}!="*ti,am335x-bone-black*", GOTO="beaglebone_black_end"
-KERNEL=="mmcblk0p2", SYMLINK+="disk/by-usage/rootfs0"
-KERNEL=="mmcblk0p3", SYMLINK+="disk/by-usage/rootfs1"
-KERNEL=="mmcblk0p4", SYMLINK+="disk/by-usage/data"
-GOTO="rauc_partitions_end"
-LABEL="beaglebone_black_end"
+# second part: create /dev/disk/by-usage/ symlinks
+ENV{DEVTYPE}!="partition", GOTO="rauc_partitions_end"
 
-ENV{OF_BASE_COMPATIBLE}!="*raspberrypi,3-model-b*", GOTO="rpi3_end"
-KERNEL=="mmcblk0p2", SYMLINK+="disk/by-usage/rootfs0"
-KERNEL=="mmcblk0p3", SYMLINK+="disk/by-usage/rootfs1"
-KERNEL=="mmcblk0p4", SYMLINK+="disk/by-usage/data"
-GOTO="rauc_partitions_end"
-LABEL="rpi3_end"
-
-ENV{OF_BASE_COMPATIBLE}!="*riot,imx6s-riotboard*", GOTO="riotboard_end"
-KERNEL=="mmcblk2p1", SYMLINK+="disk/by-usage/rootfs0"
-KERNEL=="mmcblk2p2", SYMLINK+="disk/by-usage/rootfs1"
-KERNEL=="mmcblk2p3", SYMLINK+="disk/by-usage/data"
-GOTO="rauc_partitions_end"
-LABEL="riotboard_end"
-
-# fallback for boards not yet supported by RAUC
-KERNEL=="mmcblk0p3", SYMLINK+="disk/by-usage/data"
+# symlinks based on GPT partition labels
+TAGS=="boot_disk", ENV{ID_PART_ENTRY_NAME}=="root-A", SYMLINK+="disk/by-usage/rootfs0"
+TAGS=="boot_disk", ENV{ID_PART_ENTRY_NAME}=="root-B", SYMLINK+="disk/by-usage/rootfs1"
+TAGS=="boot_disk", ENV{ID_PART_ENTRY_NAME}=="data",   SYMLINK+="disk/by-usage/data"
 
 LABEL="rauc_partitions_end"

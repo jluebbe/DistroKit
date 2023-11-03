@@ -1,0 +1,9 @@
+#!/bin/sh
+if rdev | grep -q '/dev/hd.*[0-9]\|/dev/mmcblk.*[0-9]\|/dev/sd.*[0-9]\|/dev/vd.*[0-9])'; then
+	echo "Repartitioning the root disk..."
+	systemd-repart --dry-run=no --definitions=/etc/repart.rc-once.d/
+else
+	# root is not on a partitionable disk; probably running in qemu or initrd
+	echo "Note: no root device or root not on a disk, not running systemd-repart"
+	exit 0
+fi

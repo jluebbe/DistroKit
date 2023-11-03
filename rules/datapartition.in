@@ -2,4 +2,7 @@
 
 config DATAPARTITION
 	tristate
+	select RC_ONCE
+	select SYSTEMD
+	select SYSTEMD_REPART
 	default y

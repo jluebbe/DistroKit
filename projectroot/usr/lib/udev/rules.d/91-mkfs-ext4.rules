@@ -1,5 +1,0 @@
-ACTION!="add", GOTO="systemd-autoformat-ext4-devices_end"
-SUBSYSTEM!="block", GOTO="systemd-autoformat-ext4-devices_end"
-ENV{ID_FS_USAGE}!="filesystem", SUBSYSTEMS=="mmc", KERNEL=="mmcblk0p3", ENV{ID_PART_ENTRY_TYPE}=="0x83", ENV{ID_FS_TYPE}!="ext4", ENV{SYSTEMD_WANTS}+="systemd-autoformat@$name.service"
-
-LABEL="systemd-autoformat-ext4-devices_end"

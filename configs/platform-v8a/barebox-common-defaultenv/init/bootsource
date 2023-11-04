@@ -7,10 +7,14 @@ fi
 
 if [ "$bootsource" = mmc ]; then
 	detect mmc$bootsource_instance
-	global.boot.default="mmc$bootsource_instance net"
+	global.boot.default="bootchooser net"
 fi
 
 if [ "${global.model}" = "Radxa ROCK3 Model A" ]; then
+	global bootchooser.state_prefix="state.bootstate"
+	global bootchooser.targets="system0 system1"
+	global bootchooser.system0.boot="mmc1.root-A"
+	global bootchooser.system1.boot="mmc1.root-B"
 	if [ "$bootsource" = "spi-nor" ]; then
 		usbgadget -A '/dev/mmc1(sd)'
 		global.autoboot=abort

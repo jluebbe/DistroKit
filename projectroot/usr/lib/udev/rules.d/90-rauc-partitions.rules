@@ -15,6 +15,7 @@ ENV{OF_BASE_COMPATIBLE}=="*lxa,stm32mp157c-mc1*", ENV{ID_PATH}=="platform-soc-am
 ENV{OF_BASE_COMPATIBLE}=="*ti,am335x-bone-black*", ENV{ID_PATH}=="platform-48060000.mmc", TAG+="boot_disk"
 ENV{OF_BASE_COMPATIBLE}=="*raspberrypi,3-model-b*", ENV{ID_PATH}=="platform-3f202000.mmc", TAG+="boot_disk"
 ENV{OF_BASE_COMPATIBLE}=="*riot,imx6s-riotboard*", ENV{ID_PATH}=="platform-2198000.mmc", TAG+="boot_disk"
+ENV{OF_BASE_COMPATIBLE}=="*radxa,rock3a*", ENV{ID_PATH}=="platform-fe2b0000.mmc", TAG+="boot_disk"
 
 # second part: create /dev/disk/by-usage/ symlinks
 ENV{DEVTYPE}!="partition", GOTO="rauc_partitions_end"

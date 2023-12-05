@@ -39,8 +39,11 @@
 };
 #endif
 
-/** Raspberry Pi 3 Model B ****************************************************/
-#ifdef bcm2837_rpi_3_dts
+/** Raspberry Pi **************************************************************/
+#if defined(bcm2836_rpi_2_dts)   || \
+    defined(bcm2837_rpi_3_dts)   || \
+    defined(bcm2837_rpi_cm3_dts) || \
+    defined(bcm2711_rpi_4_dts)
 / {
 	aliases {
 		state = &state;
@@ -101,8 +104,10 @@
 };
 #endif
 
-/** LXA MC1 *******************************************************************/
-#ifdef stm32mp157c_lxa_mc1_dts
+/** STM32MP1 ******************************************************************/
+#if defined(stm32mp157c_lxa_mc1_dts) || \
+    defined(stm32mp157c_dk2_dts) || \
+    defined(stm32mp157c_ev1_dts)
 / {
 	aliases {
 		state = &state_mmc0;
